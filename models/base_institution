@@ -1,0 +1,28 @@
+#!/usr/bin/python3
+"""
+This module contains the class that descirbes the base
+properties of institutions in this application.
+"""
+
+
+import uuid
+from datetime import datetime
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String, DateTime
+
+Base = declarative_base()
+
+class Institution:
+    """
+    This class contains the basic properties of institution
+    connecting the patient and medical staff
+    """
+
+    id = Column(String(60), unique=True, nullable=False, primary_key=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    firstname = Column(String(128), nullable=False)
+    surname = Column(String(128), nullable=False)
+    middlename = Column(String(128))
+    sex = Column(String(15), nullable=False)
+    dob = Column(DateTime, nullable=False)
