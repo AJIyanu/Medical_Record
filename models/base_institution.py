@@ -9,6 +9,7 @@ import uuid
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime
+from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
@@ -21,11 +22,10 @@ class Institution:
     id = Column(String(60), unique=True, nullable=False, primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-    firstname = Column(String(128), nullable=False)
-    surname = Column(String(128), nullable=False)
-    middlename = Column(String(128))
-    sex = Column(String(15), nullable=False)
-    dob = Column(DateTime, nullable=False)
+    name = Column(String(128), nullable=False)
+    specialization = Column(String(128), nullable=False)
+    records = relationship("Record", backref="institution")
+
 
     def __init__(self, *args, **kwargs):
         """This initializes the class"""

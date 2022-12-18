@@ -8,7 +8,8 @@ properties of users of this application.
 import uuid
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
@@ -27,6 +28,7 @@ class Person:
     middlename = Column(String(128))
     sex = Column(String(15), nullable=False)
     dob = Column(DateTime, nullable=False)
+    records = relationship("Record", backref="person")
 
 
     def __init__(self, *args, **kwargs):
