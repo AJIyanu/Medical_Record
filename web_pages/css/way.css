@@ -1,22 +1,27 @@
 .icons {
-  margin: 1rem;
-  padding: 2rem 2rem;
   text-align: center;
 }
 .icon {
   display: inline-block;
-  padding: 1rem 1rem;
-  vertical-align: middle;
-  justify-content: center;
-  overflow: hidden;
-  margin-top: 200px;
+  margin-top: 250px;
   margin-bottom: 200px;
+
 }
-img {
-  width: 50px;
-}
+
 figcaption {
-  position: relative;
   font-size: medium;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: blue;
+}
+
+a:link {
+  color: black;
+}
+
+a:hover {
+  color: blue;
 }
