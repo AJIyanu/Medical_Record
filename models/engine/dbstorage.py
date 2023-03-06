@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""database storage"""
 
 
 from sqlalchemy import MetaData, create_engine
@@ -18,6 +19,13 @@ class DBStorage:
     """This describe the storage for the record"""
     __engine = None
     __session = None
+    classes = {
+                "Patient": Patient,
+                "Doctor": Doctor,
+                "Casefile": Casefile,
+                "Hospital": Hospital,
+                "Card": Card
+              }
 
     def __init__(self):
         """conneect and createst the sql storage"""
@@ -50,4 +58,17 @@ class DBStorage:
         session = sessionmaker(bind=connection, expire_on_commit=False)
         self.__session = scoped_session(session)
 
-    def all(self, obj)
+    def all(self, obj):
+        """returns all objects or all specifics"""
+        classes = self.classes
+        obj_dicts = {}
+        if obj is None:
+            for item in classes:
+                if obj is None or obj is classes[item] or obj is item:
+                    clss = self.__session.query(classes[item]).all()
+                else:
+                    continue
+                for objects in clss:
+                    key = objects.__class__.__name__ + "." + objects.id
+                    obj_dicts.update({key: objects})
+        return obj_dicts
