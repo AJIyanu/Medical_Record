@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Perform git add
+git add .
+
+# Request commit message
+echo "Enter commit message:"
+read message
+
+# Commit changes with specified message
+git commit -m "$message"
+
+# Pull changes from remote repository
+git pull
+
+# Push changes to remote repository
+git push
+

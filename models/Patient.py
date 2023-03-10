@@ -2,14 +2,13 @@
 """
 This module is for patients
 """
-from models.base_person import Person
+from models.base_person import Person, Base
 from sqlalchemy import Column, String, Table, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
-Base = declarative_base()
 
-class Patient(Person, Base):
+class Patient(Person):
     """this describes the property of patient"""
     occupation = Column(String(60))
     address = Column(String(1024))
