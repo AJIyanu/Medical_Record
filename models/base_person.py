@@ -58,7 +58,8 @@ class Person:
                 pass
             finally:
                 self.__dict__.update(kwargs)
-
+        from models import storage
+        storage.new(self)
 
     def __str__(self):
         """Returns a string representation of the instance"""
@@ -79,3 +80,5 @@ class Person:
     def save(self):
         """save to database"""
         self.updated_at = datetime.now()
+        from models import storage
+        storage.save(self)

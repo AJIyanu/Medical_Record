@@ -6,11 +6,9 @@ from sqlalchemy import MetaData, create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 
-from ..patient import Patient
-from ..doctor import Doctor
-from ..casefile import Casefile
-from ..generalH import Hospital
-from ..card import Card
+from models.base_person import Person
+from models.base_institution import Institution
+from models.base_record import Record
 
 Base = declarative_base()
 
@@ -20,21 +18,19 @@ class DBStorage:
     __engine = None
     __session = None
     classes = {
-                "Patient": Patient,
-                "Doctor": Doctor,
-                "Casefile": Casefile,
-                "Hospital": Hospital,
-                "Card": Card
-              }
+            "Person": Person,
+            "Record": Record,
+            "Institution": Institution
+            }
 
     def __init__(self):
         """conneect and createst the sql storage"""
-        usr = "admin"
-        pwd = "admin_pwd"
+        usr = "Medics"
+        pwd = "Medics123"
         db = "Medical_Record"
         host = "localhost"
         url = "{}:{}@{}/{}".format(usr, pwd, host, db)
-        self.__engine = create_engine("mysql+mysqldb://{}".format(url),
+        self.__engine = create_engine("mysql://{}".format(url),
                                       pool_pre_ping=True)
         meta = MetaData(bind=self.__engine)
 

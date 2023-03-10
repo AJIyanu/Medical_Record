@@ -39,7 +39,25 @@ class Medical_Record_Shell(cmd.Cmd):
 
     def do_Register(self, args) -> None:
         """Register a Person"""
-        
+        args = args.split()
+        try:
+            user = classes[args[0]]()
+        except IndexError:
+            print("Please Enter Personnel")
+            return
+        try:
+            user.firstname = args[2]
+            user.surname = args[1]
+            try:
+                user.middlename = args[3]
+            except IndexError:
+                pass
+        except IndexError:
+            print("create [personel] [surname] [firstname] [middlename:optional]")
+            return
+        print(str(user))
+        user.save()
+
 
     do_EOF = do_quit
     help_EOF = help_quit
