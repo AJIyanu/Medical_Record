@@ -4,14 +4,11 @@
 
 from sqlalchemy import MetaData, create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-from sqlalchemy.ext.declarative import declarative_base
 
 from models.base_person import Person, Base
 from models.base_institution import Institution
 from models.base_record import Record
 from models.patient import Patient
-
-Base = declarative_base()
 
 
 class DBStorage:
@@ -35,7 +32,7 @@ class DBStorage:
         self.__engine = create_engine("mysql+mysqlconnector://{}".format(url),
                                       pool_pre_ping=True)
         self.meta = MetaData(bind=self.__engine)
-        self.meta.create_all(self.__engine)
+
 
     def new(self, obj):
         """add the object to the current database session (self.__session)"""
@@ -53,7 +50,7 @@ class DBStorage:
     def reload(self):
         """creates and reloads content"""
         connection = self.__engine.connect()
-        self.meta.create_all(self.__engine)
+        Base.metadata.create_all(self.__engine)
         session = sessionmaker(bind=connection, expire_on_commit=False)
         self.__session = scoped_session(session)
 
@@ -61,6 +58,7 @@ class DBStorage:
         """returns all objects or all specifics"""
         classes = self.classes
         obj_dicts = {}
+        print(obj)
         if obj is None:
             for item in classes:
                 if obj is None or obj is classes[item] or obj is item:

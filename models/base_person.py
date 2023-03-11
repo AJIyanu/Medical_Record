@@ -82,3 +82,10 @@ class Person:
         self.updated_at = datetime.now()
         from models import storage
         storage.save()
+
+    def show_all(self):
+        """show all intances"""
+        from models import storage
+        storage.reload()
+        patients = storage.all("Patient")
+        return patients

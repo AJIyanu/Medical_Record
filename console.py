@@ -8,6 +8,7 @@ import os
 from models.base_person import Person
 from models.base_institution import Institution
 from models.base_record import Record
+from datetime import datetime
 from models.patient import Patient
 
 
@@ -57,8 +58,19 @@ class Medical_Record_Shell(cmd.Cmd):
         except IndexError:
             print("create [personel] [surname] [firstname] [middlename:optional]")
             return
-        print(str(user))
+        user.sex = input("Enter Sex: ")
+        user.dob = datetime.now()
         user.save()
+        print(str(user))
+
+    def do_Show(self, args) -> None:
+        """show all data"""
+        try:
+            args = args.split()
+            print(classes[args[0]]().show_all())
+        except IndexError:
+            print("usage: Show [personnel]")
+            return
 
 
     do_EOF = do_quit
