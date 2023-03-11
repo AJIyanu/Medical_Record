@@ -6,9 +6,10 @@ from sqlalchemy import MetaData, create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 
-from models.base_person import Person
+from models.base_person import Person, Base
 from models.base_institution import Institution
 from models.base_record import Record
+from models.patient import Patient
 
 Base = declarative_base()
 
@@ -20,7 +21,8 @@ class DBStorage:
     classes = {
             "Person": Person,
             "Record": Record,
-            "Institution": Institution
+            "Institution": Institution,
+            "Patient": Patient
             }
 
     def __init__(self):
@@ -30,9 +32,10 @@ class DBStorage:
         db = "Medical_Record"
         host = "localhost"
         url = "{}:{}@{}/{}".format(usr, pwd, host, db)
-        self.__engine = create_engine("mysql://{}".format(url),
+        self.__engine = create_engine("mysql+mysqlconnector://{}".format(url),
                                       pool_pre_ping=True)
-        meta = MetaData(bind=self.__engine)
+        self.meta = MetaData(bind=self.__engine)
+        self.meta.create_all(self.__engine)
 
     def new(self, obj):
         """add the object to the current database session (self.__session)"""
@@ -50,7 +53,7 @@ class DBStorage:
     def reload(self):
         """creates and reloads content"""
         connection = self.__engine.connect()
-        Base.metadata.create_all(self.__engine)
+        self.meta.create_all(self.__engine)
         session = sessionmaker(bind=connection, expire_on_commit=False)
         self.__session = scoped_session(session)
 

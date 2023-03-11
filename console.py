@@ -8,12 +8,14 @@ import os
 from models.base_person import Person
 from models.base_institution import Institution
 from models.base_record import Record
+from models.patient import Patient
 
 
 classes = {
             "Person": Person,
             "Record": Record,
-            "Institution": Institution
+            "Institution": Institution,
+            "Patient": Patient
           }
 
 class Medical_Record_Shell(cmd.Cmd):

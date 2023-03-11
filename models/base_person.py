@@ -28,7 +28,7 @@ class Person:
     middlename = Column(String(128))
     sex = Column(String(15), nullable=False)
     dob = Column(DateTime, nullable=False)
-    records = relationship("Record", backref="person")
+    #records = relationship("Record", backref="person")
 
 
     def __init__(self, *args, **kwargs):
@@ -81,4 +81,4 @@ class Person:
         """save to database"""
         self.updated_at = datetime.now()
         from models import storage
-        storage.save(self)
+        storage.save()
