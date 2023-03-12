@@ -9,6 +9,7 @@ from models.base_person import Person, Base
 from models.base_institution import Institution
 from models.base_record import Record
 from models.patient import Patient
+from models.doctor import Doctor
 
 
 class DBStorage:
@@ -19,7 +20,8 @@ class DBStorage:
             "Person": Person,
             "Record": Record,
             "Institution": Institution,
-            "Patient": Patient
+            "Patient": Patient,
+            "Doctor": Doctor
             }
 
     def __init__(self):

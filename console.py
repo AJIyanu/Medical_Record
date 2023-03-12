@@ -8,15 +8,17 @@ import os
 from models.base_person import Person
 from models.base_institution import Institution
 from models.base_record import Record
-from datetime import datetime, date
+from datetime import date
 from models.patient import Patient
+from models.doctor import Doctor
 
 
 classes = {
             "Person": Person,
             "Record": Record,
             "Institution": Institution,
-            "Patient": Patient
+            "Patient": Patient,
+            "Doctor": Doctor
           }
 
 class Medical_Record_Shell(cmd.Cmd):
@@ -47,6 +49,9 @@ class Medical_Record_Shell(cmd.Cmd):
             user = classes[args[0]]()
         except IndexError:
             print("Please Enter Personnel")
+            return
+        except KeyError:
+            print(f"{args[0]} is not a personnel. Try Doctor/Patient")
             return
         try:
             user.firstname = args[2]

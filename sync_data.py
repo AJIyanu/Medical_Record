@@ -2,13 +2,17 @@
 """Synchronizes date from databases"""
 
 
-from models import storage
 import json
 from typing import Dict
+
+
+from models import storage
 from models.patient import Patient
+from models.doctor import Doctor
 
 sync_data_list: Dict = {
-                        "Patient": Patient
+                        "Patient": Patient,
+                        "Doctor": Doctor
                         }
 
 
