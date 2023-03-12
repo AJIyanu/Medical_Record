@@ -54,6 +54,7 @@ class Person:
                                                      '%Y-%m-%dT%H:%M:%S.%f')
                 kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
+                kwargs['dob'] = datetime.strptime(kwargs['dob'], '%Y-%m-%d')
             except:
                 pass
             finally:
@@ -73,6 +74,7 @@ class Person:
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
+        dictionary['dob'] = self.dob.isoformat()
         if "_sa_instance_state" in dictionary:
             del dictionary["_sa_instance_state"]
         return dictionary
