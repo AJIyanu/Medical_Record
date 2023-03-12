@@ -69,13 +69,15 @@ class Medical_Record_Shell(cmd.Cmd):
             print("User is not saved because dob cannot be empty, try again")
             return
         user.save()
-        print(str(user))
+        print(f"User saved Successfully, id: {user.id}, Name: {user.surname} {user.firstname}")
 
     def do_Show(self, args) -> None:
         """show all data"""
         try:
             args = args.split()
-            #print(classes[args[0]]().show_all())
+            users = classes[args[0]]().show_all()
+            for user in users:
+                print(f"{user} : {users[user]}")
         except IndexError:
             print("usage: Show [personnel]")
             return

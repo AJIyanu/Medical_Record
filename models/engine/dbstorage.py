@@ -57,16 +57,12 @@ class DBStorage:
         """returns all objects or all specifics"""
         classes = self.classes
         obj_dicts = {}
-        print(obj)
-        if obj is None:
-            for item in classes:
-                if obj is None or obj is classes[item] or obj is item:
-                    print(classes[item])
-                    clss = self.__session.query(classes[item]).all()
-                    print(clss)
-                else:
-                    continue
-                for objects in clss:
-                    key = objects.__class__.__name__ + "." + objects.id
-                    obj_dicts.update({key: objects})
+        for item in classes:
+            if obj is None or obj == item or type(obj) == classes[item]:
+                clss = self.__session.query(classes[item]).all()
+            else:
+                continue
+            for objects in clss:
+                key = objects.__class__.__name__ + "." + objects.id
+                obj_dicts.update({key: objects.to_dict()})
         return obj_dicts
