@@ -8,7 +8,7 @@ import os
 from models.base_person import Person
 from models.base_institution import Institution
 from models.base_record import Record
-from datetime import datetime
+from datetime import datetime, date
 from models.patient import Patient
 
 
@@ -59,7 +59,15 @@ class Medical_Record_Shell(cmd.Cmd):
             print("create [personel] [surname] [firstname] [middlename:optional]")
             return
         user.sex = input("Enter Sex: ")
-        user.dob = datetime.now()
+        dd = input("Enter Date of Birth [Usage:YYYY/MM/DD]: ")
+        dd = dd.split("/")
+        try:
+            user.dob = date(int(dd[0]), int(dd[1]), int(dd[2]))
+        except Exception as e:
+            print(e)
+            print("Date not in the right format")
+            print("User is not saved because dob cannot be empty, try again")
+            return
         user.save()
         print(str(user))
 

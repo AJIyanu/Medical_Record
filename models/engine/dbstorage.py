@@ -31,7 +31,6 @@ class DBStorage:
         url = "{}:{}@{}/{}".format(usr, pwd, host, db)
         self.__engine = create_engine("mysql+mysqlconnector://{}".format(url),
                                       pool_pre_ping=True)
-        self.meta = MetaData(bind=self.__engine)
 
 
     def new(self, obj):
