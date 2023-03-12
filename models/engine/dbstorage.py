@@ -54,7 +54,7 @@ class DBStorage:
         session = sessionmaker(bind=connection, expire_on_commit=False)
         self.__session = scoped_session(session)
 
-    def all(self, obj):
+    def all(self, obj: None):
         """returns all objects or all specifics"""
         classes = self.classes
         obj_dicts = {}
@@ -62,7 +62,9 @@ class DBStorage:
         if obj is None:
             for item in classes:
                 if obj is None or obj is classes[item] or obj is item:
+                    print(classes[item])
                     clss = self.__session.query(classes[item]).all()
+                    print(clss)
                 else:
                     continue
                 for objects in clss:

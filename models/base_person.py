@@ -87,5 +87,5 @@ class Person:
         """show all intances"""
         from models import storage
         storage.reload()
-        patients = storage.all("Patient")
+        patients = storage.all(self)
         return patients

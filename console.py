@@ -67,7 +67,7 @@ class Medical_Record_Shell(cmd.Cmd):
         """show all data"""
         try:
             args = args.split()
-            print(classes[args[0]]().show_all())
+            #print(classes[args[0]]().show_all())
         except IndexError:
             print("usage: Show [personnel]")
             return
