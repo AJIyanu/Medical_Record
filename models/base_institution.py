@@ -7,11 +7,12 @@ properties of institutions in this application.
 
 import uuid
 from datetime import datetime
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.orm import relationship
 
-Base = declarative_base()
+from models.base_person import Base
+
+Base = Base
 
 class Institution:
     """
@@ -23,9 +24,6 @@ class Institution:
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     name = Column(String(128), nullable=False)
-    specialization = Column(String(128), nullable=False)
-    records = relationship("Record", backref="institution")
-
 
     def __init__(self, *args, **kwargs):
         """This initializes the class"""
@@ -51,6 +49,8 @@ class Institution:
                 pass
             finally:
                 self.__dict__.update(kwargs)
+        from models import storage
+        storage.new(self)
 
     def __str__(self):
         """Returns a string representation of the instance"""
@@ -71,3 +71,13 @@ class Institution:
     def save(self):
         """save to database"""
         self.updated_at = datetime.now()
+        from models import storage
+        self.createRecord()
+        storage.save()
+
+    def show_all(self):
+        """show all intances"""
+        from models import storage
+        storage.reload()
+        institution = storage.all(self)
+        return institution

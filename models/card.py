@@ -7,13 +7,14 @@ properties of records in this application.
 
 import uuid
 from datetime import datetime
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime, ForeignKey
-from models.base_record import Record, Base
+from models.base_record import Record
+from models.base_person import Base
 
-class Card(Record, Base):
+class Appointment(Record, Base):
     """
     This is just the basic information
     for general purpose
     """
     
+    __tablename__ = "Appointment_Schedule"

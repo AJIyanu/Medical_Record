@@ -15,8 +15,7 @@ class Doctor(Person, Base):
     nxt_of_kin = Column(String(256))
     #nok_id = Column(String(60), ForeignKey("patient.id"))
     phone = Column(String(20))
-    #records = relationship("Record", backref="patient", cascade="all, delete")
-
+    
     def __init__(self, *args, **kwargs) -> None:
         """initializes Patient"""
         super().__init__(*args, **kwargs)

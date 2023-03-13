@@ -10,22 +10,17 @@ from datetime import datetime
 from sqlalchemy import Column, String, DateTime, ForeignKey
 from models.base_person import Base
 
-Base = Base
-
-
-class Record:
-    """This class contains the basic properties of every
-    record made connecting the patient and the doctor"""
-
+class H_Facilities(Base):
+    """table for all healthcare producing facilities"""
+    __tablename__ = "HealthCareFacilities"
     id = Column(String(60), unique=True, nullable=False, primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-    staff_id = Column(String(60), ForeignKey("Doctor.id"), nullable=False)
-    patient_id = Column(String(60), ForeignKey("Patient.id"), nullable=False)
-    healthcare_id = Column(String(60), ForeignKey("HealthCareFacilities.id"), nullable=False)
+    name = Column(String(60), nullable=False)
+    maternity = Column(String(60), ForeignKey("Maternity.id"))
+    general = Column(String(60), ForeignKey("Hospital.id"))
 
-    def __init__(self, *args, **kwargs):
-        """This initializes the class"""
+    def __init__(self, *args, **kwargs) -> None:
         if not kwargs:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
@@ -71,11 +66,6 @@ class Record:
         """save to database"""
         self.updated_at = datetime.now()
         from models import storage
+        if self.maternity is None and self.general is None:
+            raise AttributeError("maternity and general can't be null")
         storage.save()
-
-    def show_all(self):
-        """show all intances"""
-        from models import storage
-        storage.reload()
-        record = storage.all(self)
-        return record

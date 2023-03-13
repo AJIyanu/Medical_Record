@@ -28,7 +28,6 @@ class Person:
     middlename = Column(String(128))
     sex = Column(String(15), nullable=False)
     dob = Column(DateTime, nullable=False)
-    #records = relationship("Record", backref="person")
 
 
     def __init__(self, *args, **kwargs):

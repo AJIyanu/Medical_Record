@@ -6,10 +6,12 @@ from sqlalchemy import MetaData, create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 from models.base_person import Person, Base
-from models.base_institution import Institution
-from models.base_record import Record
+from models.casefile import caseFile
 from models.patient import Patient
 from models.doctor import Doctor
+from models.generalH import Hospital
+from models.maternity import Maternity
+from models.healthcare import H_Facilities
 
 
 class DBStorage:
@@ -17,12 +19,12 @@ class DBStorage:
     __engine = None
     __session = None
     classes = {
-            "Person": Person,
-            "Record": Record,
-            "Institution": Institution,
-            "Patient": Patient,
-            "Doctor": Doctor
-            }
+               "Patient": Patient,
+               "Doctor": Doctor,
+               "generalH": Hospital,
+               "Maternity": Maternity,
+               "Casefile": caseFile
+               }
 
     def __init__(self):
         """conneect and createst the sql storage"""
