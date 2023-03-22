@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<title>Signin_up</title>
-		<link rel="stylesheet" type="text/css" href="css/signin_up.css">
+		<script src="/static/js/signin"></script>
+		<link rel="stylesheet" type="text/css" href="/static/css/signin_up">
 	</head>
 
 	<body>
@@ -11,20 +12,20 @@
 
 				<div class="signup">
 					<form>
-						<label for="chk" aria-hidden="true">Sign up</label>
-						<input type="text" name="txt" placeholder="User name" required="">
-						<input type="email" name="email" placeholder="Email" required="">
-						<input type="password" name="pswd" placeholder="Password" required="">
-						<button>Sign up</button>
+						<label for="chk" aria-hidden="true">Doctor</label>
+						<input type="email" id="email-input" name="email" placeholder="Email" required="">
+						<input type="password" id="password-input" name="pswd" placeholder="Password" required="">
+						<input type="txt" id="hosID" name="instid" placeholder="Hospital_ID" required="">
+						<button id="doc_signin">Sign in</button>
 					</form>
 				</div>
 
 				<div class="login">
 					<form>
-						<label for="chk" aria-hidden="true">Sign in</label>
-						<input type="email" name="email" placeholder="Email" required="">
-						<input type="password" name="pswd" placeholder="Password" required="">
-						<button>Sign in</button>
+						<label for="chk" aria-hidden="true">Patient</label>
+						<input type="email" id="emailinput" name="email" placeholder="Email" required="">
+						<input type="password" id="passwordinput" name="pswd" placeholder="Password" required="">
+						<button id ="pat_signin">Sign in</button>
 					</form>
 				</div>
 		</div>

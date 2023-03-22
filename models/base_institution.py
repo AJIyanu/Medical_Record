@@ -9,6 +9,8 @@ import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.orm import relationship
+from typing import Dict
+from sqlalchemy.orm.exc import NoResultFound
 
 from models.base_person import Base
 
@@ -24,6 +26,7 @@ class Institution:
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     name = Column(String(128), nullable=False)
+    code = Column(String(20), unique=True, nullable=False)
 
     def __init__(self, *args, **kwargs):
         """This initializes the class"""
@@ -81,3 +84,23 @@ class Institution:
         storage.reload()
         institution = storage.all(self)
         return institution
+
+    @classmethod
+    def inst_by_id(self, id:str=None) -> Dict:
+        """returns user instance by id"""
+        from models import storage
+        try:
+            me = storage.user_by_id(self, id)
+        except NoResultFound:
+            return None
+        return me
+
+    @classmethod
+    def search_by_code(self, code ) -> str:
+        """search by code return id"""
+        from models import storage
+        try:
+            my_id = storage.search(self, code=code)
+        except NoResultFound:
+            return None
+        return my_id[0].get("id")

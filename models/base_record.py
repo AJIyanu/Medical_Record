@@ -9,6 +9,8 @@ import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime, ForeignKey
 from models.base_person import Base
+from typing import Dict, List
+from sqlalchemy.orm.exc import NoResultFound
 
 Base = Base
 
@@ -79,3 +81,57 @@ class Record:
         storage.reload()
         record = storage.all(self)
         return record
+
+    @classmethod
+    def user_by_id(self,id:str = None) -> Dict:
+        """returns user instance by id"""
+        from models import storage
+        try:
+            me = storage.user_by_id(self, id)
+        except NoResultFound:
+            return None
+        return me
+
+    @classmethod
+    def search_patient(self, **kwargs) -> List[Dict]:
+        """search patient's record"""
+        diction = {}
+        try:
+            diction.update({'patient_id': kwargs['patient_id']})
+        except KeyError:
+            raise KeyError("You must supply <patient_id>")
+        try:
+            diction.update({'healthcare_id': kwargs['healthcare_id']})
+        except KeyError:
+            pass
+        try:
+            diction.update({'staff_id': kwargs['staff_id']})
+        except KeyError:
+            pass
+        from models import storage
+        try:
+            return storage.search(self, diction)
+        except NoResultFound:
+            return None
+
+    @classmethod
+    def search_doctor(self, **kwargs) -> List[Dict]:
+        """search doctor's record"""
+        diction = {}
+        try:
+            diction.update({'staff_id': kwargs['staff_id']})
+        except KeyError:
+            raise KeyError("You must supply <staff_id>")
+        try:
+            diction.update({'healthcare_id': kwargs['healthcare_id']})
+        except KeyError:
+            pass
+        try:
+            diction.update({'patient_id': kwargs['patient_id']})
+        except KeyError:
+            pass
+        from models import storage
+        try:
+            return storage.search(self, diction)
+        except NoResultFound:
+            return None

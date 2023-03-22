@@ -9,6 +9,8 @@ import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime, ForeignKey
 from models.base_person import Base
+from sqlalchemy.orm.exc import NoResultFound
+from typing import Dict
 
 class H_Facilities(Base):
     """table for all healthcare producing facilities"""
@@ -69,3 +71,18 @@ class H_Facilities(Base):
         if self.maternity is None and self.general is None:
             raise AttributeError("maternity and general can't be null")
         storage.save()
+
+    @classmethod
+    def inst_by_id(self, id) -> None:
+        """returns instituion dict by health id"""
+        from models import storage
+        try:
+            me = storage.user_by_id(self, id)
+        except NoResultFound:
+            return None
+        from models.generalH import Hospital
+        from models.maternity import Maternity
+        mat = Maternity.inst_by_id(me['maternity'])
+        hosp = Hospital.inst_by_id(me['general'])
+        return mat if mat is not None else hosp
+

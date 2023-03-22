@@ -4,6 +4,8 @@
 
 from sqlalchemy import MetaData, create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm.exc import NoResultFound
+from typing import Dict, List
 
 from models.base_person import Person, Base
 from models.casefile import caseFile
@@ -12,6 +14,8 @@ from models.doctor import Doctor
 from models.generalH import Hospital
 from models.maternity import Maternity
 from models.healthcare import H_Facilities
+from models.staffLogin import Staff
+from models.patientLogin import User
 
 
 class DBStorage:
@@ -57,7 +61,7 @@ class DBStorage:
         session = sessionmaker(bind=connection, expire_on_commit=False)
         self.__session = scoped_session(session)
 
-    def all(self, obj: None):
+    def all(self, obj=None):
         """returns all objects or all specifics"""
         classes = self.classes
         obj_dicts = {}
@@ -70,3 +74,48 @@ class DBStorage:
                 key = objects.__class__.__name__ + "." + objects.id
                 obj_dicts.update({key: objects.to_dict()})
         return obj_dicts
+
+    def user_by_id(self, obj=None, id: str = None) -> Dict:
+        """finds user by id"""
+        if obj == None:
+            return
+        Session = self.__session
+        query = Session.query(obj).filter_by(id=id)
+        if query.first() is None:
+            raise NoResultFound
+        data = query.first()
+        return data.to_dict()
+
+    def search(self, obj=None, kwargs: Dict=None) -> List[Dict]:
+        """search out list of users"""
+        if obj is None or kwargs is None:
+            return
+        Session = self.__session
+        query = Session.query(obj).filter_by(**kwargs)
+        if query.first() is None:
+            raise NoResultFound
+        return [data.to_dict() for data in query]
+
+    def validate_user(self, obj=None, pwd=None,  **kwargs: Dict=None) -> bool:
+        """validate user"""
+        if obj is None:
+            return None
+        Session = self.__session
+        diction = {}
+        try:
+            diction["nin"] = kwargs["nin"]
+        except KeyError:
+            pass
+        try:
+            diction["email"] = kwargs["email"]
+        except KeyError:
+            pass
+        if len(diction) == 0:
+            return False
+        query = Session.query(obj).filter_by(**diction)
+        query = query.first()
+        if query == None:
+            return False
+        return True if query.hashed_password == pwd else False
+
+

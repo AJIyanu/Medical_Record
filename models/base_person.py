@@ -10,6 +10,8 @@ from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm.exc import NoResultFound
+from typing import Dict
 
 Base = declarative_base()
 
@@ -23,6 +25,7 @@ class Person:
     id = Column(String(60), unique=True, nullable=False, primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    nin = Column(String(12), unique=True, nullable=False)
     firstname = Column(String(128), nullable=False)
     surname = Column(String(128), nullable=False)
     middlename = Column(String(128))
@@ -90,3 +93,13 @@ class Person:
         storage.reload()
         patients = storage.all(self)
         return patients
+
+    @classmethod
+    def user_by_id(self,id:str = None) -> Dict:
+        """returns user instance by id"""
+        from models import storage
+        try:
+            me = storage.user_by_id(self, id)
+        except NoResultFound:
+            return None
+        return me
