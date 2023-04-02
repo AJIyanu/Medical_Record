@@ -2,7 +2,10 @@
 """
 This module is for Doctors
 """
-from models.base_person import Person, Base
+try:
+    from models.base_person import Person, Base
+except ModuleNotFoundError:
+    from base_person import Person, Base
 from sqlalchemy import Column, String, Table, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship

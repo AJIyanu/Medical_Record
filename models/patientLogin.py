@@ -6,6 +6,8 @@ from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from models.base_person import Base
 from models.patient import Patient
+from sqlalchemy.orm.exc import NoResultFound
+import uuid
 
 
 class User(Base):
@@ -46,8 +48,9 @@ class User(Base):
     def search(self, **kwargs) -> None:
         """returns instituion dict by health id"""
         from models import storage
+        diction = {}
         try:
-            diction['staff_id'] = kwargs['staff_id']
+            diction['user_id'] = kwargs['user_id']
         except KeyError:
             pass
         try:
@@ -55,9 +58,9 @@ class User(Base):
         except KeyError:
             pass
         if len(diction) == 0:
-            raise AttributeError("neither email or staff_id found")
+            raise AttributeError("neither email or user_id found")
         try:
-            return storage.search(self, kwargs)
+            return storage.search(self, kwargs)[0]
         except NoResultFound:
             return None
 
@@ -65,6 +68,31 @@ class User(Base):
     def get_user(self, clsdict, pwd):
         """returns validated user"""
         from models import storage
-        chk = storage.validate_user(self, pwd, clsdict)
+        chk = storage.validate_user(self, pwd, **clsdict)
         return storage.user_by_id(Patient, clsdict['user_id']) if chk else None
+
+    @classmethod
+    def reset_token(self, diction, unset: str = None) -> str:
+        """returns a set token"""
+        try:
+            from models import storage
+        except ModuleNotFoundError:
+            import storage
+        login = storage.login_class(self, diction)
+        if unset == "set":
+            login.session_id = str(uuid.uuid4())
+        else:
+            login.session_id = None
+        login.save()
+        return login.session_id
+
+    @classmethod
+    def validate_token(self, diction, token: str=None) -> bool:
+        """validate token"""
+        try:
+            from models import storage
+        except ModuleNotFoundError:
+            import storage
+        login = storage.login_class(self, diction)
+        return token == login.session_id
 

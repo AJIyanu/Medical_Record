@@ -96,7 +96,7 @@ class DBStorage:
             raise NoResultFound
         return [data.to_dict() for data in query]
 
-    def validate_user(self, obj=None, pwd=None,  **kwargs: Dict=None) -> bool:
+    def validate_user(self, obj=None, pwd=None,  **kwargs: Dict) -> bool:
         """validate user"""
         if obj is None:
             return None
@@ -118,4 +118,12 @@ class DBStorage:
             return False
         return True if query.hashed_password == pwd else False
 
-
+    def login_class(self, obj=None, kwargs: Dict=None) -> List[Dict]:
+        """search out list of users"""
+        if obj is None or kwargs is None:
+            return
+        Session = self.__session
+        query = Session.query(obj).filter_by(**kwargs)
+        if query.first() is None:
+            raise NoResultFound
+        return query.first()

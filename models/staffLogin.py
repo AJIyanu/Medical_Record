@@ -4,8 +4,14 @@
 
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from models.base_person import Base
-from models.doctor import Doctor
+from sqlalchemy.orm.exc import NoResultFound
+try:
+    from models.base_person import Base
+    from models.doctor import Doctor
+except ModuleNotFoundError as e:
+    from base_person import Base
+    from doctor import Doctor
+import uuid
 import json
 
 
@@ -23,7 +29,10 @@ class Staff(Base):
 
     def __init__(self):
         """does nothing actually"""
-        from models import storage
+        try:
+            from models import storage
+        except ModuleNotFoundError:
+            import storage
         storage.new(self)
 
     def to_dict(self):
@@ -39,15 +48,46 @@ class Staff(Base):
 
     def save(self):
         """save to database"""
-        from models import storage
+        try:
+            from models import storage
+        except ModuleNotFoundError:
+            import storage
         if self.email is None or self.hashed_password is None:
             raise AttributeError("user must have email and password")
         storage.save()
 
     @classmethod
+    def reset_token(self, diction, unset: str = None) -> str:
+        """returns a set token"""
+        try:
+            from models import storage
+        except ModuleNotFoundError:
+            import storage
+        login = storage.login_class(self, diction) 
+        if unset == "set":
+            login.session_id = str(uuid.uuid4())
+        else:
+            login.session_id = None
+        login.save()
+        return login.session_id
+
+    @classmethod
+    def validate_token(self, diction, token: str=None) -> bool:
+        """validate token"""
+        try:
+            from models import storage
+        except ModuleNotFoundError:
+            import storage
+        login = storage.login_class(self, diction)
+        return token == login.session_id
+
+    @classmethod
     def search(self, **kwargs) -> None:
         """returns instituion dict by health id"""
-        from models import storage
+        try:
+            from models import storage
+        except ModuleNotFoundError:
+            from . import storage
         diction = {}
         try:
             diction['nin'] = kwargs['nin']
@@ -65,19 +105,24 @@ class Staff(Base):
             return None
 
     @classmethod
-    def get_user(self, clsdict, pwd):
+    def get_user(self, pwd, clsdict):
         """returns validated user"""
-        from models import storage
-        chk = storage.validate_user(self, pwd, clsdict)
+        try:
+            from models import storage
+        except ModuleNotFoundError:
+            import storage
+        chk = storage.validate_user(self, pwd, **clsdict)
         return storage.user_by_id(Doctor, clsdict['staff_id']) if chk else None
 
     @classmethod
-    def validate_inst_code(self, id, code) -> bool:
+    def validate_inst_code(self, clsdict, code) -> bool:
         """returns true if user has code"""
-        from models import storage
         try:
-            user = storage.user_by_id(self, id)
-        except NoResultFound:
+            from models import storage
+        except ModuleNotFoundError:
+            import storage
+        try:
+            codes = json.loads(clsdict.get("auth_inst"))
+        except Exception:
             return False
-        codes = json.loads(user.get("auth_inst"))
         return True if code in codes else False

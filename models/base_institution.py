@@ -85,6 +85,15 @@ class Institution:
         institution = storage.all(self)
         return institution
 
+#    @setattr
+    def instcode(self, value):
+        """sets value of institution"""
+        try:
+            int(value)
+        except Exception:
+            raise ValueError("Value must be a number")
+        self.code = value
+
     @classmethod
     def inst_by_id(self, id:str=None) -> Dict:
         """returns user instance by id"""
@@ -103,4 +112,5 @@ class Institution:
             my_id = storage.search(self, code=code)
         except NoResultFound:
             return None
+        
         return my_id[0].get("id")
