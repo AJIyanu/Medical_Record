@@ -9,10 +9,14 @@ from typing import Dict
 from models import storage
 from models.patient import Patient
 from models.doctor import Doctor
+from models.staffLogin import Staff
+from models.patientLogin import User
 
 sync_data_list: Dict = {
                         "Patient": Patient,
-                        "Doctor": Doctor
+                        "Doctor": Doctor,
+                        "Staff": Staff,
+                        "User": User
                         }
 
 
