@@ -21,7 +21,7 @@
 :root {
   --color-default: #24243e;
   --color-primary: #302b63;
-  --color-secondary: #0f0c29;
+  --color-secondary: #0a072a;
 }
 
 /* Smooth scroll behavior */
@@ -238,7 +238,7 @@ section {
 # Header
 --------------------------------------------------------------*/
 .topbar {
-  background: #00796b;
+  background: #0c0025;
   height: 40px;
   font-size: 14px;
   transition: all 0.5s;
@@ -1963,7 +1963,7 @@ section {
   padding: 60px 30px;
   position: relative;
   overflow: hidden;
-  background: #008d7d;
+  background: #0c0125;
   box-shadow: 0 0 29px 0 rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease-in-out;
   border-radius: 8px;

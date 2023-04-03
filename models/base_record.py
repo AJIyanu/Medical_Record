@@ -22,9 +22,9 @@ class Record:
     id = Column(String(60), unique=True, nullable=False, primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-    staff_id = Column(String(60), ForeignKey("Doctor.id"), nullable=False)
-    patient_id = Column(String(60), ForeignKey("Patient.id"), nullable=False)
-    healthcare_id = Column(String(60), ForeignKey("HealthCareFacilities.id"), nullable=False)
+    #staff_id = Column(String(60), ForeignKey("Doctor.id"), nullable=False)
+    #patient_id = Column(String(60), ForeignKey("Patient.id"), nullable=False)
+    #healthcare_id = Column(String(60), ForeignKey("HealthCareFacilities.id"), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """This initializes the class"""
