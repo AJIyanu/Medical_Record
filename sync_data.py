@@ -9,10 +9,14 @@ from typing import Dict
 from models import storage
 from models.patient import Patient
 from models.doctor import Doctor
+from models.staffLogin import Staff
+from models.patientLogin import User
 
 sync_data_list: Dict = {
                         "Patient": Patient,
-                        "Doctor": Doctor
+                        "Doctor": Doctor,
+                        "Staff": Staff,
+                        "User": User
                         }
 
 
@@ -33,7 +37,7 @@ def pull(filepath: str, datas: dict, cls) -> None:
             print(f"{count} datas added to database")
         else:
             print("No data added to database")
-        print("<<<...Database Updated...>>>")
+        print("<<<...Database Updated ...>>>")
     except FileNotFoundError:
         print("No file found")
 
@@ -58,5 +62,9 @@ if __name__ == "__main__":
     for data in sync_data_list:
         datas = storage.all(data)
         file_path = f"{data}.json"
+        print()
+        print(f"......synchronizing {data}.......")
         pull(file_path, datas, sync_data_list[data])
         push(file_path, datas)
+        print("sync complete")
+        print()
