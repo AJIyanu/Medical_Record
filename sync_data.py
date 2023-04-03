@@ -37,7 +37,7 @@ def pull(filepath: str, datas: dict, cls) -> None:
             print(f"{count} datas added to database")
         else:
             print("No data added to database")
-        print("<<<...Database Updated...>>>")
+        print("<<<...Database Updated ...>>>")
     except FileNotFoundError:
         print("No file found")
 
@@ -62,5 +62,9 @@ if __name__ == "__main__":
     for data in sync_data_list:
         datas = storage.all(data)
         file_path = f"{data}.json"
+        print()
+        print(f"......synchronizing {data}.......")
         pull(file_path, datas, sync_data_list[data])
         push(file_path, datas)
+        print("sync complete")
+        print()
