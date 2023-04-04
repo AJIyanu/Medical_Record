@@ -19,3 +19,16 @@ def dashboard(userid):
     doc = auth.get_staff(userid)
     return render_template("temp.html", **doc)
 
+
+@app_views.route("/findpatient", methods=["POST"], strict_slashes=False)
+def find_patient():
+    nin = request.form.get("NIN")
+    if nin is not None and nin != "":
+        return jsonify({
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "age": 30,
+                        "diseases": ["flu", "cold"],
+                        "medications": ["aspirin", "ibuprofen"],
+                        }), 200
+    return jsonify({"error": "no nin found"}), 400

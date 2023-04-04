@@ -44,6 +44,7 @@
     border-radius: 4px;
   }
 
+
   button.nxt-btn,
   button.prev-btn,
   button.find-btn,
@@ -57,6 +58,7 @@
     font-family: "Montserrat";
     font-weight: bold;
     font-size: 18px;
+    color: rgb(14, 4, 42);
     cursor: pointer;
     /* text-align: right; */
   }
@@ -73,10 +75,47 @@ label {
 color: rgb(193, 176, 239);
 font-weight: bold;
 }
+label.firstname {
+  float: left;
+}
 
 p.error {
   color: red;
   font-weight: bold;
   text-align: center;
 }
+p.diseases {
+  float: right;
+}
+p.detail {
+  color: rgb(186, 169, 225);
+  font-size: 20px;
+}
 
+h2 {
+  color: yellow;
+}
+
+#tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #ccc;
+  padding: 4px;
+}
+
+#tags-container .tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #eee;
+  color: #333;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#tags-container .tag:hover {
+  background-color: #ddd;
+}

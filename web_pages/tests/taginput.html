@@ -1,0 +1,65 @@
+<!-- HTML code -->
+<label for="tags-input">Enter tags:</label>
+<div id="tags-container">
+  <input type="text" id="tags-input">
+</div>
+
+<script>
+// JavaScript code
+const tagsInput = document.getElementById('tags-input');
+const tagsContainer = document.getElementById('tags-container');
+const tags = [];
+
+tagsInput.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.keyCode === 13) {
+    event.preventDefault();
+    const tag = this.value.trim();
+    if (tag !== '') {
+      tags.push(tag);
+      const tagElement = document.createElement('span');
+      tagElement.classList.add('tag');
+      tagElement.innerText = tag;
+      tagsContainer.insertBefore(tagElement, tagsInput);
+      this.value = '';
+    }
+  }
+});
+
+tagsContainer.addEventListener('click', function(event) {
+  if (event.target.classList.contains('tag')) {
+    const tagIndex = tags.indexOf(event.target.innerText);
+    if (tagIndex !== -1) {
+      tags.splice(tagIndex, 1);
+      event.target.parentNode.removeChild(event.target);
+    }
+  }
+});
+</script>
+
+<style>
+/* CSS code */
+#tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #ccc;
+  padding: 4px;
+}
+
+#tags-container .tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #eee;
+  color: #333;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#tags-container .tag:hover {
+  background-color: #ddd;
+}
+</style>
+

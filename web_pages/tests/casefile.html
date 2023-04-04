@@ -22,10 +22,19 @@
 
                 <form>
                     <div class="step step-1">
+			<h2> Symptoms and Complaints! </h2>
                         <div class="form-group">
-                            <label for="firstname">First Name</label>
-                            <input type="text" id="firstname" name="firstname">
-                        </div>
+			<p class="detail" id="patdata" name="patdata"></p>
+			<br>
+			<p class="diseases" id="patdisease" name="patdisease"></p>
+			<p class="medics" id="patmedics" name="patmedics"></p>
+                            <div id="symptoms-container">
+				<label for="symptoms">Symptoms</label>
+				<div id="tags-container">
+					<input type="text" id="tags-input">
+				</div>
+			    </div>
+			</div>
                         <div class="form-group">
                             <label for="lastname">Last Name</label>
                             <input type="text" id="lastname" name="lastname">
@@ -88,22 +97,31 @@ form[0].addEventListener('submit', (event) => {
   event.preventDefault();
   const nin = document.getElementById('find');
   const err = document.getElementById('errmsg');
+  const formData = new FormData();
+  const patdata = document.getElementById('patdata')
+  const patdisease = document.getElementById('patdisease')
+  const patmedics = document.getElementById('patmedics')
+  formData.append('NIN', nin.value);
 //  let patientData;
   fetch('/findpatient', {
     method: 'POST',
-    body: { NIN: nin }
+    body: formData
   })
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          const patientData = data;
+          //const patientData = data;
+	 // err.innerHTML = JSON.stringify(data)
           changeStep('next');
+	  patdata.innerHTML = `<b>${data.lastName} ${data.firstName}<br>Age:</b> ${data.age}`;
+	  patdisease.innerHTML = `<b>Past diagnosis</b>: ${data.diseases.map(d => `<li>${d}</li>`).join("")}`;
+	  patmedics.innerHTML = `<b>Medications</b>: ${data.medications.map(m => `<li>${m}</li>`).join("")}<br>`;
         }).catch(function (error) {
           console.error(error);
         });
       } else {
         response.json().then(function (data) {
-          err.innerHTML = 'Patient not found'; // "data.error;
+          err.innerHTML = data.error;
         }).catch(function (error) {
           console.error(error);
         });
@@ -136,7 +154,36 @@ function changeStep (btn) {
     index--;
   }
   steps[index].classList.add('active');
-}    
+}
+const tagsInput = document.getElementById('tags-input');
+const tagsContainer = document.getElementById('tags-container');
+const tags = [];
+
+tagsInput.addEventListener('keydown', function(event) {
+  if (event.key === 'Tab' || event.keyCode === 9) {
+    event.preventDefault();
+    const tag = this.value.trim();
+    if (tag !== '') {
+      tags.push(tag);
+      const tagElement = document.createElement('span');
+      tagElement.classList.add('tag');
+      tagElement.innerText = tag;
+      tagsContainer.insertBefore(tagElement, tagsInput);
+      this.value = '';
+    }
+  }
+});
+
+tagsContainer.addEventListener('click', function(event) {
+  if (event.target.classList.contains('tag')) {
+    const tagIndex = tags.indexOf(event.target.innerText);
+    if (tagIndex !== -1) {
+      tags.splice(tagIndex, 1);
+      event.target.parentNode.removeChild(event.target);
+    }
+  }
+});
+
 	</script>
     </body>
 </html>
