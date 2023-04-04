@@ -5,36 +5,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Case File</title>
         <link rel="stylesheet" href="/dyn/css/form">
+        <!-- <link rel="stylesheet" href="form.css"> -->
     </head>
     <body>
         <section>
             <div class="container">
                 <form>
                     <div class="step step-0 active">
-			<div class="form-group">
-                            <label for="findpatient">Please Enter Patient's NIN</label>
-                            <p class="error" id="errmsg" name="errmsg"></p>
-			    <input type="text" id="find" name="find">
-			    <button type="submit" class="find-btn">Find Patient</button>
-			</div>
+                      <p class="error" id="errmsg" name="errmsg"></p>
+                      <div class="form-group">
+                        <label for="findpatient">Please Enter Patient's NIN</label>
+			                  <input type="text" id="find" name="find">
+			                  <button type="submit" class="find-btn">Find Patient</button>
+                      </div>
                     </div>
                 </form>
 
                 <form>
-                    <div class="step step-1">
-			<h2> Symptoms and Complaints! </h2>
-                        <div class="form-group">
-			<p class="detail" id="patdata" name="patdata"></p>
-			<br>
-			<p class="diseases" id="patdisease" name="patdisease"></p>
-			<p class="medics" id="patmedics" name="patmedics"></p>
-                            <div id="symptoms-container">
-				<label for="symptoms">Symptoms</label>
-				<div id="tags-container">
-					<input type="text" id="tags-input">
-				</div>
-			    </div>
-			</div>
+                  <div class="step step-1">
+                    <h2> Symptoms and Complaints! </h2>
+                    <br>
+                    <p class="detail" id="patdata" name="patdata"></p>
+                    <br>
+                    <p class="diseases" id="patdisease" name="patdisease"></p>
+                    <p class="medics" id="patmedics" name="patmedics"></p>
+                    <div class="symptoms-tag">
+                      <label for="symptoms">Symptoms</label>
+                      <ul></ul><input type="text" id="symptoms" name="symptoms">
+                    </div>
                         <div class="form-group">
                             <label for="lastname">Last Name</label>
                             <input type="text" id="lastname" name="lastname">
@@ -76,10 +74,52 @@
             </div>
         </section>
         <script>
+const ul = document.querySelector("ul");
+const form = document.querySelectorAll('form');
+const input = document.getElementById("symptoms");
+
+tags = [];
+
+createTag();
+
+function createTag(){
+    ul.querySelectorAll("li").forEach(li => li.remove());
+    tags.slice().reverse().forEach(tag =>{
+        let liTag = `<li>${tag} <i class="uit uit-multiply" onclick="remove(this, '${tag}')"></i></li>`;
+        ul.insertAdjacentHTML("afterbegin", liTag);
+    });
+}
+function remove(element, tag){
+    let index  = tags.indexOf(tag);
+    tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
+    element.parentElement.remove();
+}
+function addTag(e){
+    if(e.key == "Enter"){
+        console.log("in addtag!")
+        let tag = e.target.value.replace(/\s+/g, ' ');
+        if(tag.length > 1 && !tags.includes(tag)){
+            if(tags.length < 10){
+                tag.split(',').forEach(tag => {
+                    tags.push(tag);
+                });
+            }
+        }
+        e.target.value = "";
+    }
+}
+
+form[1].addEventListener('keydown', function(event) {
+  if (event.keyCode === 13 || event.which === 13) {
+    event.preventDefault();
+    input.addEventListener("keydowm", addTag);
+    console.log("here!");
+  }
+});
+
 const steps = Array.from(document.querySelectorAll('form .step'));
 const nxtBtn = document.querySelectorAll('form .nxt-btn');
 const prevBtn = document.querySelectorAll('form .prev-btn');
-const form = document.querySelectorAll('form');
 //const find = document.querySelector('form .find-btn');
 
 nxtBtn.forEach((button) => {
@@ -132,15 +172,15 @@ form[0].addEventListener('submit', (event) => {
     });
 });
 
-form.addEventListener('submit', (e) => {
+form[1].addEventListener('submit', (e) => {
   e.preventDefault();
   const inputs = [];
-  form.querySelectorAll('input').forEach((input) => {
+  form[1].querySelectorAll('input').forEach((input) => {
     const { name, value } = input;
     inputs.push({ name, value });
   });
   console.log(inputs);
-  form.reset();
+  form[1].reset();
 });
 
 function changeStep (btn) {
@@ -155,36 +195,8 @@ function changeStep (btn) {
   }
   steps[index].classList.add('active');
 }
-const tagsInput = document.getElementById('tags-input');
-const tagsContainer = document.getElementById('tags-container');
-const tags = [];
 
-tagsInput.addEventListener('keydown', function(event) {
-  if (event.key === 'Tab' || event.keyCode === 9) {
-    event.preventDefault();
-    const tag = this.value.trim();
-    if (tag !== '') {
-      tags.push(tag);
-      const tagElement = document.createElement('span');
-      tagElement.classList.add('tag');
-      tagElement.innerText = tag;
-      tagsContainer.insertBefore(tagElement, tagsInput);
-      this.value = '';
-    }
-  }
-});
-
-tagsContainer.addEventListener('click', function(event) {
-  if (event.target.classList.contains('tag')) {
-    const tagIndex = tags.indexOf(event.target.innerText);
-    if (tagIndex !== -1) {
-      tags.splice(tagIndex, 1);
-      event.target.parentNode.removeChild(event.target);
-    }
-  }
-});
 
 	</script>
     </body>
 </html>
-
