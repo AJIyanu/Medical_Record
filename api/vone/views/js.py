@@ -20,7 +20,8 @@ def temps():
 @app_views.route('/dyn/js/<dynamic>', methods=['GET'], strict_slashes=False)
 def script(dynamic):
     """sends js temp file"""
-    return send_file(f"../../web_pages/tests/{dynamic}.js")
+    return send_file(f"../../web_pages/tests/{dynamic}.js",
+                     mimetype='text/javascript')
 
 
 """
