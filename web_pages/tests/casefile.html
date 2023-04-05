@@ -31,40 +31,43 @@
                     <p class="medics" id="patmedics" name="patmedics"></p>
                     <div class="symptoms-tag">
                       <label for="symptoms">Symptoms</label>
-                      <ul></ul><input type="text" id="symptoms" name="symptoms">
+		      <ul><input class="symp-tag" type="text" id="symptoms" name="symptoms"></ul>
                     </div>
                         <div class="form-group">
-                            <label for="lastname">Last Name</label>
-                            <input type="text" id="lastname" name="lastname">
+                            <label for="observation">Physcial Observation</label>
+                            <input type="text" id="observation" name="observation">
+			    <p id="check">check</p>
                         </div>
                         <div class="form-group">
-                            <label for="nickname">Nick Name</label>
-                            <input type="text" id="nickname" name="nickname">
+                            <label for="examimation">Body Examinations</label>
+                            <input type="text" id="examination" name="examination">
                         </div>
                         <button type="button" class="nxt-btn">Next</button>
                     </div>
 
                     <div class="step step-2">
+				<h2>Tests and Referrals</h2>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email">
+                            <label for="prev-result">Previous Test Results</label>
+                            <input type="text" id="prev-result" name="prev-result">
                         </div>
                     <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="number" id="phone" name="phone">
+                            <label for="tests">New Tests</label>
+                            <input type="text" id="tests" name="tests">
                         </div>
                         <button type="button" class="prev-btn">Previous</button>
                         <button type="button" class="nxt-btn">Next</button>
                     </div>
 
                     <div class="step step-3">
+			    <h2>Prescription and Diagnosis!</h2>
                         <div class="form-group">
-                            <label for="country">Country</label>
-                            <input type="text" id="country" name="country">
+                            <label for="diagnosis">Your Diagnosis</label>
+                            <input type="text" id="diagnosis" name="diagnosis">
                         </div>
                     <div class="form-group">
-                            <label for="city">City</label>
-                            <input type="text" id="city" name="city">
+                            <label for="prescription">Your Prescription</label>
+                            <input type="text" id="prescription" name="prescription">
                         </div>
                         <button type="button" class="prev-btn">Previous</button>
                         <button type="submit" class="submit-btn">Submit</button>
@@ -74,46 +77,35 @@
             </div>
         </section>
         <script>
-const ul = document.querySelector("ul");
 const form = document.querySelectorAll('form');
-const input = document.getElementById("symptoms");
+const symptoms = document.querySelector('.symp-tag');
+const ul = document.querySelector("ul");
+const check = document.getElementById('check');
+const tags = [];
 
-tags = [];
-
-createTag();
-
-function createTag(){
-    ul.querySelectorAll("li").forEach(li => li.remove());
-    tags.slice().reverse().forEach(tag =>{
-        let liTag = `<li>${tag} <i class="uit uit-multiply" onclick="remove(this, '${tag}')"></i></li>`;
-        ul.insertAdjacentHTML("afterbegin", liTag);
-    });
-}
-function remove(element, tag){
-    let index  = tags.indexOf(tag);
-    tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
-    element.parentElement.remove();
-}
-function addTag(e){
-    if(e.key == "Enter"){
-        console.log("in addtag!")
-        let tag = e.target.value.replace(/\s+/g, ' ');
-        if(tag.length > 1 && !tags.includes(tag)){
-            if(tags.length < 10){
-                tag.split(',').forEach(tag => {
-                    tags.push(tag);
-                });
-            }
-        }
-        e.target.value = "";
-    }
-}
-
-form[1].addEventListener('keydown', function(event) {
-  if (event.keyCode === 13 || event.which === 13) {
+symptoms.addEventListener('keydown', function(event) {
+  if (event.key === ';' || event.keyCode === 9) {
     event.preventDefault();
-    input.addEventListener("keydowm", addTag);
-    console.log("here!");
+    const tag = this.value.trim();
+    if (tag !== '') {
+      tags.push(tag);
+      const tagElement = document.createElement('span');
+      tagElement.classList.add('tag');
+      tagElement.innerText = tag;
+      ul.insertBefore(tagElement, symptoms);
+      this.value = '';
+    }
+    check.innerText = tags.join(', ')
+  }
+})
+
+ul.addEventListener('click', function(event) {
+  if (event.target.classList.contains('tag')) {
+    const tagIndex = tags.indexOf(event.target.innerText);
+    if (tagIndex !== -1) {
+      tags.splice(tagIndex, 1);
+      event.target.parentNode.removeChild(event.target);
+    }
   }
 });
 
