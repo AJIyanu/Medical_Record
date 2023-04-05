@@ -15,7 +15,7 @@
                       <p class="error" id="errmsg" name="errmsg"></p>
                       <div class="form-group">
                         <label for="findpatient">Please Enter Patient's NIN</label>
-			                  <input type="text" id="find" name="find">
+			                  <input type="text" id="findpatient" name="findpatient">
 			                  <button type="submit" class="find-btn">Find Patient</button>
                       </div>
                     </div>
@@ -31,7 +31,7 @@
                     <p class="medics" id="patmedics" name="patmedics"></p>
                     <div class="symptoms-tag">
                       <label for="symptoms">Symptoms</label>
-		      <ul><input class="symp-tag" type="text" id="symptoms" name="symptoms"></ul>
+		                  <ul><input class="symp-tag" type="text" id="symptoms" name="symptoms"></ul>
                     </div>
                         <div class="form-group">
                             <label for="observation">Physcial Observation</label>
@@ -39,7 +39,7 @@
 			    <p id="check">check</p>
                         </div>
                         <div class="form-group">
-                            <label for="examimation">Body Examinations</label>
+                            <label for="examination">Body Examinations</label>
                             <input type="text" id="examination" name="examination">
                         </div>
                         <button type="button" class="nxt-btn">Next</button>
@@ -81,33 +81,37 @@ const form = document.querySelectorAll('form');
 const symptoms = document.querySelector('.symp-tag');
 const ul = document.querySelector("ul");
 const check = document.getElementById('check');
-const tags = [];
+let tags = [];
 
-symptoms.addEventListener('keydown', function(event) {
-  if (event.key === ';' || event.keyCode === 9) {
-    event.preventDefault();
-    const tag = this.value.trim();
-    if (tag !== '') {
-      tags.push(tag);
-      const tagElement = document.createElement('span');
-      tagElement.classList.add('tag');
-      tagElement.innerText = tag;
-      ul.insertBefore(tagElement, symptoms);
-      this.value = '';
+createTag();
+function createTag(){
+    ul.querySelectorAll("li").forEach(li => li.remove());
+    tags.slice().reverse().forEach(tag =>{
+        let liTag = `<li>${tag} <i class="remove-icon" onclick="remove(this, '${tag}')">&times;</i></li>`;
+        ul.insertAdjacentHTML("afterbegin", liTag);
+    });
+}
+function remove(element, tag){
+    let index  = tags.indexOf(tag);
+    tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
+    element.parentElement.remove();
+}
+function addTag(e){
+    if(e.key === ";" || e.key === 'Tab' || e.key === 'Enter'){
+        e.preventDefault();
+        let tag = e.target.value.replace(/\s+/g, ' ').replace(/;/g, '');
+        if(tag.length > 1 && !tags.includes(tag)){
+            if(tags.length < 20){
+                tag.split(',').forEach(tag => {
+                    tags.push(tag);
+                    createTag();
+                });
+            }
+        }
+        e.target.value = "";
     }
-    check.innerText = tags.join(', ')
-  }
-})
-
-ul.addEventListener('click', function(event) {
-  if (event.target.classList.contains('tag')) {
-    const tagIndex = tags.indexOf(event.target.innerText);
-    if (tagIndex !== -1) {
-      tags.splice(tagIndex, 1);
-      event.target.parentNode.removeChild(event.target);
-    }
-  }
-});
+}
+symptoms.addEventListener("keyup", addTag);
 
 const steps = Array.from(document.querySelectorAll('form .step'));
 const nxtBtn = document.querySelectorAll('form .nxt-btn');
@@ -127,7 +131,7 @@ prevBtn.forEach((button) => {
 
 form[0].addEventListener('submit', (event) => {
   event.preventDefault();
-  const nin = document.getElementById('find');
+  const nin = document.getElementById('findpatient');
   const err = document.getElementById('errmsg');
   const formData = new FormData();
   const patdata = document.getElementById('patdata')
