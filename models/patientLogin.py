@@ -96,3 +96,11 @@ class User(Base):
         login = storage.login_class(self, diction)
         return token == login.session_id
 
+    @classmethod
+    def user_by_nin(self, nin):
+        """gets user using NIN"""
+        int(nin)
+        from models import storage
+        me = storage.search(self, {"nin": nin})[0]
+        return storage.user_by_id(Patient, me['user_id'])
+

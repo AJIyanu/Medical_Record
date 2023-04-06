@@ -24,11 +24,12 @@ def dashboard(userid):
 def find_patient():
     nin = request.form.get("NIN")
     if nin is not None and nin != "":
-        return jsonify({
-                        "firstName": "John",
-                        "lastName": "Doe",
-                        "age": 30,
-                        "diseases": ["flu", "cold"],
-                        "medications": ["aspirin", "ibuprofen"],
-                        }), 200
+        data = auth.get_patient_data(nin)
+        if "error" in data:
+            return jsonify(data), 400
+        data.update({
+            "diseases": ["flu", "cold"],
+            "medications": ["aspirin", "ibuprofen"],
+                    })
+        return jsonify(data), 200
     return jsonify({"error": "no nin found"}), 400

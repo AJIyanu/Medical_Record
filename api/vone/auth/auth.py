@@ -7,6 +7,7 @@ import sys
 
 from models.staffLogin import Staff
 from models.patientLogin import User
+from datetime import datetime, date
 
 
 class Auth:
@@ -71,6 +72,20 @@ class Auth:
         if staff is None:
             return {"msg": "not logged in"}
         return staff
+
+    def get_patient_data(self, nin):
+        """supllies all patient needed info"""
+        data = {}
+        try:
+            data.update(User.user_by_nin(nin))
+        except ValueError:
+            return {"error": "not a valid nin"}
+        dob = datetime.fromisoformat(data['dob'])
+        today = date.today()
+        age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+        data["age"] = age
+        return data
+
 
 class Authpat:
     """authirizes patient"""

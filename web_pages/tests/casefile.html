@@ -95,7 +95,7 @@ function remove(element, tag){
     element.parentElement.remove();
 }
 function addTag(e){
-    if(e.key === ";" || e.key === 'Tab' || e.key === 'Enter'){
+    if(e.key === ";" || e.key === ',' || e.key === 'Enter'){
         e.preventDefault();
         let tag = e.target.value.replace(/\s+/g, ' ').replace(/;/g, '');
         if(tag.length > 1 && !tags.includes(tag)){
@@ -109,7 +109,7 @@ function addTag(e){
         e.target.value = "";
     }
 }
-symptoms.addEventListener("keyup", addTag);
+symptoms.addEventListener("keypress", addTag);
 
 const steps = Array.from(document.querySelectorAll('form .step'));
 const nxtBtn = document.querySelectorAll('form .nxt-btn');
@@ -147,7 +147,7 @@ form[0].addEventListener('submit', (event) => {
           //const patientData = data;
 	 // err.innerHTML = JSON.stringify(data)
           changeStep('next');
-	  patdata.innerHTML = `<b>${data.lastName} ${data.firstName}<br>Age:</b> ${data.age}`;
+	  patdata.innerHTML = `<b>${data.surname} ${data.firstname}<br>Age:</b> ${data.age}`;
 	  patdisease.innerHTML = `<b>Past diagnosis</b>: ${data.diseases.map(d => `<li>${d}</li>`).join("")}`;
 	  patmedics.innerHTML = `<b>Medications</b>: ${data.medications.map(m => `<li>${m}</li>`).join("")}<br>`;
         }).catch(function (error) {
