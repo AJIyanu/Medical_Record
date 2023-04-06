@@ -16,42 +16,21 @@ def status() -> str:
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/home', strict_slashes=False)
-def stats() -> str:
-    """ GET /api/v1/stats
+@app_views.route('/<root>', strict_slashes=False)
+def rootpages(root) -> str:
+    """ GET /<root>
     Return:
-      - returns home page
+      - returns root pages
     """
-    return render_template("home.html")
+    return render_template(f"{root}.html")
+
+@app_views.route('/favicon.ico', strict_slashes=False)
+def favicon():
+    """return favicon"""
+    return send_file("../../web_pages/favicon.ico")
 
 
-@app_views.route('/signup', strict_slashes=False)
-def sign_up() -> str:
-    """ GET /api/v1/stats
-    Return:
-      - returns signup page
-    """
-    return render_template("signin_up.html")
-
-@app_views.route('/way', strict_slashes=False)
-def waypage():
-    """returns way page"""
-    return render_template("way.html")
-
-
-@app_views.route("/gpt", strict_slashes=False)
-def gpt():
-    """test page"""
-    return render_template("gpt.html")
-
-
-@app_views.route("/temp", strict_slashes=False)
-def templatess():
-    """test temp page"""
-    return render_template("temp.html")
-
-
-@app_views.route("/dyn/<dynamic>", strict_slashes= False)
+@app_views.route("/dyn/<dynamic>", strict_slashes=False)
 def dyn(dynamic):
     """temolates templates"""
     temp = f"tests/{dynamic}.html"
