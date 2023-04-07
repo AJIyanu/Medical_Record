@@ -95,7 +95,8 @@ function remove(element, tag){
     element.parentElement.remove();
 }
 function addTag(e){
-    if(e.key === ";" || e.key === ',' || e.key === 'Enter'){
+    const value = event.target.value;
+    if(e.key === ";" || value.indexOf(';') !== -1){
         e.preventDefault();
         let tag = e.target.value.replace(/\s+/g, ' ').replace(/;/g, '');
         if(tag.length > 1 && !tags.includes(tag)){
@@ -109,12 +110,12 @@ function addTag(e){
         e.target.value = "";
     }
 }
-symptoms.addEventListener("keypress", addTag);
+symptoms.addEventListener("keyup", addTag);
 
 const steps = Array.from(document.querySelectorAll('form .step'));
 const nxtBtn = document.querySelectorAll('form .nxt-btn');
 const prevBtn = document.querySelectorAll('form .prev-btn');
-//const find = document.querySelector('form .find-btn');
+const formData = new FormData();
 
 nxtBtn.forEach((button) => {
   button.addEventListener('click', () => {
@@ -166,15 +167,27 @@ form[0].addEventListener('submit', (event) => {
     });
 });
 
+
 form[1].addEventListener('submit', (e) => {
   e.preventDefault();
-  const inputs = [];
   form[1].querySelectorAll('input').forEach((input) => {
     const { name, value } = input;
-    inputs.push({ name, value });
+    formData.append( name, value );
   });
-  console.log(inputs);
-  form[1].reset();
+  formData.set("symptoms", tags)
+  for (var pair of formData.entries()) {
+  console.log(pair[0] + ': ' + pair[1]);
+}
+  fetch('/doctor/savecasefile', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+  if (response.redirected) {
+    window.location.href = response.url;
+  } else { console.log(response.json())}
+})
+  .catch(error => console.error(error)); 
 });
 
 function changeStep (btn) {
