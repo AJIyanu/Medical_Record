@@ -27,7 +27,10 @@ class DBStorage:
                "Doctor": Doctor,
                "generalH": Hospital,
                "Maternity": Maternity,
-               "Casefile": caseFile
+               "Casefile": caseFile,
+               "Staff": Staff,
+               "User": User,
+               "H_Facilities": H_Facilities
                }
 
     def __init__(self):
@@ -85,6 +88,17 @@ class DBStorage:
             raise NoResultFound
         data = query.first()
         return data.to_dict()
+
+    def cls_by_id(self, obj=None, id: str = None) -> Dict:
+        """returns user class by id"""
+        if obj == None:
+            return
+        Session = self.__session
+        query = Session.query(obj).filter_by(id=id)
+        if query.first() is None:
+            raise NoResultFound
+        data = query.first()
+        return data
 
     def search(self, obj=None, kwargs: Dict=None) -> List[Dict]:
         """search out list of users"""

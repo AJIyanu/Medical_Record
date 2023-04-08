@@ -103,3 +103,18 @@ class Person:
         except NoResultFound:
             return None
         return me
+
+    @classmethod
+    def update_me(self, id: str, **kwargs) -> None:
+        """update class"""
+        from models import storage
+        try:
+            me = storage.cls_by_id(self, id)
+        except NoResultFound:
+            return None
+        me_lst = dir(me)
+        for key in kwargs:
+            if key[:2] != "__" and key in me_lst:
+                setattr(me, key, kwargs[key])
+        me.save()
+        return

@@ -85,13 +85,8 @@ class Institution:
         institution = storage.all(self)
         return institution
 
-#    @setattr
-    def instcode(self, value):
+    def set_code(self, value):
         """sets value of institution"""
-        try:
-            int(value)
-        except Exception:
-            raise ValueError("Value must be a number")
         self.code = value
 
     @classmethod
@@ -112,5 +107,19 @@ class Institution:
             my_id = storage.search(self, code=code)
         except NoResultFound:
             return None
-        
-        return my_id[0].get("id")
+        return my_id[0]
+
+    @classmethod
+    def update_me(self, id: str, **kwargs) -> None:
+        """update class"""
+        from models import storage
+        try:
+            me = storage.cls_by_id(self, id)
+        except NoResultFound:
+            return None
+        me_lst = dir(me)
+        for key in kwargs:
+            if key[:2] != "__" and key in me_lst:
+                setattr(me, key, kwargs[key])
+        me.save()
+        return

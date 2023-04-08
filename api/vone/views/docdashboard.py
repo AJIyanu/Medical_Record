@@ -17,7 +17,7 @@ def dashboard(userid):
     if not auth.validate_login(email, cookie):
         abort(403)
     doc = auth.get_staff(userid)
-    return render_template("temp.html", **doc)
+    return render_template("doctor.html", **doc)
 
 
 @app_views.route("/findpatient", methods=["POST"], strict_slashes=False)
