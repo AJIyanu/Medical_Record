@@ -83,7 +83,7 @@ class DBStorage:
 
     def user_by_id(self, obj=None, id: str = None) -> Dict:
         """finds user by id"""
-        if obj == None:
+        if obj is None:
             return
         Session = self.__session
         query = Session.query(obj).filter_by(id=id)
