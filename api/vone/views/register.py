@@ -21,16 +21,16 @@ def save_casefile():
     if not auth.validate_login(email, cookie):
         abort(403)
     record = caseFile()
-    #record.staff_id = "2812ad2c-c3e7-438d-8d85-8d94fde374e1"
-    record.healthcare_id = "c295ae81-ca73-4af0-a293-2e17f318d5f7"
-    record.patient_id = "e41f2b35-4b48-4c8b-bf7d-1df7b6d26e92"
+    hpid = str(res.cookies.get('hospital'))
+    record.healthcare_id = hpid
+    record.patient_id = data.get("patient_id")
     record.staff_id = str(res.cookies.get("session_id")).split('.')[1]
-    record.symptoms = json.dumps(data.get("symptoms"))
+    record.symptoms = data.get("symptoms")
     record.diagnosis = data.get("diagnosis")
     record.prescription = data.get("prescription")
     record.testResult = data.get("prev-result")
     try:
-        record.save()
-        return jsonify({"email":email, "cookie": cookie})
+        #record.save()
+        return jsonify({"hosp_cookie_check": hpid})
     except Exception as e:
         return jsonify({"error": e})

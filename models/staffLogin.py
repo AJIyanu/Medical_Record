@@ -126,3 +126,18 @@ class Staff(Base):
         except Exception:
             return False
         return True if code in codes else False
+
+    @classmethod
+    def update_me(self, email: str, **kwargs) -> None:
+        """update class"""
+        from models import storage
+        try:
+            me = storage.login_class(self, {"email": email})
+        except NoResultFound:
+            return None
+        me_lst = dir(me)
+        for key in kwargs:
+            if key[:2] != "__" and key in me_lst:
+                setattr(me, key, kwargs[key])
+        me.save()
+        return

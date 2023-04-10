@@ -8,20 +8,30 @@ from views import app_views
 @app_views.route('/static/css/<style>', methods=['GET'], strict_slashes=False)
 def css_file(style):
     """sends css file"""
-    return send_file(f"../../web_pages/static/css/{style}.css")
+    try:
+        return send_file(f"../../web_pages/static/css/{style}.css")
+    except FileNotFoundError:
+        return send_file(f"../../web_pages/static/css/{style}")
 
 
 @app_views.route("/<user>/static/css/<dashcss>", strict_slashes=False)
 def tempcss(user, dashcss):
     """tests template css"""
-    return send_file(f"../../web_pages/static/css/{dashcss}.css")
+    try:
+        return send_file(f"../../web_pages/static/css/{dashcss}.css")
+    except FileNotFoundError:
+        return send_file(f"../../web_pages/static/css/{dashcss}")
 
 
 @app_views.route("/<user>/static/css/dyn/<dynamic>", strict_slashes=False)
 def dynamiccss(user, dynamic):
     """tests template css"""
     css = f"../../web_pages/static/css/{dynamic}.css"
-    return send_file(css)
+    file = f"../../web_pages/static/css/{dynamic}"
+    try:
+        return send_file(css)
+    except FileNotFoundError:
+        return send_file(file)
 
 
 @app_views.route("/dyn/css/<dynamic>", strict_slashes=False)

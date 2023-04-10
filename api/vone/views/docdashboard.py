@@ -6,6 +6,7 @@ from views import app_views
 from auth.auth import Auth
 import json
 from views.signinout import auth
+from models.healthcare import H_Facilities
 
 
 @app_views.route('/doctor/<userid>', methods=['GET'], strict_slashes=False)
@@ -14,9 +15,14 @@ def dashboard(userid):
     res = request
     cookie = str(res.cookies.get("session_id")).split('.')[0]
     email = str(res.cookies.get("email"))
+    hosp = str(res.cookies.get("hospital"))
+    hosp = H_Facilities.inst_by_code(hosp)
     if not auth.validate_login(email, cookie):
         abort(403)
     doc = auth.get_staff(userid)
+    doc['hosp_name'] = hosp.get("name")
+    doc['hosp_type'] = hosp.get("__class__")
+    doc['hosp_id'] = hosp.get("id")
     return render_template("doctor.html", **doc)
 
 

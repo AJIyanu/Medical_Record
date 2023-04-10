@@ -1,10 +1,11 @@
-#!/usr/bin/env python3
+!/usr/bin/env python3
 """ Module of Index views
 """
 from flask import jsonify, abort, make_response, send_file, request
 from views import app_views
 from auth.auth import Auth, Authpat
 import json
+from models.healthcare import H_Facilities
 
 
 auth = Auth()
@@ -19,7 +20,7 @@ def docsign_in():
     code = request.form.get("institution_id")
     try:
         chk = auth.log_in(email=email, pwd=pwd, code=code)
-        if chk:
+        if chk
             session = auth.create_session(email)
             user = auth.staff_id(email)
             cook = f"{session}.{user}"
@@ -27,6 +28,7 @@ def docsign_in():
             resp = make_response(jsonify({"email": email, "userid": user}))
             resp.set_cookie('session_id', cook)
             resp.set_cookie("email", email)
+            resp.set_cookie("hospital", code)
             return resp, 200
     except ValueError as msg:
         return jsonify({"error": str(msg)}), 400

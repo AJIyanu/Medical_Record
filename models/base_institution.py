@@ -104,7 +104,7 @@ class Institution:
         """search by code return id"""
         from models import storage
         try:
-            my_id = storage.search(self, code=code)
+            my_id = storage.search(self, {"code": code})
         except NoResultFound:
             return None
         return my_id[0]
