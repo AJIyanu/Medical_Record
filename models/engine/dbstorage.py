@@ -74,7 +74,10 @@ class DBStorage:
             else:
                 continue
             for objects in clss:
-                key = objects.__class__.__name__ + "." + objects.id
+                try:
+                    key = objects.__class__.__name__ + "." + objects.id
+                except AttributeError:
+                    key = objects.__class__.__name__ + "." + objects.email
                 obj_dicts.update({key: objects.to_dict()})
         return obj_dicts
 

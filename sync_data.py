@@ -11,12 +11,14 @@ from models.patient import Patient
 from models.doctor import Doctor
 from models.staffLogin import Staff
 from models.patientLogin import User
+from models.healthcare import H_Facilities
 
 sync_data_list: Dict = {
                         "Patient": Patient,
                         "Doctor": Doctor,
                         "Staff": Staff,
-                        "User": User
+                        "User": User,
+                        "H_Facilities": H_Facilities
                         }
 
 
