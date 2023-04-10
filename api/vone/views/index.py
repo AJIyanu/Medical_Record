@@ -27,7 +27,7 @@ def rootpages(root) -> str:
 @app_views.route('/favicon.ico', strict_slashes=False)
 def favicon():
     """return favicon"""
-    return send_file("../../web_pages/favicon.ico")
+    return send_file("../../web_pages/static/images/favicon.ico")
 
 
 @app_views.route("/dyn/<dynamic>", strict_slashes=False)

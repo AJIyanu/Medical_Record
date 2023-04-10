@@ -116,6 +116,7 @@ const steps = Array.from(document.querySelectorAll('form .step'));
 const nxtBtn = document.querySelectorAll('form .nxt-btn');
 const prevBtn = document.querySelectorAll('form .prev-btn');
 const formData = new FormData();
+let patientData;
 
 nxtBtn.forEach((button) => {
   button.addEventListener('click', () => {
@@ -145,7 +146,7 @@ form[0].addEventListener('submit', (event) => {
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          //const patientData = data;
+          patientData = data;
 	 // err.innerHTML = JSON.stringify(data)
           changeStep('next');
 	  patdata.innerHTML = `<b>${data.surname} ${data.firstname}<br>Age:</b> ${data.age}`;
@@ -174,7 +175,9 @@ form[1].addEventListener('submit', (e) => {
     const { name, value } = input;
     formData.append( name, value );
   });
-  formData.set("symptoms", tags)
+  formData.set("symptoms", tags);
+  formData.set("patient_id", patientData.id);
+  console.log(JSON.stringify(patientData));
   for (var pair of formData.entries()) {
   console.log(pair[0] + ': ' + pair[1]);
 }

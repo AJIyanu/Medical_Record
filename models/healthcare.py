@@ -86,3 +86,13 @@ class H_Facilities(Base):
         hosp = Hospital.inst_by_id(me['general'])
         return mat if mat is not None else hosp
 
+    @classmethod
+    def inst_by_code(self, code) -> dict:
+        """returns institution from code"""
+        from models.generalH import Hospital
+        from models.maternity import Maternity
+        if code[:3] == "MAT":
+            return Maternity.search_by_code(code)
+        elif code[:3] == "GHP":
+            return HOspital.search_by_code(code)
+        return None
