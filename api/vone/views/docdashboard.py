@@ -22,7 +22,7 @@ def dashboard(userid):
     doc = auth.get_staff(userid)
     msg = session.pop('message', None)
     err = session.pop('error', None)
-    doc['message'] = "test message"
+    doc['message'] = msg
     doc['error'] = err
     doc['hosp_name'] = hosp.get("name")
     doc['hosp_type'] = hosp.get("__class__")

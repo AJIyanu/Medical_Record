@@ -59,20 +59,18 @@ h6 {
 /*------------------------------------------------------------
 # Pop up and Message section
 ------------------------------------------------------------ */
-/*
+
 .alert {
-			position: fixed;
-			top: 20px;
-			left: 50%;
-			transform: translateX(-50%);
+      position: fixed;
+      width: 100%;
+      opacity: 85%;
 			padding: 10px;
 			border-radius: 5px;
-			font-weight: bold;
 			text-align: center;
 			z-index: 9999;
-			opacity: 0;
-			transition: opacity 0.5s ease-in-out;
-} 
+			transition: opacity 5s ease-in-out;
+      animation: fadeOut 10s linear forwards;
+}
 
 .alert-success {
 background-color: #28a745;
@@ -83,7 +81,17 @@ color: #fff;
 background-color: #dc3545;
 color: #fff;
 }
-*/
+
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
 
 /*--------------------------------------------------------------
 # Sections & Section Header

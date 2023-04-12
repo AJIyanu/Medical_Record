@@ -177,10 +177,8 @@ form[1].addEventListener('submit', (e) => {
   });
   formData.set("symptoms", tags);
   formData.set("patient_id", patientData.id);
-  console.log(JSON.stringify(patientData));
-  for (var pair of formData.entries()) {
-  console.log(pair[0] + ': ' + pair[1]);
-}
+  
+
   fetch('/doctor/savecasefile', {
     method: 'POST',
     body: formData
@@ -190,7 +188,7 @@ form[1].addEventListener('submit', (e) => {
     window.location.href = response.url;
   } else { console.log(response.json())}
 })
-  .catch(error => console.error(error)); 
+  .catch(error => console.error(error));
 });
 
 function changeStep (btn) {

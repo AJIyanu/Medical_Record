@@ -97,15 +97,15 @@
 
   <!-- Pop up section -->
 
-  {% if message %}
-  <div class="alert alert-success">
-    {{ message }}
-  </div>
-{% elif error %}
-  <div class="alert alert-danger">
-    {{ error }}
-  </div>
-{% endif %}
+      {% if message %}
+      <div class="alert alert-success">
+      {{ message }}
+      </div>
+      {% elif error %}
+      <div class="alert alert-danger">
+      {{ error }}
+      </div>
+      {% endif %}
 
 <!-- End of pop section -->
 
@@ -498,6 +498,11 @@
 
   <!-- Template Main JS File -->
   <script src="/doctor/static/js/temp"></script>
+  <script>
+  setTimeout(function() {
+    document.getElementById("alert").classList.add("fade-out");
+  }, 10000); // wait 5 seconds before triggering the animation
+  </script>
 
 </body>
 
