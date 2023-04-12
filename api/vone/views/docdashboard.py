@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Module of Index views
 """
-from flask import jsonify, abort, render_template, send_file, request
+from flask import jsonify, abort, render_template, send_file, request, session
 from views import app_views
 from auth.auth import Auth
 import json
@@ -20,6 +20,10 @@ def dashboard(userid):
     if not auth.validate_login(email, cookie):
         abort(403)
     doc = auth.get_staff(userid)
+    msg = session.pop('message', None)
+    err = session.pop('error', None)
+    doc['message'] = "test message"
+    doc['error'] = err
     doc['hosp_name'] = hosp.get("name")
     doc['hosp_type'] = hosp.get("__class__")
     doc['hosp_id'] = hosp.get("id")

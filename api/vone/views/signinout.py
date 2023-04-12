@@ -24,12 +24,12 @@ def docsign_in():
             session = auth.create_session(email)
             user = auth.staff_id(email)
             cook = f"{session}.{user}"
-            hosp = H_Facilities.inst_by_code(code)
+            hosp = H_Facilities.find_me(code)
             resp = make_response(jsonify({"email": email, "userid": user}))
             resp.set_cookie('session_id', cook)
             resp.set_cookie("email", email)
             resp.set_cookie("hospital", code)
-            resp.set_cookie("hosp_code", hosp.get("id"))
+            resp.set_cookie("hosp_code", hosp)
             return resp, 200
     except ValueError as msg:
         return jsonify({"error": str(msg)}), 400

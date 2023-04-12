@@ -94,5 +94,20 @@ class H_Facilities(Base):
         if code[:3] == "MAT":
             return Maternity.search_by_code(code)
         elif code[:3] == "GHP":
-            return HOspital.search_by_code(code)
+            return Hospital.search_by_code(code)
         return None
+
+    @classmethod
+    def find_me(self, code=None, id=None):
+        """returns my id"""
+        if code and not id:
+            id = self.inst_by_code(code).get("id")
+        from models import storage
+        try:
+            me = storage.search(self, {"maternity": id})
+        except NoResultFound:
+            try:
+                me = storage.search(self, {"general": id})
+            except NoResultFound:
+                me = None
+        return me[0].get('id') if me is not None else None

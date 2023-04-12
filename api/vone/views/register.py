@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Module of Index views
 """
-from flask import jsonify, abort, render_template, send_file, request
+from flask import jsonify, abort, request, redirect, session
 from views import app_views
 from auth.auth import Auth
 import json
@@ -21,16 +21,18 @@ def save_casefile():
     if not auth.validate_login(email, cookie):
         abort(403)
     record = caseFile()
-    hpid = str(res.cookies.get('hospital'))
-    record.healthcare_id = hpid
+    record.healthcare_id = str(res.cookies.get('hosp_code'))
     record.patient_id = data.get("patient_id")
     record.staff_id = str(res.cookies.get("session_id")).split('.')[1]
     record.symptoms = data.get("symptoms")
     record.diagnosis = data.get("diagnosis")
     record.prescription = data.get("prescription")
     record.testResult = data.get("prev-result")
+    redir = str(res.cookies.get("session_id")).split('.')[1]
     try:
-        #record.save()
-        return jsonify({"hosp_cookie_check": hpid})
-    except Exception as e:
-        return jsonify({"error": e})
+        record.save()
+        session['message'] = "Casefile saved succesfully"
+        return redirect(f"/doctor/{redir}", code=302)
+    except Exception:
+        session["error"] = "Error saving casefile"
+        return redirect(f"/doctor/{redir}", code=302)

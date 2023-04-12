@@ -8,6 +8,7 @@ import sys
 from models.staffLogin import Staff
 from models.patientLogin import User
 from datetime import datetime, date
+from sqlalchemy.orm.exc import NoResultFound
 
 
 class Auth:
@@ -80,6 +81,8 @@ class Auth:
             data.update(User.user_by_nin(nin))
         except ValueError:
             return {"error": "not a valid nin"}
+        except NoResultFound:
+            return {"error": "NIN not found"}
         dob = datetime.fromisoformat(data['dob'])
         today = date.today()
         age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
