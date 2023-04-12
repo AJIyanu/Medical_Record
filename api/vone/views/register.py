@@ -22,7 +22,7 @@ def save_casefile():
         abort(403)
     record = caseFile()
     record.healthcare_id = str(res.cookies.get('hosp_code'))
-    record.patient_id = data.get("patient_id")
+    record.patient_id = "not a valid id" #data.get("patient_id")
     record.staff_id = str(res.cookies.get("session_id")).split('.')[1]
     record.symptoms = data.get("symptoms")
     record.diagnosis = data.get("diagnosis")
