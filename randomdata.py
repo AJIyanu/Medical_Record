@@ -23,4 +23,4 @@ for i in range(1, 11):
     sex = random.choice(['Male', 'Female'])
     dob = fake.date_of_birth(minimum_age=25, maximum_age=70)
 
-    print(f"INSERT INTO `Doctor` (`address`, `nxt_of_kin`, `phone`, `id`, `created_at`, `updated_at`, `nin`, `firstname`, `surname`, `middlename`, `sex`, `dob`) VALUES ('{address}', '{nxt_of_kin}', '{phone}', '{id}', '{created_at}', '{updated_at}', '{nin}', '{firstname}', '{surname}', '{middlename}', '{sex}', '{dob}');")
+    print(f"INSERT INTO `Patient` (`address`, `nxt_of_kin`, `phone`, `id`, `created_at`, `updated_at`, `nin`, `firstname`, `surname`, `middlename`, `sex`, `dob`) VALUES ('{address}', '{nxt_of_kin}', '{phone}', '{id}', '{created_at}', '{updated_at}', '{nin}', '{firstname}', '{surname}', '{middlename}', '{sex}', '{dob}');")
