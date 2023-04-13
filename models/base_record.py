@@ -1,3 +1,4 @@
+# pylint: disable=import-outside-toplevel
 #!/usr/bin/python3
 """
 This module contains the class that descirbes the base
@@ -7,15 +8,14 @@ properties of records in this application.
 
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, DateTime, ForeignKey
+from sqlalchemy import Column, String, DateTime #ForeignKey
 from models.base_person import Base
 from typing import Dict, List
 from sqlalchemy.orm.exc import NoResultFound
 
-Base = Base
 
 
-class Record:
+class Record(Base):
     """This class contains the basic properties of every
     record made connecting the patient and the doctor"""
 
@@ -36,7 +36,7 @@ class Record:
                 self.id = args[0]
                 self.created_at = args[1]
                 self.updated_at = args[2]
-            except Exception:
+            except IndexError:
                 pass
         else:
             if "id" not in kwargs.keys():
@@ -46,7 +46,7 @@ class Record:
                                                      '%Y-%m-%dT%H:%M:%S.%f')
                 kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
-            except:
+            except KeyError:
                 pass
             finally:
                 self.__dict__.update(kwargs)
@@ -83,11 +83,11 @@ class Record:
         return record
 
     @classmethod
-    def user_by_id(self,id:str = None) -> Dict:
+    def user_by_id(self, myid:str = None) -> Dict:
         """returns user instance by id"""
         from models import storage
         try:
-            me = storage.user_by_id(self, id)
+            me = storage.user_by_id(self, myid)
         except NoResultFound:
             return None
         return me
@@ -98,8 +98,8 @@ class Record:
         diction = {}
         try:
             diction.update({'patient_id': kwargs['patient_id']})
-        except KeyError:
-            raise KeyError("You must supply <patient_id>")
+        except KeyError as exe:
+            raise KeyError("You must supply <patient_id>") from exe
         try:
             diction.update({'healthcare_id': kwargs['healthcare_id']})
         except KeyError:
@@ -120,8 +120,8 @@ class Record:
         diction = {}
         try:
             diction.update({'staff_id': kwargs['staff_id']})
-        except KeyError:
-            raise KeyError("You must supply <staff_id>")
+        except KeyError as exe:
+            raise KeyError("You must supply <staff_id>") from exe
         try:
             diction.update({'healthcare_id': kwargs['healthcare_id']})
         except KeyError:
@@ -137,11 +137,11 @@ class Record:
             return None
 
     @classmethod
-    def update_me(self, id: str, **kwargs) -> None:
+    def update_me(self, myid: str, **kwargs) -> None:
         """update class"""
         from models import storage
         try:
-            me = storage.cls_by_id(self, id)
+            me = storage.cls_by_id(self, myid)
         except NoResultFound:
             return None
         me_lst = dir(me)
@@ -149,4 +149,3 @@ class Record:
             if key[:2] != "__" and key in me_lst:
                 setattr(me, key, kwargs[key])
         me.save()
-        return

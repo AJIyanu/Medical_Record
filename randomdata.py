@@ -19,7 +19,7 @@ for i in range(1, 11):
     nin = ''.join(random.choices(string.digits, k=11))
     firstname = fake.first_name()
     surname = fake.last_name()
-    middlename = fake.mid
+    middlename = fake.first_name()
     sex = random.choice(['Male', 'Female'])
     dob = fake.date_of_birth(minimum_age=25, maximum_age=70)
 
