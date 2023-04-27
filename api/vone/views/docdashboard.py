@@ -20,13 +20,14 @@ def dashboard(userid):
     if not auth.validate_login(email, cookie):
         abort(403)
     doc = auth.get_staff(userid)
-    msg = session.pop('message', None)
-    err = session.pop('error', None)
+    msg = session.get("message", None)
+    err = session.pop("error", None)
     doc['message'] = msg
     doc['error'] = err
     doc['hosp_name'] = hosp.get("name")
     doc['hosp_type'] = hosp.get("__class__")
     doc['hosp_id'] = hosp.get("id")
+    print(f"this is the session set {msg}, and {err}, {session.get('check')}")
     return render_template("doctor.html", **doc)
 
 

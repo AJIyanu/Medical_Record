@@ -15,7 +15,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 
 
-class Record(Base):
+class Record:
     """This class contains the basic properties of every
     record made connecting the patient and the doctor"""
 

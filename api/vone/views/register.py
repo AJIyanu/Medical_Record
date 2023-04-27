@@ -29,10 +29,14 @@ def save_casefile():
     record.prescription = data.get("prescription")
     record.testResult = data.get("prev-result")
     redir = str(res.cookies.get("session_id")).split('.')[1]
+    session["check"] = "check"
+    print('Session before redirect:', session)
     try:
         record.save()
         session['message'] = "Casefile saved succesfully"
-        return redirect(f"/doctor/{redir}", code=302)
+        print('Session success before redirect:', session)
+        return redirect("/status") #(f"/doctor/{redir}", code=302)
     except Exception:
         session["error"] = "Error saving casefile"
+        print('Session error before redirect:', session)
         return redirect(f"/doctor/{redir}", code=302)
