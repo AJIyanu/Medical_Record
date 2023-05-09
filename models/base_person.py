@@ -22,6 +22,10 @@ class Person:
     human users
     """
 
+    __tablename__ = "allpersons"
+    __mapper_args__ = {'polymorphic_identity': 'allpersons',
+                       'polymorphic_on': 'personality'}
+    personality = Column(String(15))
     id = Column(String(60), unique=True, nullable=False, primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
@@ -29,6 +33,10 @@ class Person:
     firstname = Column(String(128), nullable=False)
     surname = Column(String(128), nullable=False)
     middlename = Column(String(128))
+    phone = Column(String(20))
+    __nin = Column(String(12), nullable=False, unique=True)
+    nextofkinnin = Column(String(12))
+    address = Column(String(128))
     sex = Column(String(15), nullable=False)
     dob = Column(DateTime, nullable=False)
 
@@ -118,3 +126,19 @@ class Person:
                 setattr(me, key, kwargs[key])
         me.save()
         return
+
+    @property
+    def nin(self):
+        """returns NIN"""
+        return self.__nin
+
+    @nin.setter
+    def nin(self, value):
+        """sets NIN value and make sure it exists"""
+        try:
+            int(value)
+        except ValueError:
+            raise ValueError("NIN must be a number")
+        if len(value) != 11:
+            raise ValueError("NIN must be 11 digits")
+        self.__nin = value

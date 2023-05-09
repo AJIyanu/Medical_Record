@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """database storage"""
 
+from typing import Dict, List
 
-from sqlalchemy import MetaData, create_engine
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.orm.exc import NoResultFound
-from typing import Dict, List
 
 from models.base_person import Person, Base
 from models.casefile import caseFile
@@ -13,9 +13,7 @@ from models.patient import Patient
 from models.doctor import Doctor
 from models.generalH import Hospital
 from models.maternity import Maternity
-from models.healthcare import H_Facilities
-from models.staffLogin import Staff
-from models.patientLogin import User
+from models.card import Appointment
 
 
 class DBStorage:
@@ -28,9 +26,7 @@ class DBStorage:
                "generalH": Hospital,
                "Maternity": Maternity,
                "Casefile": caseFile,
-               "Staff": Staff,
-               "User": User,
-               "H_Facilities": H_Facilities
+               "Person": Person
                }
 
     def __init__(self):

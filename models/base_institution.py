@@ -14,18 +14,21 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from models.base_person import Base
 
-Base = Base
-
-class Institution:
+class Institution(Base):
     """
     This class contains the basic properties of institution
     connecting the patient and medical staff
     """
 
+    __tablename__ = "institution"
+    __mapper_args__ = {'polymorphic_identity': 'institution',
+                       'polymorphic_on': 'insttype'}
+    insttype = Column(String(15))
     id = Column(String(60), unique=True, nullable=False, primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     name = Column(String(128), nullable=False)
+    address = Column(String(1024))
     code = Column(String(20), unique=True, nullable=False)
 
     def __init__(self, *args, **kwargs):
@@ -75,7 +78,7 @@ class Institution:
         """save to database"""
         self.updated_at = datetime.now()
         from models import storage
-        self.createRecord()
+        # self.createRecord()
         storage.save()
 
     def show_all(self):
