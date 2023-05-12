@@ -15,7 +15,7 @@ class Hospital(Institution, Base):
     """this describes the property of patient"""
     __tablename__ = "hospital"
     __mapper_args__ = {'polymorphic_identity': 'hospital'}
-    hosp_id = Column(String(30), ForeignKey('institution.id'), unique=True)
+    hosp_id = Column(String(60), ForeignKey('institution.id'), unique=True, primary_key=True)
 
     def __init__(self, *args, **kwargs) -> None:
         """initializes Hospital"""

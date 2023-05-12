@@ -2,7 +2,7 @@
 """
 This module is for patients
 """
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, ForeignKey
 
 from models.base_person import Person, Base
 #from sqlalchemy.orm import relationship
@@ -15,6 +15,8 @@ class Patient(Person, Base):
     occupation = Column(String(60))
     insurance = Column(String(25))
     __mapper_args__ = {'polymorphic_identity': 'patient'}
+    allperson_id = Column(String(60), ForeignKey('allpersons.id'), unique=True, primary_key=True)
+
 
     def __init__(self, *args, **kwargs) -> None:
         """initializes Patient"""

@@ -1,14 +1,11 @@
 #!/usr/bin/env python3
 """auth class module"""
 
-import os
-import sys
 
-
-from models.staffLogin import Staff
-from models.patientLogin import User
 from datetime import datetime, date
 from sqlalchemy.orm.exc import NoResultFound
+from models.loginauth import PersonAuth
+from models.doctor import Doctor
 
 
 class Auth:
@@ -21,43 +18,31 @@ class Auth:
         """does nothing"""
         pass
 
-    def log_in(self, **kwargs) -> bool:
+    def log_in(self, **kwargs) -> dict:
         """verify login data"""
-        try:
-            login = Staff.search(email=kwargs['email'])
-            self.__login[login.get('email')] = login
-        except AttributeError:
-            return False
-        details = Staff.get_user(kwargs['pwd'], login)
-        if details is None:
-            return False
-        self.__user[login.get('staff_id')] = details
-        if not Staff.validate_inst_code(login, kwargs["code"]):
-            raise ValueError("You are not authorized in this institution")
-        return True
+        data = PersonAuth.find_me(kwargs['email'])
+        if data is None:
+            raise ValueError("Email does not exist")
+        objdata = data.login(kwargs['pwd'])
+        self.__login.update({objdata.get('id'): objdata})
+        self.__user.update({kwargs['email']: data.session_token})
+        return objdata, data.session_token
 
-    def create_session(self, email) -> str:
-        """returns session id"""
-        login = self.__login.get(email)
-        if login is not None:
-            del login['session_id']
-            del login['__class__']
-            return Staff.reset_token(login, "set")
-        return None
+    def auth_inst(self, id, code):
+        """validates insitution and returns data"""
+        return Doctor.validate_inst_code(id, code)
 
-    def delete_session(self, email) -> None:
+    def delete_session(self, id, email) -> None:
         """deletes session for log out"""
-        login = self.__login.get(email)
-        if login is not None:
-            del login['session_id']
-            del login['__class__']
-            Staff.reset_token(login)
+        login = PersonAuth.find_me(email)
+        login.logout()
+        self.__user.pop(email)
+        self.__login.pop(id)
 
     def validate_login(self, email, token) -> bool:
         """checks user is logged in"""
-        login = self.__login.get(email)
-        if login is not None:
-            return Staff.validate_token(login, token)
+        if self.__user.get(email) == token:
+            return True
         return False
 
     def staff_id(self, email):
@@ -69,7 +54,7 @@ class Auth:
 
     def get_staff(self, userid) -> dict:
         """returns the dictionary of staff"""
-        staff = self.__user.get(userid)
+        staff = self.__login.get(userid)
         if staff is None:
             return {"msg": "not logged in"}
         return staff

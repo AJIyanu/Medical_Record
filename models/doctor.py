@@ -8,7 +8,7 @@ try:
     from models.base_person import Person, Base
 except ModuleNotFoundError:
     from base_person import Person, Base
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, ForeignKey
 #from sqlalchemy.orm import relationship
 
 
@@ -16,6 +16,7 @@ class Doctor(Person, Base):
     """this describes the property of patient"""
     __tablename__ = "doctor"
     __mapper_args__ = {'polymorphic_identity': 'doctor'}
+    allperson_id = Column(String(60), ForeignKey('allpersons.id'), unique=True, primary_key=True)
     __specialization = Column(String(20))
     __authinst = Column(String(128))
 
@@ -31,12 +32,9 @@ class Doctor(Person, Base):
         return self.__specialization
 
     @specialization.setter
-    def specialization(self, value, speclist):
+    def specialization(self, value):
         """sets specialization for doctors"""
-        if value in speclist:
-            self.__specialization = value
-        else:
-            raise ValueError("value doesn't exist")
+        self.__specialization = value
 
     @property
     def authinst(self):
@@ -56,3 +54,10 @@ class Doctor(Person, Base):
         else:
             raise ValueError("Insititution does not exist")
         self.__authinst = json.dumps(prev)
+
+    @classmethod
+    def validate_inst_code(self, id, code):
+        """if Doctor is authorized return True else False"""
+        from models import storage
+        user = storage.cls_by_id(self, id)
+        return True if code in user.authinst else False

@@ -16,7 +16,7 @@ from typing import Dict
 Base = declarative_base()
 
 
-class Person:
+class Person(Base):
     """
     This class describes the basic attribute of every
     human users
@@ -29,7 +29,6 @@ class Person:
     id = Column(String(60), unique=True, nullable=False, primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-    nin = Column(String(12), unique=True, nullable=False)
     firstname = Column(String(128), nullable=False)
     surname = Column(String(128), nullable=False)
     middlename = Column(String(128))
@@ -137,8 +136,8 @@ class Person:
         """sets NIN value and make sure it exists"""
         try:
             int(value)
-        except ValueError:
-            raise ValueError("NIN must be a number")
+        except ValueError as msg:
+            raise ValueError("NIN must be a number") from msg
         if len(value) != 11:
             raise ValueError("NIN must be 11 digits")
         self.__nin = value

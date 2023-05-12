@@ -14,6 +14,8 @@ from models.doctor import Doctor
 from models.generalH import Hospital
 from models.maternity import Maternity
 from models.card import Appointment
+from models.loginauth import PersonAuth
+from models.nurse import Nurse
 
 
 class DBStorage:
@@ -26,7 +28,10 @@ class DBStorage:
                "generalH": Hospital,
                "Maternity": Maternity,
                "Casefile": caseFile,
-               "Person": Person
+               "Person": Person,
+               "Appointment": Appointment,
+               "PersonAuth": PersonAuth,
+               "Nurse": Nurse
                }
 
     def __init__(self):

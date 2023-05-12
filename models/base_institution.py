@@ -88,10 +88,6 @@ class Institution(Base):
         institution = storage.all(self)
         return institution
 
-    def set_code(self, value):
-        """sets value of institution"""
-        self.code = value
-
     @classmethod
     def inst_by_id(self, id:str=None) -> Dict:
         """returns user instance by id"""
