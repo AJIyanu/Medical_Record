@@ -3,11 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Case File</title>
+        <title>Reister as a Patient</title>
         <link rel="stylesheet" href="/dyn/css/register">
         <!-- <link rel="stylesheet" href="form.css"> -->
     </head>
     <body>
+      <!-- <script src="https://unpkg.com/nigeriajs@1.0.0/dist/nigeria.min.js"></script> -->
         <section>
             <div class="container">
                 <form>
@@ -61,14 +62,17 @@
                             <input type="text" id="nin" name="nin" placeholder="NIN">
                         </div>
                         <div class="form-group personal">
-                            <label for="nok"></label>
-                            <input type="text" id="nok" name="nok" placeholder="Full Name of Next of Kin">
+                            <label for="state-select">State of Origin</label>
+                            <input type="text" name="state-select" id="state-select"></select>
+
+                            <label for="lga-select">LGA</label>
+                            <input type="text" name="lga-select" id="lga-select"></select>
                         </div>
                         <button type="button" class="nxt-btn">Next</button>
                     </div>
 
                     <div class="step step-2">
-				              <h5>Contact Details</h5>
+				              <h5>Contacts and Work</h5>
                         <div class="form-group personal">
                             <label for="phone"></label>
                             <input type="number" id="phone" name="phone" placeholder="Your Phone Number">
@@ -78,30 +82,38 @@
                       <input type="text" id="address" name="address" placeholder="Enter your home address">
                     </div>
                     <div class="form-group personal">
-                      <label for="nokphone"></label>
-                      <input type="text" id="nokphone" name="nokphone" placeholder="Enter your next of kin phone">
+                      <label for="occupation"></label>
+                      <input type="text" id="occupation" name="occupation" placeholder="What is your Occupation">
+                    </div>
+                    <div class="form-group personal">
+                      <label for="workaddress"></label>
+                      <input type="text" id="workaddress" name="workaddress" placeholder="Enter your Work address">
+                    </div>
+                    <div class="form-group personal">
+                      <label for="religion"></label>
+                      <input type="text" id="religion" name="religion" placeholder="Religion">
                     </div>
                         <button type="button" class="prev-btn">Previous</button>
                         <button type="button" class="nxt-btn">Next</button>
                     </div>
 
                     <div class="step step-3">
-			                <h5>Work details</h5>
+			                <h5>Next of Kin</h5>
                         <div class="form-group personal">
-                            <label for="occupation"></label>
-                            <input type="text" id="occupation" name="ocupation" placeholder="Enter your occupation">
+                            <label for="nextofkinnin"></label>
+                            <input type="text" id="nextofkinnin" name="nextofkinnin" placeholder="Next of Kin NIN (if available)">
                         </div>
                         <div class="form-group personal">
-                            <label for="speciality"></label>
-                            <input type="text" id="speciality" name="speciality" placeholder="If Doctor, Enter speciality">
+                            <label for="nokfullname"></label>
+                            <input type="text" id="nokfullname" name="nokfullname" placeholder="Next of Kin fullname">
                         </div>
                         <div class="form-group personal">
-                            <label for="licenseno"></label>
-                            <input type="text" id="licenseno" name="licenseno" placeholder="if Doctor, Enter Licence NO.">
+                            <label for="nokaddress"></label>
+                            <input type="text" id="nokaddress" name="nokaddress" placeholder="Next of Kin Address">
                         </div>
                     <div class="form-group personal">
-                            <label for="officeadd"></label>
-                            <input type="text" id="officeadd" name="officeadd" placeholder="Enter your work address">
+                            <label for="nokphone"></label>
+                            <input type="phone" id="nokphone" name="nokphone" placeholder="Next of Kin Phone NUmber">
                         </div>
                         <button type="button" class="prev-btn">Previous</button>
                         <button type="submit" class="submit-btn">Submit</button>
@@ -110,6 +122,19 @@
                 </form>
             </div>
         </section>
+        <!-- <script>
+          const stateSelect = document.getElementById('state-select');
+
+          nigeriajs.initStates(stateSelect);
+
+          const lgaSelect = document.getElementById('lga-select');
+
+          nigeriajs.initLGAs(lgaSelect, stateSelect.value);
+
+          stateSelect.addEventListener('change', () => {
+            nigeriajs.updateLGAs(lgaSelect, stateSelect.value);
+          });
+        </script> -->
         <script>
 const form = document.querySelectorAll('form');
 // const symptoms = document.querySelector('.symp-tag');
@@ -185,7 +210,9 @@ form[1].addEventListener('submit', (e) => {
   e.preventDefault();
   form[1].querySelectorAll('input').forEach((input) => {
     const { name, value } = input;
+    const sex = document.getElementById("sex");
     formData.append( name, value );
+    formData.append('sex', sex.value);
   });
 
 
