@@ -63,10 +63,10 @@
                         </div>
                         <div class="form-group personal">
                             <label for="state-select">State of Origin</label>
-                            <input type="text" name="state-select" id="state-select"></select>
+                            <select type="text" name="state-select" id="state-select"></select>
 
                             <label for="lga-select">LGA</label>
-                            <input type="text" name="lga-select" id="lga-select"></select>
+                            <select type="text" name="lga-select" id="lga-select"></select>
                         </div>
                         <button type="button" class="nxt-btn">Next</button>
                     </div>
@@ -122,19 +122,39 @@
                 </form>
             </div>
         </section>
-        <!-- <script>
+        <script>
           const stateSelect = document.getElementById('state-select');
-
-          nigeriajs.initStates(stateSelect);
-
           const lgaSelect = document.getElementById('lga-select');
 
-          nigeriajs.initLGAs(lgaSelect, stateSelect.value);
-
-          stateSelect.addEventListener('change', () => {
-            nigeriajs.updateLGAs(lgaSelect, stateSelect.value);
+          fetch('/states')
+          .then(response => response.json())
+          .then(options => {
+            options.forEach(option => {
+              const optionElement = document.createElement('option');
+              optionElement.textContent = option;
+              stateSelect.appendChild(optionElement)
+            });
           });
-        </script> -->
+
+          stateSelect.addEventListener('change', (event) => {
+            const seloption = event.target.value;
+            console.log('change detected');
+
+            console.log(seloption)
+
+            fetch('/lga/' + seloption)
+            .then(response => response.json())
+            .then(options => {
+              console.log(options)
+            options.forEach(option => {
+              const optionElement = document.createElement('option');
+              optionElement.textContent = option;
+              lgaSelect.appendChild(optionElement)
+            });
+          });
+          });
+
+        </script>
         <script>
 const form = document.querySelectorAll('form');
 // const symptoms = document.querySelector('.symp-tag');

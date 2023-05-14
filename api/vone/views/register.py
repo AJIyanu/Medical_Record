@@ -63,3 +63,28 @@ def newperson():
     newuser.save()
     login.save()
     return jsonify({"data": str(data), "user": newuser.to_dict()}), 200
+
+
+@app_views.route('/states', strict_slashes=False)
+def states():
+    """returns a lists of states in json"""
+    with open("states.json") as file:
+        states = json.loads(file.read())
+        statesjson = []
+        for state in states:
+            statesjson.append(state['states']['name'])
+    return jsonify(statesjson)
+
+@app_views.route('/lga/<state>', strict_slashes=False)
+def lga(state):
+    """returns a list of lga based on state"""
+    with open('states.json') as file:
+        states = json.loads(file.read())
+        lgajson = []
+        for st in states:
+            if st['states']['name'] == state:
+                for lgas in st['states']['locals']:
+                    lgajson.append(lgas['name'])
+                break
+    print(lgajson)
+    return jsonify(lgajson)
