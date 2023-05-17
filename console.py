@@ -11,9 +11,7 @@ from models.doctor import Doctor
 from models.generalH import Hospital
 from models.casefile import caseFile
 from models.maternity import Maternity
-from models.healthcare import H_Facilities
-from models.staffLogin import Staff
-from models.patientLogin import User
+from models.base_person import Person
 import json
 
 
@@ -44,7 +42,7 @@ class Medical_Record_Shell(cmd.Cmd):
         print("Quit command to exit the program")
 
     def do_Register(self, args) -> None:
-        """Register a Person"""
+        """Register a Person
         args = args.split()
         try:
             user = classes[args[0]]()
@@ -98,7 +96,8 @@ class Medical_Record_Shell(cmd.Cmd):
             puser.save()
         except Exception:
             staff.save()
-        print(f"User saved Successfully, id: {user.id} Name: {user.surname} {user.firstname}")
+        print(f"User saved Successfully, id: {user.id} Name: {user.surname} {user.firstname}")"""
+        pass
 
     def do_License(self, args) -> None:
         """adds hospital fof database use"""
@@ -115,51 +114,6 @@ class Medical_Record_Shell(cmd.Cmd):
         hosp.code = input("Input Hospital code: ")
         hosp.save()
         print(f"{hosp.name} has been licensed with id {hosp.facil}")
-
-    def do_Open(self, args) -> None:
-        """Register data for patient"""
-        if args != "Casefile":
-            print("You can only open Casefile")
-            return
-        doc = input("Enter your email: ")
-        if "@" in doc:
-            doc = Staff.search(email=doc)
-        else:
-            doc = Staff.search(nin=doc)
-        if doc is None:
-            print("You are not a valid User")
-            return
-        pwd = input("Enter Password: ")
-        if not Staff.get_user(doc, pwd):
-            print("wrong password")
-            return
-        doc_id = Staff.get_user(doc, pwd).get("id")
-        code = input("Enter Hospital Code: ")
-        if not Staff.validate_inst_code(doc_id, code):
-            print("You are not authorized in this hosp or not a valid code")
-            return
-        validate = Doctor.user_by_id(doc_id)
-        print(f"You opened a casefile as Doctor {validate.get('surname')}")
-        validate = Maternity.search_by_code(code)
-        if validate is None:
-            validate = Hospital.search_by_code(code)
-        if validate is None:
-            print("Sorry! You need to be in a hospital to open a case file")
-            return
-        print(f"You opened a Case File @{validate['name']} {validate['__class__']}")
-        pat = input("Enter Patient ID: ")
-        validate = Patient.user_by_id(pat)
-        if validate is None:
-            print("You cant open a casefile non patient")
-            return
-        print(f"You have opened a casefile for {validate['surname']} {validate['firstname']}")
-        record = caseFile(staff_id=doc, healthcare_id=hosp, patient_id=pat)
-        record.symptoms = input("Patient's Complaint: ")
-        record.testResult = input("Test Result (If any): ")
-        record.diagnosis = input("Diagnosis: ")
-        record.prescription = input("Prescription: ")
-        record.save()
-        print(f"Casefile saved with {record.id}")
 
     def do_Show(self, args) -> None:
         """show all data"""

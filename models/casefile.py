@@ -5,9 +5,8 @@ properties of records in this application.
 """
 
 
-import uuid
-from datetime import datetime
-from sqlalchemy import Column, String, DateTime, ForeignKey
+from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy.orm import relationship
 from models.base_record import Record
 from models.base_person import Base
 
@@ -22,9 +21,10 @@ class caseFile(Record, Base):
     diagnosis = Column(String(128), nullable=False)
     prescription = Column(String(128), nullable=False)
     testResult = Column(String(128))
-    staff_id = Column(String(60), ForeignKey("Doctor.id"), nullable=False)
-    patient_id = Column(String(60), ForeignKey("Patient.id"), nullable=False)
-    healthcare_id = Column(String(60), ForeignKey("HealthCareFacilities.id"), nullable=False)
+    staff_id = Column(String(60), ForeignKey("doctor.allperson_id"), nullable=False)
+    patient_id = Column(String(60), ForeignKey("patient.allperson_id"), nullable=False)
+    doctor, patient = relationship('Doctor'), relationship('Patient')
+    healthcare_id = Column(String(60), ForeignKey("institution.id"), nullable=False)
 
     def __init__(self, *args, **kwargs) -> None:
         """initializes casefile"""
