@@ -6,6 +6,7 @@ from datetime import datetime, date
 from sqlalchemy.orm.exc import NoResultFound
 from models.loginauth import PersonAuth
 from models.doctor import Doctor
+from models.base_person import Person
 
 
 class Auth:
@@ -63,9 +64,9 @@ class Auth:
         """supllies all patient needed info"""
         data = {}
         try:
-            data.update(User.user_by_nin(nin))
-        except ValueError:
-            return {"error": "not a valid nin"}
+            data.update(Person.user_by_nin(nin))
+        except ValueError as msg:
+            return {"error": str(msg)}
         except NoResultFound:
             return {"error": "NIN not found"}
         dob = datetime.fromisoformat(data['dob'])

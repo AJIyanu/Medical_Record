@@ -102,7 +102,7 @@ class Person(Base):
         return patients
 
     @classmethod
-    def user_by_id(self,id:str = None) -> Dict:
+    def user_by_id(self, id:str = None) -> Dict:
         """returns user instance by id"""
         from models import storage
         try:
@@ -125,6 +125,19 @@ class Person(Base):
                 setattr(me, key, kwargs[key])
         me.save()
         return
+
+    @classmethod
+    def user_by_nin(self, nin):
+        """get user by nin number"""
+        from models import storage
+        try:
+            int(nin)
+        except ValueError as msg:
+            raise ValueError("NIN must be a number") from msg
+        if len(nin) != 11:
+            raise ValueError("NIN must be 11 digits")
+        user = storage.search(self, {'_Person__nin': nin})
+        return user[0]
 
     @property
     def nin(self):

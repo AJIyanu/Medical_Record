@@ -1,7 +1,7 @@
 /********** Template CSS **********/
 :root {
-    --primary: #D81324;
-    --secondary: #0B2154;
+    --primary: #5dec0a;
+    --secondary: #052265;
     --light: #F2F2F2;
     --dark: #111111;
 }
@@ -43,7 +43,7 @@
 
 .btn.btn-primary,
 .btn.btn-secondary {
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .btn-square {
@@ -169,7 +169,7 @@
         position: relative;
         min-height: 450px;
     }
-    
+
     #header-carousel .carousel-item img {
         position: absolute;
         width: 100%;
@@ -314,7 +314,7 @@
 
 /*** Footer ***/
 .footer {
-    background: linear-gradient(rgba(0, 0, 0, .9), rgba(0, 0, 0, .9)), url(../img/carousel-bg-1.jpg) center center no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, .9), rgba(30, 86, 2, 0.9)), url(../img/carousel-bg-1.jpg) center center no-repeat;
     background-size: cover;
 }
 

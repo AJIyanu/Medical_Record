@@ -34,12 +34,16 @@
 		                  <ul><input class="symp-tag" type="text" id="symptoms" name="symptoms"></ul>
                     </div>
                         <div class="form-group">
-                            <label for="observation">Physcial Observation</label>
-                            <input type="text" id="observation" name="observation">
+                            <label for="complaint">Patients Complaints</label>
+                            <textarea id="complaint" name="complaint"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="examination">Body Examinations</label>
-                            <input type="text" id="examination" name="examination">
+                            <label for="examination">On Examinations</label>
+                            <textarea id="examination" name="examination"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="observation">Physical Observation</label>
+                            <textarea id="observation" name="observation"></textarea>
                         </div>
                         <button type="button" class="nxt-btn">Next</button>
                     </div>
@@ -177,7 +181,7 @@ form[1].addEventListener('submit', (e) => {
   });
   formData.set("symptoms", tags);
   formData.set("patient_id", patientData.id);
-  
+
 
   fetch('/doctor/savecasefile', {
     method: 'POST',

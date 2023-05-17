@@ -63,7 +63,9 @@
                         </div>
                         <div class="form-group personal">
                             <label for="state-select">State of Origin</label>
-                            <select type="text" name="state-select" id="state-select"></select>
+                            <select type="text" name="state-select" id="state-select">
+                              <option disabled selected> -- State of Origin -- </option>
+                            </select>
 
                             <label for="lga-select">LGA</label>
                             <select type="text" name="lga-select" id="lga-select"></select>
@@ -145,7 +147,10 @@
             fetch('/lga/' + seloption)
             .then(response => response.json())
             .then(options => {
-              console.log(options)
+              console.log(options);
+              while(lgaSelect.firstChild) {
+                lgaSelect.removeChild(lgaSelect.firstChild);
+              }
             options.forEach(option => {
               const optionElement = document.createElement('option');
               optionElement.textContent = option;
