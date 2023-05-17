@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+!/usr/bin/env python3
 """ Module of Index views
 """
 from flask import jsonify, abort, render_template, send_file, request, session
