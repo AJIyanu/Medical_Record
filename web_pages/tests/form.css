@@ -16,8 +16,8 @@
   }
 
   .container {
-    max-width: 400px;
-    width: 90%;
+    max-width: 500px;
+    width: 100%;
     padding: 20px;
     box-shadow: 0px 0px 20px #0a0a0a38;
     border-radius: 8px;
@@ -114,6 +114,16 @@ font-weight: bold;
 }
 label.firstname {
   float: left;
+}
+
+textarea, textarea:focus {
+  width: 100%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  /* border-bottom: 2pt; */
+  background-color: transparent;
+  color: #ffff;
 }
 
 p.error {
