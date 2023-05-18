@@ -39,31 +39,35 @@
                         </div>
                         <div class="form-group">
                             <label for="examination">On Examinations</label>
-                            <textarea id="examination" name="examination" rows="3"></textarea>
+                            <textarea id="examination" name="examination" rows="2"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="observation">Physical Observation</label>
-                            <textarea id="observation" name="observation" rows="3"></textarea>
+                            <textarea id="observation" name="observation" rows="2"></textarea>
                         </div>
                         <button type="button" class="nxt-btn">Next</button>
                     </div>
 
                     <div class="step step-2">
-				<h2>Tests and Referrals</h2>
+				<h2>Impression</h2>
                         <div class="form-group">
-                            <label for="prev-result">Previous Test Results</label>
-                            <input type="text" id="prev-result" name="prev-result">
+                            <label for="impression">Add your impression here</label>
+                            <textarea id="impression" name="impression" rows="3"></textarea>
                         </div>
                     <div class="form-group">
-                            <label for="tests">New Tests</label>
-                            <input type="text" id="tests" name="tests">
+                            <label for="allergies">Add allergies here</label>
+                            <input type="text" id="allergies" name="allergies">
+                        </div>
+                    <div class="form-group">
+                            <label for="disabilities">Add disabilities here</label>
+                            <input type="text" id="disabilities" name="disabilities">
                         </div>
                         <button type="button" class="prev-btn">Previous</button>
                         <button type="button" class="nxt-btn">Next</button>
                     </div>
 
                     <div class="step step-3">
-			    <h2>Prescription and Diagnosis!</h2>
+			    <h2>Plan</h2>
                         <div class="form-group">
                             <label for="diagnosis">Your Diagnosis</label>
                             <input type="text" id="diagnosis" name="diagnosis">
@@ -84,6 +88,8 @@ const form = document.querySelectorAll('form');
 const symptoms = document.querySelector('.symp-tag');
 const ul = document.querySelector("ul");
 let tags = [];
+let allergy = [];
+let disability = [];
 
 createTag();
 function createTag(){

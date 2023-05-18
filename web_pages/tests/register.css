@@ -54,6 +54,7 @@
   }
   .personal input, select{
     width: 100%;
+    outline: none;
     color: #ffffff;
     padding: 1px;
     font-size: 18px;

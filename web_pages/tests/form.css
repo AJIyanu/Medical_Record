@@ -116,14 +116,18 @@ label.firstname {
   float: left;
 }
 
-textarea, textarea:focus {
+textarea {
   width: 100%;
+  outline: none;
   border-top: none;
   border-left: none;
   border-right: none;
   /* border-bottom: 2pt; */
   background-color: transparent;
   color: #ffff;
+  border-width: 2px;
+  border-color: #ffff;
+  font-size: 18px;
 }
 
 p.error {
