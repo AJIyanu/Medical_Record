@@ -79,7 +79,7 @@ class DBStorage:
                     key = objects.__class__.__name__ + "." + objects.id
                 except AttributeError:
                     key = objects.__class__.__name__ + "." + objects.email
-                obj_dicts.update({key: objects.to_dict()})
+                obj_dicts.update({key: objects})
         return obj_dicts
 
     def user_by_id(self, obj=None, id: str = None) -> Dict:

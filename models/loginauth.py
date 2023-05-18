@@ -5,10 +5,14 @@ represents the Login and authentifications
 for all Login
 """
 import uuid
-import bcrypt
+# import bcrypt
+from argon2 import PasswordHasher, exceptions
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm.exc import NoResultFound
 from models.base_person import Base, Person
+
+
+passwordhash = PasswordHasher()
 
 
 class PersonAuth(Base):
@@ -34,11 +38,15 @@ class PersonAuth(Base):
     def set_password(self, pwd, token: bool=False):
         """saves password"""
         if not self.reset_token and not self.__hashed_password:
-            salt = bcrypt.gensalt()
-            self.__hashed_password = bcrypt.hashpw(pwd.encode('utf-8'), salt)
+            # salt = bcrypt.gensalt()
+            # self.__hashed_password = bcrypt.hashpw(pwd.encode('utf-8'), salt)
+            self.__hashed_password = passwordhash.hash(pwd)
         elif self.reset_token and token:
-            salt = bcrypt.gensalt()
-            self.__hashed_password = bcrypt.hashpw(pwd.encode('utf-8'), salt)
+            # salt = bcrypt.gensalt()
+            # self.__hashed_password = bcrypt.hashpw(pwd.encode('utf-8'), salt)
+            # if self.reset_token != token:
+            #     raise ValueError("Wrong token")
+            self.__hashed_password = passwordhash.hash(pwd)
             self.reset_token = str(uuid.uuid4())
             self.save()
         else:
@@ -61,12 +69,16 @@ class PersonAuth(Base):
 
     def login(self, pwd):
         """returns person class"""
+        # try:
+        #     chck = bcrypt.checkpw(pwd.encode('utf-8'),
+        #                           self.__hashed_password.encode('utf-8'))
+        # except AttributeError:
+        #     chck = bcrypt.checkpw(pwd.encode('utf-8'),
+        #                           self.__hashed_password)
         try:
-            chck = bcrypt.checkpw(pwd.encode('utf-8'),
-                                  self.__hashed_password.encode('utf-8'))
-        except AttributeError:
-            chck = bcrypt.checkpw(pwd.encode('utf-8'),
-                                  self.__hashed_password)
+            chck = passwordhash.verify(self.__hashed_password, pwd)
+        except exceptions.VerifyMismatchError:
+            chck = None
         if chck:
             diction = Person.user_by_id(self.person_id)
             self.session_token = str(uuid.uuid4())
