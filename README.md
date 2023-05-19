@@ -16,8 +16,7 @@ To run HEALTHVAULT, you'll need the following dependencies installed:
 1. Clone this repository to your local machine.
 2. Install the required dependencies using the following command:
 
-
-pip install -r requirements.txt
+shell:`pip install -r requirements.txt`
 
 3. Set up a MySQL database for HEALTHVAULT and update the database connection settings in the configuration file.
 4. Run the following command to start the Flask app:
