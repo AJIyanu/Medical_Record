@@ -1,0 +1,176 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "Montserrat";
+  }
+  section {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(128, 83, 227);
+  }
+
+  .container {
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0px 0px 20px #0a0a0a38;
+    border-radius: 8px;
+    background-color: rgb(14, 4, 42);
+  }
+
+  .step {
+    display: none;
+  }
+  .step.active {
+    display: block;
+  }
+
+  .form-group {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .form-group input {
+    width: 100%;
+    border: 1.5px solid rgba(128, 128, 128, 0.418);
+    padding: 5px;
+    font-size: 18px;
+    margin-top: 5px;
+    border-radius: 4px;
+  }
+
+  .symptoms-tag ul{
+    display: flex;
+    background: white;
+    flex-wrap: wrap;
+    padding: 7px;
+    margin: 12px 0;
+    border-radius: 5px;
+    border: 1px solid #cebaef;
+  }
+  .symptoms-tag ul  li{
+    color: rgb(14, 4, 42);
+    margin: 4px 3px;
+    list-style: none;
+    border-radius: 5px;
+    background: #F2F2F2;
+    padding: 5px 8px 5px 10px;
+    border: 1px solid #e3e1e1;
+  }
+  .symptoms-tag ul li i{
+    height: 20px;
+    width: 20px;
+    color: rgb(14, 4, 42);
+    margin-left: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: #dfdfdf;
+    justify-content: center;
+  }
+  .symptoms-tag ul input{
+    flex: 1;
+    padding: 5px;
+    border:  1.5px solid white;
+    border-radius: 4px;
+    outline: none;
+    font-size: 18px;
+  }
+
+  button.nxt-btn,
+  button.prev-btn,
+  button.find-btn,
+  button.submit-btn {
+    float: right;
+    margin-top: 20px;
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    background-color: rgb(186, 169, 225);
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 18px;
+    color: rgb(14, 4, 42);
+    cursor: pointer;
+    /* text-align: right; */
+  }
+  button.prev-btn {
+    float: left;
+  }
+  button.find-btn {
+    float: none;
+}
+  button.submit-btn {
+    background-color: rgb(240, 158, 6);
+  }
+label {
+color: rgb(193, 176, 239);
+font-weight: bold;
+}
+label.firstname {
+  float: left;
+}
+
+textarea {
+  width: 100%;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  /* border-bottom: 2pt; */
+  background-color: transparent;
+  color: #ffff;
+  border-width: 2px;
+  border-color: #ffff;
+  font-size: 18px;
+}
+
+p.error {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+p.diseases {
+  color:rgb(255, 255, 255);
+  float: right;
+}
+p.medics {
+  color: rgb(255, 255, 255);
+}
+p.detail {
+  color: rgb(186, 169, 225);
+  font-size: 20px;
+}
+
+h2 {
+  color: yellow;
+}
+
+#tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #ccc;
+  padding: 4px;
+}
+
+#tags-container .tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #eee;
+  color: #333;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#tags-container .tag:hover {
+  background-color: #ddd;
+}

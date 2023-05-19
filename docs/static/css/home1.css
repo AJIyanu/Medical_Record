@@ -1,0 +1,34 @@
+.abc {
+    vertical-align: middle;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+.button {
+    border: solid blue 2px;
+    padding: 15px 30px;
+    background-color: white;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.button:hover {
+    background-color: blue;
+  }
+
+a:link {
+    color: white;
+}
+
+a:hover {
+    color: white;
+}

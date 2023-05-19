@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sign in</title>
+		<link rel="stylesheet" type="text/css" href="static/css/signin.css">
+	</head>
+
+	<body>
+		<div class="main">
+			<input type="checkbox" id="chk" aria-hidden="true">
+
+				<div class="signup">
+					<form>
+						<label for="chk" aria-hidden="true">Doctor</label>
+						<p id="errorMessage" align="center"></p>
+						<input type="email" id="email-input" name="email" placeholder="Email" required="">
+						<input type="password" id="password-input" name="pswd" placeholder="Password" required="">
+						<input type="txt" id="hosID" name="instid" placeholder="Hospital_ID" required="">
+						<button id="doc_signin">Sign in</button>
+					</form>
+				</div>
+
+				<div class="login">
+					<form>
+						<label for="chk" aria-hidden="true">Patient</label>
+						<p id="ErrorMessage" align="center"></p>
+
+						<input type="email" id="emailinput" name="email" placeholder="Email" required="">
+						<input type="password" id="passwordinput" name="pswd" placeholder="Password" required="">
+						<button id ="pat_signin">Sign in</button>
+					</form>
+				</div>
+		</div>
+<script>
+const docsignInBtn = document.getElementById('doc_signin');
+
+docsignInBtn.addEventListener('click', function (event) {
+  event.preventDefault();
+  const emailInput = document.getElementById('email-input');
+  const passwordInput = document.getElementById('password-input');
+  const hosIDInput = document.getElementById('hosID');
+
+  const email = emailInput.value;
+  const password = passwordInput.value;
+  const hosID = hosIDInput.value;
+
+  const formData = new FormData();
+  formData.append('email', email);
+  formData.append('password', password);
+  formData.append('institution_id', hosID);
+
+  fetch('/docsignin', {
+    method: 'POST',
+    body: formData
+  })
+    .then(function (response) {
+      if (response.ok) {
+	      response.json().then(function (data) {
+	      window.location.href = '/doctor/' + data.userid
+	      }).catch(function (error) {
+	      console.error(error);
+	      });
+        //window.location.href = '/status';
+      } else {
+      // Handle the case where the server returns an error
+	      response.json().then(function (data) {
+	      const errormsg = document.getElementById("errorMessage");
+	      errormsg.innerHTML = data.error;
+	      }).catch(function (error) {
+		      console.error(error);
+	      });
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+});
+
+const signInBtn = document.getElementById('pat_signin');
+
+signInBtn.addEventListener('click', function (event) {
+  event.preventDefault();
+  const emailInput = document.getElementById('emailinput');
+  const passwordInput = document.getElementById('passwordinput');
+
+  const email = emailInput.value;
+  const password = passwordInput.value;
+
+  const formData = new FormData();
+  formData.append('email', email);
+  formData.append('password', password);
+
+  fetch('/patsignin', {
+    method: 'POST',
+    body: formData
+  })
+    .then(function (response) {
+      if (response.ok) {
+	response.json().then(function (data) {                                                   window.location.href = '/patient/' + data.userid                                          }).catch(function (error) {                                                              console.error(error);                                                                    });
+//        window.location.href = '/status';
+      } else {
+      // Handle the case where the server returns an error
+	      response.json().then(function (data) {
+	      const errormsg = document.getElementById("ErrorMessage");
+	      errormsg.innerHTML = data.error;
+	      }).catch(function (error) {
+		      console.error(error);
+	      });
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+});
+</script>
+	</body>
+</html>
+
+
