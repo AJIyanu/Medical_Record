@@ -7,7 +7,7 @@
     font-family: "Montserrat";
   }
   section {
-    background-image: url('static/images/register.jpg');
+    background-image: url('/images/register.jpg');
     /* background-blend-mode: screen; */
     background-color: rgba(222, 224, 233, 0.2);
     background-size: cover;
