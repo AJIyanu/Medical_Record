@@ -42,16 +42,15 @@ docsignInBtn.addEventListener('click', function (event) {
   const hosIDInput = document.getElementById('hosID');
 
   const userData = {
-  firstname: emailInput.value,
-  lastname: passwordInput.value,
-  hosID: hosID.value,
+  surname: emailInput.value,
+  firstname: passwordInput.value,
+  hosID: hosIDInput.value,
   user: "Doctor"
   }
 
   const cookievalue = JSON.stringify(userData);
   const expire = new Date();
   expire.setMinutes(expire.getDate() + 1);
-  console.log(cookievalue);
 
   document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
   window.location.href = "doctor.html"
@@ -72,7 +71,6 @@ signInBtn.addEventListener('click', function (event) {
   const cookievalue = JSON.stringify(userData);
   const expire = new Date();
   expire.setMinutes(expire.getDate() + 1);
-  console.log(userData, expire);
 
   document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
   window.location.href = "patient.html"
