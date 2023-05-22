@@ -32,53 +32,53 @@
 					</form>
 				</div>
 		</div>
-<script>
-const docsignInBtn = document.getElementById('doc_signin');
-
-docsignInBtn.addEventListener('click', function (event) {
-  event.preventDefault();
-  const emailInput = document.getElementById('email-input');
-  const passwordInput = document.getElementById('password-input');
-  const hosIDInput = document.getElementById('hosID');
-
-  const userData = {
-  surname: emailInput.value,
-  firstname: passwordInput.value,
-  hosID: hosIDInput.value,
-  user: "Doctor"
-  }
-
-  const cookievalue = JSON.stringify(userData);
-  const expire = new Date();
-  expire.setMinutes(expire.getDate() + 1);
-
-  document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
-  window.location.href = "doctor.html"
-});
-
-const signInBtn = document.getElementById('pat_signin');
-
-signInBtn.addEventListener('click', function (event) {
-  event.preventDefault();
-  const emailInput = document.getElementById('emailinput');
-  const passwordInput = document.getElementById('passwordinput');
-
-  const userData = {
-  surname: emailInput.value,
-  firstname: passwordInput.value,
-  user: "Mr."
-  }
-  const cookievalue = JSON.stringify(userData);
-  const expire = new Date();
-  expire.setMinutes(expire.getDate() + 1);
-
-  document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
-  console.log("debug");
-  console.log(cookievalue);
-  console.log(document.cookie);
-  // window.location.href = "patient.html"
-
-});
-</script>
 	</body>
+  <script>
+    const docsignInBtn = document.getElementById('doc_signin');
+
+    docsignInBtn.addEventListener('click', function (event) {
+      event.preventDefault();
+      const emailInput = document.getElementById('email-input');
+      const passwordInput = document.getElementById('password-input');
+      const hosIDInput = document.getElementById('hosID');
+
+      const userData = {
+      surname: emailInput.value,
+      firstname: passwordInput.value,
+      hosID: hosIDInput.value,
+      user: "Doctor"
+      }
+
+      const cookievalue = JSON.stringify(userData);
+      const expire = new Date();
+      expire.setMinutes(expire.getDate() + 1);
+
+      document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
+      window.location.href = "doctor.html"
+    });
+
+    const signInBtn = document.getElementById('pat_signin');
+
+    signInBtn.addEventListener('click', function (event) {
+      event.preventDefault();
+      const emailInput = document.getElementById('emailinput');
+      const passwordInput = document.getElementById('passwordinput');
+
+      const userData = {
+      surname: emailInput.value,
+      firstname: passwordInput.value,
+      user: "Mr."
+      }
+      const cookievalue = JSON.stringify(userData);
+      const expire = new Date();
+      expire.setMinutes(expire.getDate() + 5);
+
+      document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
+      console.log("debug");
+      console.log(cookievalue);
+      console.log(document.cookie);
+      // window.location.href = "patient.html"
+
+    });
+    </script>
 </html>
