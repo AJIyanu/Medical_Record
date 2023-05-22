@@ -91,9 +91,15 @@ button:hover{
 
 form p{
 	color: red;
-	align: center;
 	margin: 20px auto;
 	transition: .6s ease-in;
 	font-weight: bold;
 	justify-content: center;
+}
+
+.info {
+	color: rgb(16, 246, 16);
+	justify-content: center;
+	font-size: smaller;
+	text-align: center;
 }

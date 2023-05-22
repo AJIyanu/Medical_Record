@@ -233,6 +233,10 @@ form[0].addEventListener('submit', (event) => {
 
 form[1].addEventListener('submit', (e) => {
   e.preventDefault();
+  setTimeout(function() {
+  window.location.href = "signin.html";
+   }, 1500);
+  alert("You are not being redirected to the login page.");
   form[1].querySelectorAll('input').forEach((input) => {
     const { name, value } = input;
     const sex = document.getElementById("sex");
