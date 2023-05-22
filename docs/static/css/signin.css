@@ -103,3 +103,7 @@ form p{
 	font-size: smaller;
 	text-align: center;
 }
+
+.whitebg {
+	color: rgb(5, 130, 5);
+}
