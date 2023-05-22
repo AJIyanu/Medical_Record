@@ -520,15 +520,13 @@
     userData = JSON.parse(decodeURIComponent(value));
     }
   });
-  hospidbold.innerText = `${userData.hosID}`;
+  console.log(userData);
 
   title.innerText = `${userData.surname} ${userData.firstname} - Home`;
   welcome.innerText = `${userData.user} ${userData.surname} ${userData.firstname}`;
+  hospidbold.innerText = `${userData.hosID}`
   hospid.innerText = `${userData.hosID}`;
 
-
-
-  console.log(userData);
 </script>
 
 

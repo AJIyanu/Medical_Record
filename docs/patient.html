@@ -498,12 +498,11 @@
     userData = JSON.parse(decodeURIComponent(value));
     }
   });
-  hospidbold.innerText = `${userData.hosID}`;
+  console.log(userData);
 
   title.innerText = `${userData.surname} ${userData.firstname} - Home`;
   welcome.innerText = `${userData.user} ${userData.surname} ${userData.firstname}`;
 
-  console.log(userData);
 </script>
 
 </html>
