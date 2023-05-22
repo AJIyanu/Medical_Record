@@ -73,7 +73,10 @@ signInBtn.addEventListener('click', function (event) {
   expire.setMinutes(expire.getDate() + 1);
 
   document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
-  window.location.href = "patient.html"
+  console.log("debug");
+  console.log(cookievalue);
+  console.log(document.cookie);
+  // window.location.href = "patient.html"
 
 });
 </script>
