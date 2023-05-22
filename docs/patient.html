@@ -498,6 +498,7 @@
     userData = JSON.parse(decodeURIComponent(value));
     }
   });
+  hospidbold.innerText = `${userData.hosID}`;
 
   title.innerText = `${userData.surname} ${userData.firstname} - Home`;
   welcome.innerText = `${userData.user} ${userData.surname} ${userData.firstname}`;
