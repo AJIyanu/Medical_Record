@@ -98,6 +98,7 @@ form p{
 }
 
 .info {
+	width: 70%;
 	color: rgb(16, 246, 16);
 	justify-content: center;
 	font-size: smaller;
