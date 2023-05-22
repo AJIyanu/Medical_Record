@@ -53,7 +53,7 @@
       const expire = new Date();
       expire.setMinutes(expire.getDate() + 1);
 
-      document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
+      document.cookie = `userdata=${encodeURIComponent(cookievalue)}; path=/`;
       window.location.href = "doctor.html"
     });
 
@@ -75,7 +75,7 @@
       console.log(cookievalue);
       console.log(expire);
 
-      document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
+      document.cookie = `userdata=${encodeURIComponent(cookievalue)}; path=/`;
       console.log(document.cookie);
       // window.location.href = "patient.html"
 
