@@ -51,9 +51,9 @@
 
       const cookievalue = JSON.stringify(userData);
       const expire = new Date();
-      expire.setMinutes(expire.getDate() + 1);
+      expire.setMinutes(expire.getMinutes() + 1);
 
-      document.cookie = `userdata=${encodeURIComponent(cookievalue)}; path=/`;
+      document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
       window.location.href = "doctor.html"
     });
 
@@ -71,11 +71,11 @@
       }
       const cookievalue = JSON.stringify(userData);
       const expire = new Date();
-      expire.setMinutes(expire.getDate() + 5);
+      expire.setMinutes(expire.getMinutes() + 5);
       console.log(cookievalue);
       console.log(expire);
 
-      document.cookie = `userdata=${encodeURIComponent(cookievalue)}; path=/`;
+      document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
       console.log(document.cookie);
       // window.location.href = "patient.html"
 
