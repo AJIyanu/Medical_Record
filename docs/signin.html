@@ -72,12 +72,12 @@
       const cookievalue = JSON.stringify(userData);
       const expire = new Date();
       expire.setMinutes(expire.getMinutes() + 5);
-      console.log(cookievalue);
+      // console.log(cookievalue);
       console.log(expire);
 
       document.cookie = `userdata=${encodeURIComponent(cookievalue)}; expires=${expire.toUTCString()}; path=/`;
-      console.log(document.cookie);
-      // window.location.href = "patient.html"
+      // console.log(document.cookie);
+      window.location.href = "patient.html"
 
     });
     </script>
