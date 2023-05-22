@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>{{ surname }} {{ firstname }} - Home</title>
+  <title></title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -20,7 +20,7 @@
 
   <!-- Vendor CSS Files -- -->
   <link href="static/css/bootstrap.min.css" rel="stylesheet">
-  <!-- <link href="static/css/bootstrap-icons.css" rel="stylesheet"> -->
+  <link href="static/css/bootstrap-icons.css" rel="stylesheet">
   <!-- <link href="/doctor/static/css/dyn/aos" rel="stylesheet"> -->
   <link href="static/css/glightbox.min.css" rel="stylesheet">
   <link href="static/css/swiper-bundle.min.css" rel="stylesheet">
@@ -97,7 +97,7 @@
     <div class="container position-relative">
       <div class="row gy-5" data-aos="fade-in">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
-	 <h2>Welcome <span>{{ surname }} {{ firstname }}!</span></h2>
+	 <h2>Welcome <span id="welcome"></span></h2>
           <p>Maintain a healthy lifestyle, monitor your health status, avoid possible illness and diseases and get the best presciption from history</p>
           <div class="d-flex justify-content-center justify-content-lg-start">
             <a href="#about" class="btn-get-started">Recent History</a>
@@ -485,17 +485,21 @@
 </body>
 
 <script>
+  const title = document.querySelector('title');
+  const welcome = document.getElementById('welcome');
   const cookies = document.cookie.split(';');
 
-let userData = null;
+  let userData = null;
 
-cookies.forEach(cookie => {
-  const [name, value] = cookie.split('=');
+  cookies.forEach(cookie => {
+    const [name, value] = cookie.split('=');
 
   if (name.trim() === 'userdata') {
     userData = JSON.parse(decodeURIComponent(value));
-  }
+    }
   });
+
+  title.innerText = `${userData.surname} ${userData.firstname}`;
 
   console.log(userData);
 </script>
