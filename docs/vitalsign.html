@@ -19,28 +19,30 @@
           <div class="form">
             <form action="">
               <div class="line line-1">
+                <label for="temp" class="form-label">Temperature:</label>
+                <input type="number" name="temp" id="temp">
+                <span>&deg;C</span>
+              </div>
+              <div class="line line-2">
+                <label for="hrtbt" class="form-label">Heart Rate:</label>
+                <input type="number" name="hrtbt" id="hrtbt">
+              </div>
+              <div class="line line-3">
+                <label for="resprt" class="form-label">Respiration</label>
+                <input type="number" name="resprt" id="resprt">
+              </div>
+              <div class="line line-4">
                 <label for="bp" class="form-label">Blood Pressure:</label>
                 <input type="number" name="systolic" id="bp">
                 <span>/</span>
                 <input type="number" name="diastolic" id="bp2">
                 <span>mmHg</span>
               </div>
-              <div class="line line-2">
-                <label for="temp" class="form-label">Temperature:</label>
-                <input type="number" name="temp" id="temp">
-                <span>&deg;C</span>
-                <label for="hrtbt" class="form-label">Heart Rate:</label>
-                <input type="number" name="hrtbt" id="hrtbt">
-              </div>
-              <div class="line line-3">
-                <label for="oxygen" class="form-label">SPO<sub>2</sub></label>
-                <input type="number" name="oxygen" id="oxygen">
-                <label for="resprt" class="form-label">Respiration</label>
-                <input type="number" name="resprt" id="resprt">
-              </div>
-              <div class="line line-4">
+              <div class="line line-5">
                 <label for="weight" class="form-label">Weight:</label>
                 <input type="number" name="weight" id="weight">
+              <label for="oxygen" class="form-label">SPO<sub>2</sub></label>
+                <input type="number" name="oxygen" id="oxygen">
               </div>
               <div class="action-btn">
                 <button type="submit">save</button>
@@ -50,4 +52,29 @@
         </div>
       </section>
     </body>
+    <script>
+      const form = document.querySelector('form');
+      const save = document.querySelector('button');
+      const formData = new FormData();
+
+      save.addEventListener('click', function (event) {
+        event.preventDefault();
+        form.querySelectorAll('input').forEach((input) => {
+          const { name, value } = input;
+          formData.append( name, value );
+          });
+        })
+
+        fetch('http://localhost:5000/status', {
+          method: 'GET'
+          // body: formData
+        })
+        .then(response => {
+          alert(response.json())
+        .catch(error => console.error(error));
+
+        window,location.href = 'doctor.html'
+      })
+
+    </script>
 </html>
