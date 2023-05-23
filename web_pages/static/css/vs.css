@@ -16,6 +16,11 @@ body {
     background-color: var(--color-secondary);
 }
 
+i {
+    color: red;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 section {
     /* background-image: url('../images/vitalsign.png'); */
     background-position: center;
@@ -49,13 +54,10 @@ h3 {
 }
  h4 {
     /* color: white; */
-    font-family: monospace;
-    text-align: center;
-    /* margin-left: 40px; */
+    margin-left: 40px;
     margin-top: 1px;
     margin-bottom: none;
     padding: 0%;
-    cursor: pointer;
 }
 
 label {
@@ -99,39 +101,6 @@ button {
     box-shadow: 0px 0px 30px #00000038;
     font-family: Shadows Into Light;
     font-weight: bold;
-}
-
-i {
-    color: red;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-.nin-search {
-    position: relative;
-    margin-bottom: none;
-}
-
-ul {
-    margin-top: 3pt;
-    list-style-type: none;
-    padding: 0;
-    align-items: center;
-}
-
-li {
-    text-align: center;
-    margin-top: 0%;
-    cursor: pointer;
-}
-
-.nin-search input {
-
-    margin-right: 40pt;
-    border-bottom: none;
-    width: 90%;
-    border-radius: 4pt;
-    background-color: white;
-    box-shadow: 0px 0px 30px #00000038;
 }
 
 span {

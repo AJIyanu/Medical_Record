@@ -12,7 +12,7 @@ from models.loginauth import PersonAuth
 from datetime import datetime
 
 from models.casefile import caseFile
-
+from models.vitalsign import VitalSign
 
 @app_views.route("/doctor/savecasefile", methods=['POST'])
 def save_casefile():
@@ -88,3 +88,6 @@ def lga(state):
                 break
     print(lgajson)
     return jsonify(lgajson)
+
+@app_views.route('/savevs' methods=['POST'], strict_slashes=False)
+def savevs(nin)

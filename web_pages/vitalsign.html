@@ -9,6 +9,11 @@
         <!-- <link rel="stylesheet" href="form.css"> -->
     </head>
     <body>
+      <section class="nin">
+        <div class="nin-search">
+          <input type="search" name="nin-search" id="nin-search">
+        </div>
+      </section>
       <section class="main">
         <div class="container">
           <div class="info">
@@ -24,25 +29,25 @@
                 <span>&deg;C</span>
               </div>
               <div class="line line-2">
-                <label for="hrtbt" class="form-label">Heart Rate:</label>
-                <input type="number" name="hrtbt" id="hrtbt">
+                <label for="hrtbt" class="form-label">Heart Rate: <i>*</i></label>
+                <input type="number" name="hrtbt" id="hrtbt" required>
               </div>
               <div class="line line-3">
                 <label for="resprt" class="form-label">Respiration</label>
                 <input type="number" name="resprt" id="resprt">
               </div>
               <div class="line line-4">
-                <label for="bp" class="form-label">Blood Pressure:</label>
-                <input type="number" name="systolic" id="bp">
+                <label for="bp" class="form-label">Blood Pressure: <i>*</i></label>
+                <input type="number" name="systolic" id="bp" required>
                 <span>/</span>
-                <input type="number" name="diastolic" id="bp2">
+                <input type="number" name="diastolic" id="bp2"required>
                 <span>mmHg</span>
               </div>
               <div class="line line-5">
-                <label for="weight" class="form-label">Weight:</label>
-                <input type="number" name="weight" id="weight">
-              <label for="oxygen" class="form-label">SPO<sub>2</sub></label>
-                <input type="number" name="oxygen" id="oxygen">
+                <label for="weight" class="form-label">Weight: <i>*</i></label>
+                <input type="number" name="weight" id="weight" required>
+              <label for="oxygen" class="form-label">SPO<sub>2</sub>: <i>*</i></label>
+                <input type="number" name="oxygen" id="oxygen" required>
               </div>
               <div class="action-btn">
                 <button type="submit">save</button>
@@ -63,17 +68,16 @@
           const { name, value } = input;
           formData.append( name, value );
           });
-        })
-
-        fetch('http://localhost:5000/status', {
+          fetch('http://localhost:5000/status', {
           method: 'GET'
           // body: formData
         })
         .then(response => {
           alert(response.json())
+        })
         .catch(error => console.error(error));
 
-        window,location.href = 'doctor.html'
+        window.location.href = '/home'
       })
 
     </script>

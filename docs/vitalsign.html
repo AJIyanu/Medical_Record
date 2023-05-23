@@ -10,10 +10,16 @@
     </head>
     <body>
       <section class="main">
+        <div class="nin-search" id="nin-search" style="display: none;">
+          <input type="search" name="ninsearch" id="ninsearch" placeholder="Enter NIN here">
+          <ul>
+            <li></li>
+          </ul>
+        </div>
         <div class="container">
           <div class="info">
             <h3>Vital Signs</h3>
-            <h4>Name of the bearer</h4>
+            <h4 id="pat-name">Click here to find patient</h4>
             <!-- <p>what is necceasy</p> -->
           </div>
           <div class="form">
@@ -24,25 +30,25 @@
                 <span>&deg;C</span>
               </div>
               <div class="line line-2">
-                <label for="hrtbt" class="form-label">Heart Rate:</label>
-                <input type="number" name="hrtbt" id="hrtbt">
+                <label for="hrtbt" class="form-label">Heart Rate: <i>*</i></label>
+                <input type="number" name="hrtbt" id="hrtbt" required>
               </div>
               <div class="line line-3">
                 <label for="resprt" class="form-label">Respiration</label>
                 <input type="number" name="resprt" id="resprt">
               </div>
               <div class="line line-4">
-                <label for="bp" class="form-label">Blood Pressure:</label>
-                <input type="number" name="systolic" id="bp">
+                <label for="bp" class="form-label">Blood Pressure: <i>*</i></label>
+                <input type="number" name="systolic" id="bp" required>
                 <span>/</span>
-                <input type="number" name="diastolic" id="bp2">
+                <input type="number" name="diastolic" id="bp2"required>
                 <span>mmHg</span>
               </div>
               <div class="line line-5">
-                <label for="weight" class="form-label">Weight:</label>
-                <input type="number" name="weight" id="weight">
-              <label for="oxygen" class="form-label">SPO<sub>2</sub></label>
-                <input type="number" name="oxygen" id="oxygen">
+                <label for="weight" class="form-label">Weight: <i>*</i></label>
+                <input type="number" name="weight" id="weight" required>
+              <label for="oxygen" class="form-label">SPO<sub>2</sub>: <i>*</i></label>
+                <input type="number" name="oxygen" id="oxygen" required>
               </div>
               <div class="action-btn">
                 <button type="submit">save</button>
@@ -56,6 +62,9 @@
       const form = document.querySelector('form');
       const save = document.querySelector('button');
       const formData = new FormData();
+      const name = document.getElementById('pat-name');
+      const search = document.getElementById('nin-search')
+      const searchinput = document.getElementById('ninsearch');
 
       save.addEventListener('click', function (event) {
         event.preventDefault();
@@ -63,11 +72,55 @@
           const { name, value } = input;
           formData.append( name, value );
           });
-
+        if ( searchinput.value.length !== 11 ) {
+          const nameclear = document.querySelector('h4');
+          search.style.color = 'red';
+          nameclear.textContent = "please find a patient first";
+          setTimeout(function() {
+            nameclear.textContent = "Click to find Patient";
+              }, 4000);
+        } else if (search.style.display !== 'none') {
+          const nameclear = document.querySelector('h4');
+          search.style.color = 'red';
+          nameclear.textContent = "please click patient name"
+        } else {
           alert("your data has been saved")
-
           window.location.href = 'doctor.html'
-        })
+          // console.log(searchinput.value)
+        }
+      });
+
+      name.addEventListener('click', function(event) {
+        if (search.style.display === '') {
+          search.style.display = 'none';
+          const nameclear = document.querySelector('h4');
+          // nameclear. = "";
+          nameclear.textContent = "Click to find patient";
+        } else {
+        search.style.display = null;
+        const nameclear = document.querySelector('h4');
+        // nameclear.innerText = "";
+        nameclear.textContent = "searching...";
+        }
+      })
+
+      search.addEventListener('input', function(event) {
+        const nin = event.target.value;
+        if (nin.length === 11) {
+          const result = document.querySelector('li');
+          result.innerText = "Aderemi Joseph Iyanu"
+        } else {
+          const result = document.querySelector('li');
+          result.innerText = ""
+        }
+      })
+
+      const update = document.querySelector('li');
+      update.addEventListener('click', function(event) {
+        const nameclear = document.querySelector('h4');
+        nameclear.textContent = "AJ Iyanu";
+        search.style.display = 'none';
+      })
 
     </script>
 </html>
