@@ -1,0 +1,94 @@
+:root {
+    --accent :  #4b323a;
+    --styl-col: #52e4d7;
+    --color-secondary: #00c9b8;
+    --text-font: "ubuntu";
+  }
+
+* {
+    font: var(--text-font);
+    box-sizing: border-box;
+    color: black;
+    font-size: 1.15rem;
+}
+
+body {
+    background-color: var(--color-secondary);
+}
+
+section {
+    /* background-image: url('../images/vitalsign.png'); */
+    background-position: center;
+    /* background-color: var(--styl-col); */
+    background-size: cover;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    min-height: 90vh;
+}
+
+.container {
+    display: block;
+    max-width: 400px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--styl-col);
+    box-shadow: 0px 0px 30px #00000038;
+    border-radius: 10pt;
+}
+
+h3 {
+    text-align: center;
+    font-size: large;
+    font-family: Bebas Neue;
+    font-size: xx-large;
+    font-weight: bold;
+    /* color: white; */
+}
+ h4 {
+    /* color: white; */
+    margin-left: 40px;
+    margin-top: 1px;
+    margin-bottom: none;
+    padding: 0%;
+}
+
+label {
+    /* color: white; */
+    margin-left: 20px;
+    font-family: Shadows Into Light;
+}
+
+input {
+    display: inline-flex;
+    width: 15%;
+    outline: none;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    background: transparent;
+    border-color: black;
+    margin-top: 20px;
+}
+
+button {
+    width: 50%;
+    position: relative;
+    align-self: center;
+    margin-bottom:10px;
+    margin-top: 10px;
+    margin-left: 25%;
+    background-color: #008a7e;
+    border-radius: 3pt;
+    border: 1pt;
+    border-color: black;
+    box-shadow: 0px 0px 30px #00000038;
+    font-family: Shadows Into Light;
+}
+
+span {
+    font-family: Shadows Into Light;
+    /* color: white; */
+}

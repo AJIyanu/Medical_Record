@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vital Signs</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue|Shadows+Into+Light">
+        <link rel="stylesheet" href="static/css/vs.css">
+        <!-- <link rel="stylesheet" href="form.css"> -->
+    </head>
+    <body>
+      <section class="main">
+        <div class="container">
+          <div class="info">
+            <h3>Vital Signs</h3>
+            <h4>Name of the bearer</h4>
+            <!-- <p>what is necceasy</p> -->
+          </div>
+          <div class="form">
+            <form action="">
+              <div class="line line-1">
+                <label for="bp" class="form-label">Blood Pressure:</label>
+                <input type="number" name="systolic" id="bp">
+                <span>/</span>
+                <input type="number" name="diastolic" id="bp2">
+                <span>mmHg</span>
+              </div>
+              <div class="line line-2">
+                <label for="temp" class="form-label">Temperature:</label>
+                <input type="number" name="temp" id="temp">
+                <span>&deg;C</span>
+                <label for="hrtbt" class="form-label">Heart Rate:</label>
+                <input type="number" name="hrtbt" id="hrtbt">
+              </div>
+              <div class="line line-3">
+                <label for="oxygen" class="form-label">SPO<sub>2</sub></label>
+                <input type="number" name="oxygen" id="oxygen">
+                <label for="resprt" class="form-label">Respiration</label>
+                <input type="number" name="resprt" id="resprt">
+              </div>
+              <div class="line line-4">
+                <label for="weight" class="form-label">Weight:</label>
+                <input type="number" name="weight" id="weight">
+              </div>
+              <div class="action-btn">
+                <button type="submit">save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </body>
+</html>
