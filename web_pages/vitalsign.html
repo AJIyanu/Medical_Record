@@ -63,11 +63,18 @@
           const { name, value } = input;
           formData.append( name, value );
           });
-
-          alert("your data has been saved")
-
-          window.location.href = 'doctor.html'
         })
+
+        fetch('http://localhost:5000/status', {
+          method: 'GET'
+          // body: formData
+        })
+        .then(response => {
+          alert(response.json())
+        .catch(error => console.error(error));
+
+        window,location.href = 'doctor.html'
+      })
 
     </script>
 </html>
