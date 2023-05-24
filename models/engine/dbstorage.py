@@ -54,6 +54,7 @@ class DBStorage:
     def save(self):
         """commit all changes of the database session (self.__session)"""
         self.__session.commit()
+        self.__session.close()
 
     def delete(self, obj=None):
         """delete from the current database session obj if not None"""
@@ -83,6 +84,13 @@ class DBStorage:
                     key = objects.__class__.__name__ + "." + objects.email
                 obj_dicts.update({key: objects})
         return obj_dicts
+
+    def print_changes(self):
+        """prints changes to be committed"""
+        for obj in self.__session.dirty:
+            print(obj)
+        else:
+            print("no changes yet")
 
     def user_by_id(self, obj=None, id: str = None) -> Dict:
         """finds user by id"""

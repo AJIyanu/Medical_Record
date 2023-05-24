@@ -98,6 +98,8 @@ def savevs():
     sign.patient_id = data.get('patient_id')
     sign.staff_id = '4079e47b-3c3e-417a-bea6-e2db9c841a35'
     sign.healthcare_id = '0cdb0251-c77e-4b7e-a5e1-21ffc3c14b59'
+    # from models import storage
+    # storage.print_changes()
     sign.save()
     print(sign.to_dict())
     return jsonify({"msg": "saved succesfully"})
