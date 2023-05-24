@@ -74,14 +74,15 @@
           });
         if ( searchinput.value.length !== 11 ) {
           const nameclear = document.querySelector('h4');
-          search.style.color = 'red';
+          name.style.color = 'red';
           nameclear.textContent = "please find a patient first";
           setTimeout(function() {
+            name.style.color = 'black'
             nameclear.textContent = "Click to find Patient";
               }, 4000);
         } else if (search.style.display !== 'none') {
           const nameclear = document.querySelector('h4');
-          search.style.color = 'red';
+          name.style.color = 'red';
           nameclear.textContent = "please click patient name"
         } else {
           alert("your data has been saved")
@@ -94,12 +95,12 @@
         if (search.style.display === '') {
           search.style.display = 'none';
           const nameclear = document.querySelector('h4');
-          // nameclear. = "";
+          name.style.color = 'black'
           nameclear.textContent = "Click to find patient";
         } else {
         search.style.display = null;
         const nameclear = document.querySelector('h4');
-        // nameclear.innerText = "";
+        name.style.color = 'black'
         nameclear.textContent = "searching...";
         }
       })

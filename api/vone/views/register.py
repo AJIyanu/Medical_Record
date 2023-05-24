@@ -7,6 +7,7 @@ from auth.auth import Auth
 import json
 from views.signinout import auth
 from models.doctor import Doctor
+from models.nurse import Nurse
 from models.patient import Patient
 from models.loginauth import PersonAuth
 from datetime import datetime
@@ -89,5 +90,14 @@ def lga(state):
     print(lgajson)
     return jsonify(lgajson)
 
-@app_views.route('/savevs' methods=['POST'], strict_slashes=False)
-def savevs(nin)
+@app_views.route('/savevs', methods=['POST'], strict_slashes=False)
+def savevs():
+    """saves vital sign"""
+    data = request.form
+    sign = VitalSign(**data)
+    sign.patient_id = data.get('patient_id')
+    sign.staff_id = '4079e47b-3c3e-417a-bea6-e2db9c841a35'
+    sign.healthcare_id = '0cdb0251-c77e-4b7e-a5e1-21ffc3c14b59'
+    sign.save()
+    print(sign.to_dict())
+    return jsonify({"msg": "saved succesfully"})

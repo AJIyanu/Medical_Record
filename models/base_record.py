@@ -47,7 +47,8 @@ class Record:
                 kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
             except KeyError:
-                pass
+                self.created_at = datetime.now()
+                self.updated_at = datetime.now()
             finally:
                 self.__dict__.update(kwargs)
         from models import storage
