@@ -316,3 +316,7 @@ header h1 {
   padding-left: 0%;
   margin-left: .9rem;
 }
+
+h1 span {
+  color: rgba(238, 255, 0, 0.801);
+}
