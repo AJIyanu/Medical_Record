@@ -3,7 +3,7 @@
 
 from typing import Dict, List
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -161,7 +161,7 @@ class DBStorage:
         if obj is None or kwargs is None:
             return
         Session =self.__session
-        query = Session.query(obj).filter_by(**kwargs).order_by(obj.created_at)
+        query = Session.query(obj).filter_by(**kwargs).order_by(desc(obj.created_at))
         if not query.first():
             raise NoResultFound
         if all:
