@@ -44,3 +44,12 @@ def find_patient():
                     })
         return jsonify(data), 200
     return jsonify({"error": "no nin found"}), 400
+
+@app_views.route("/patientvs/<patientid>", methods=['GET'], strict_slashes=False)
+def patient_vitalsgin(patientid):
+    """returns patient last saved vital sign"""
+    userdata = auth.get_patient_last_vs(patientid)
+    if userdata is not None:
+        return jsonify(userdata)
+    return jsonify({"error": "No Data found for Patient"}), 400
+    # pass

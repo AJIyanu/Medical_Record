@@ -7,6 +7,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from models.loginauth import PersonAuth
 from models.doctor import Doctor
 from models.base_person import Person
+from models.vitalsign import VitalSign
 
 
 class Auth:
@@ -74,6 +75,11 @@ class Auth:
         age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
         data["age"] = age
         return data
+
+    def get_patient_last_vs(self, patientid):
+        """returns patient last saved vitalsign"""
+        return VitalSign.pat_last_saved(patientid)
+
 
 
 class Authpat:

@@ -155,3 +155,15 @@ class DBStorage:
         if query.first() is None:
             raise NoResultFound
         return query.first()
+
+    def search_by_order(self, obj, all: bool=False, diction: bool=True, **kwargs):
+        """returns objects in an order it is inserted"""
+        if obj is None or kwargs is None:
+            return
+        Session =self.__session
+        query = Session.query(obj).filter_by(**kwargs).order_by(obj.created_at)
+        if not query.first():
+            raise NoResultFound
+        if all:
+            return query.all() if not diction else [user.to_dict() for user in query.all()]
+        return query.first() if not diction else query.first().to_dict()

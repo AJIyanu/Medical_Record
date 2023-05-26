@@ -150,3 +150,21 @@ class Record:
             if key[:2] != "__" and key in me_lst:
                 setattr(me, key, kwargs[key])
         me.save()
+
+    @classmethod
+    def pat_last_saved(self, userid):
+            """returns last saved data of a user"""
+            from models import storage
+            try:
+                return storage.search_by_order(self, False, patient_id=userid)
+            except NoResultFound:
+                return None
+
+    @classmethod
+    def pat_record(self, userid):
+            """returns last saved data of a user"""
+            from models import storage
+            try:
+                return storage.search_by_order(self, True, patient_id=userid)
+            except NoResultFound:
+                return None

@@ -33,3 +33,5 @@ class VitalSign(Record, Base):
     def __init__(self, *args, **kwargs) -> None:
         """initializes casefile"""
         super().__init__(*args, **kwargs)
+
+    
