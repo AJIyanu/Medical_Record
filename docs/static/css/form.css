@@ -9,7 +9,7 @@
   section {
     min-height: 100vh;
     width: 100%;
-    display: flex;
+    display: grid;
     align-items: center;
     justify-content: center;
     background-color: rgb(128, 83, 227);
@@ -18,6 +18,7 @@
   .container {
     max-width: 500px;
     width: 100%;
+    grid-gap: 0cm;
     padding: 20px;
     box-shadow: 0px 0px 20px #0a0a0a38;
     border-radius: 8px;
