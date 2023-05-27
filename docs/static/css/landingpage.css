@@ -1,6 +1,6 @@
 
 * {
-  --bg-color: #08553b;
+  --bg-color: linear-gradient(to left bottom, #08553b, #1e7c46, #45a349, #78ca43, #b5f030);
   --header-txt-color: rgba(255, 255, 255, 0.87);
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -33,10 +33,11 @@ body:nth-child(1) {
 }
 
 .intro-container {
-  background-color: var(--bg-color);
+/*  background: var(--bg-color);*/
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-bottom: 100px;
 }
 
 header {
@@ -73,12 +74,27 @@ header {
   object-fit: fill;
 }
 
+footer {
+  text-align: center;
+  background-color: #08553b;
+  padding: 1.5rem;
+  color: white;
+}
+
+.main {
+   background: var(--bg-color);
+  background-image: "../images/noise.png";
+  background-attachment: fixed;
+}
+
 .main-section {
-  background-color: var(--bg-color);
+ 
   display: flex;
   color: var(--header-txt-color);
   font-family: "ubuntu";
   position: relative;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .main-section h1 {
@@ -92,7 +108,12 @@ header {
 }
 
 svg {
-  width: 30%;
+  /* width: 30%; */
+  /* background-color: red; */
+  position: absolute;
+  bottom: 80%;
+
+  
 }
 
 .nav-links ul li{
@@ -183,6 +204,13 @@ h4 {
   margin: 0;
   margin-top: 10px;
   margin-left: 5px;
+}
+
+.image-container {
+  min-width: 45%;
+  position: relative;
+  /* padding-bottom: rem; */
+/*  background: transparent;*/
 }
 
 div > h4 + span {
@@ -280,20 +308,30 @@ section > h2 {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.section-two > h2 + div{
+.section-two > div p {
+  opacity: 60%;
+  font-size: .8rem;
+  padding-left: 2rem;
+}
+
+.section-two > div + div {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+/*  gap: 1rem;*/
 }
 
 .section-two > h2 + div div {
-  border: 1px solid none;
+  border: 1px solid black;
   padding: .7rem;
-  border-radius: 10px;
-  box-shadow: grey 2px 2px 3px 1px;
-  transition: 200ms ease-in transform;
+/*  border-radius: 10px;*/
+  background-color: lightyellow;
+
+/*  box-shadow: grey 2px 2px 3px 1px;*/
+/*  transition: 200ms ease-in transform;*/
 }
 
+/*
 .section-two > h2 + div div:hover {
   border: 1px solid none;
   padding: .9rem;
@@ -302,7 +340,7 @@ section > h2 {
   transform: scale(1.2);
   margin-left: 1.5rem;
   margin-right: 1.5rem;
-}
+}*/
 
 .ajlogo {
   width: 4.5%;

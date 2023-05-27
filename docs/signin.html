@@ -4,19 +4,17 @@
 		<title>Sign in</title>
 		<link rel="stylesheet" type="text/css" href="static/css/signin.css">
 	</head>
-
 	<body>
 		<div class="main">
 			<input type="checkbox" id="chk" aria-hidden="true">
-
 				<div class="signup">
 					<form>
 						<label for="chk" aria-hidden="true">Doctor</label>
             <p class="info">This is a test page, your surname is your email and your name is your password</p>
 						<p id="errorMessage" align="center"></p>
-						<input type="text" id="email-input" name="email" placeholder="Email" required>
-						<input type="password" id="password-input" name="pswd" placeholder="Password" required>
-						<input type="txt" id="hosID" name="instid" placeholder="Hospital_ID" required>
+						<input type="email" id="email-input" name="email" placeholder="Email" required="true">
+						<input type="password" id="password-input" name="pswd" placeholder="Password" required="true">
+						<input type="text" id="hosID" name="instid" placeholder="Hospital_ID" required="true">
 						<button id="doc_signin">Sign in</button>
 					</form>
 				</div>
@@ -28,7 +26,7 @@
             <p class="info whitebg">This is a test page, your surname is your email and your name is your password</p>
 						<input type="text" id="emailinput" name="email" placeholder="Email" required>
 						<input type="password" id="passwordinput" name="pswd" placeholder="Password" required>
-						<button id ="pat_signin">Sign in</button>
+						<button type="submit" id ="pat_signin">Sign in</button>
 					</form>
 				</div>
 		</div>

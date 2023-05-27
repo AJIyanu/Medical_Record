@@ -4,6 +4,7 @@
    <meta charset="utf-8">
     <title>HealthVault</title>
 	  <link rel="stylesheet" href="static/css/landingpage.css">
+    <link rel="stylesheet" href="static/css/bloz.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- fonts -->
@@ -12,8 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Patua+One&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
   </head>
   <body>
+    <section class="main">
       <header class="nav">
-        <img class="ajlogo" src="static/images/mylogo_light.png" alt="logo">
+        <!-- <img class="ajlogo" src="static/images/mylogo_light.png" alt="logo"> -->
         <h1>Health<span id="company-name">VAULT</span></h1>
         <nav class="nav-links">
           <ul>
@@ -35,7 +37,10 @@
         </div>
         </div>
         <div class="image-container">
-          <img src="static/images/doc.png" alt="HeallthVault doctor">
+          <div></div>
+          <div class="stlyed" style="position: absolute; background-color: rgb(204, 204, 51); height: 70%; width: 100%;border-radius: 8rem; top: 60%; right: 30%; transform: translate(50%, -50%); box-shadow: yellow 10px 15px 40px;"></div>
+          <img src="static/images/doc.png" alt="HeallthVault doctor" style="position: absolute; bottom: 5%; left: 10%" >
+        </div>
         </div>
         <a id="scroll-button" href="#HealthVaultMerits">
           <section class="example example--1">
@@ -46,6 +51,7 @@
             </span>
           </section>
         </a>
+      </section>
     </section>
     <section class="section-one" id="HealthVaultMerits">
       <h2>Why use HealthVault?</h2>
@@ -89,7 +95,10 @@
       </div>
     </section>
     <section class="section-two">
-      <h2>How HealthVault works</h2>
+      <div>
+        <h2>Healthcare at it's best</h2>
+        <P>How to use HealthVault</p>
+      </div>
       <div>
         <div>
           <h4>1</h4><span>Register</span>
@@ -114,5 +123,8 @@
         </div>
       </div>
     </section>
+    <footer>
+      HealthVault ©️ 2023
+    </footer>
   </body>
 </html>
