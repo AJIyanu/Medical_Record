@@ -13,45 +13,70 @@
     <link href="https://fonts.googleapis.com/css2?family=Patua+One&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <section class="main">
-      <header class="nav">
-        <!-- <img class="ajlogo" src="static/images/mylogo_light.png" alt="logo"> -->
-        <h1>Health<span id="company-name">VAULT</span></h1>
-        <nav class="nav-links">
-          <ul>
-              <li><a href="services">Service</a></li>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Help</a></li>
-              <a href="signup.html" class="styledLink">Signup</a>
-          </ul>
-        </nav>
-      </header>
-      <section class="main-section">
-      <div class="intro-container">
-       <div class="child-one">
-          <h1>Transforming healthcare records for a healthier tomorrow</h1>
-          <p>Find out we leverage technology to provide better health care services</p>
+      <section class="main">
+        <svg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'>
+          <filter id='noiseFilter'>
+            <feTurbulence 
+              type='turbulence' 
+              baseFrequency='4' 
+              numOctaves='1' 
+              stitchTiles='stitch'/>
+          </filter>
+          <rect width='100%' height='100%' filter='url(#noiseFilter)'/>
+        </svg>
+        <header class="nav">
+          <h1>Health<span id="company-name">VAULT</span></h1>
+          <nav class="nav-links">
+            <ul>
+                <li><a href="services">Service</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Help</a></li>
+                <a href="signup.html" class="styledLink">Signup</a>
+            </ul>
+          </nav>
+        </header>
+        <div class="circles style-one"></div>
+        <section class="main-section">
+        <div class="intro-container">
+          <div class="child-one">
+            <h1>TAKE CARE OF YOUR HEALTH <span>ANYTIME</span> and <span>ANYWHERE</span></h1>
+            <p>Find out we leverage technology to provide better health care services</p>
             <a class="styledLink" href="signup.html">Sign-up</a>
               <a class="altLink" href="signin.html">login</a>
               <span class="additionals">100k+ patients helped</span>
-        </div>
+          </div>
         </div>
         <div class="image-container">
-          <div></div>
-          <div class="stlyed" style="position: absolute; background-color: rgb(204, 204, 51); height: 70%; width: 100%;border-radius: 8rem; top: 60%; right: 30%; transform: translate(50%, -50%); box-shadow: yellow 10px 15px 40px;"></div>
-          <img src="static/images/doc.png" alt="HeallthVault doctor" style="position: absolute; bottom: 5%; left: 10%" >
+          <div class="pop-up styling">
+            <div class="flex-popUpimages">
+              <div class="pop-upImages doc-one">
+                <img src="./static/images/doc.png">
+              </div>
+              <div class="pop-upImages doc-two">
+                <img src="./static/images/team-2_prev_ui.png">
+              </div>
+              <div class="pop-upImages doc-three">
+                <img src="./static/images/smiling-doctor-with-strethoscope-isolated-grey-removebg-preview.png">
+              </div>
+            </div>
+              <p>
+                Over 4,000 Professional Health Workers
+              </p>
+            </div>
+          <img src="static/images/happy-unhealthy-young-woman-orange-t-shirt-measuring-blood-pressure-using-tonometer-with-smile-face-doing-ok-sign-standing-white-wall.png" alt="HeallthVault doctor" style="width: 100%; position: absolute; bottom: 0%">
         </div>
-        </div>
-        <a id="scroll-button" href="#HealthVaultMerits">
-          <section class="example example--1">
-            <span class="scroll-icon">
-              <span class="scroll-icon__wheel-outer">
-                <span class="scroll-icon__wheel-inner"></span>
-              </span>
-            </span>
-          </section>
-        </a>
+      <!-- </div> -->
       </section>
+      <div class="circles style-two"></div>
+      <a id="scroll-button" href="#HealthVaultMerits">
+        <section class="example example--1">
+          <span class="scroll-icon">
+            <span class="scroll-icon__wheel-outer">
+              <span class="scroll-icon__wheel-inner"></span>
+            </span>
+          </span>
+        </section>
+      </a>
     </section>
     <section class="section-one" id="HealthVaultMerits">
       <h2>Why use HealthVault?</h2>
@@ -96,8 +121,8 @@
     </section>
     <section class="section-two">
       <div>
-        <h2>Healthcare at it's best</h2>
-        <P>How to use HealthVault</p>
+        <h2>Welfare prioritised</h2>
+        <P>Learn how we make getting healthcare easily accessible anywhere</p>
       </div>
       <div>
         <div>
@@ -121,6 +146,18 @@
             Your request has been processed and you need just need to wait
           </p>
         </div>
+      </div>
+    </section>
+    <section class="subscribeForm">
+      <div>
+        <div>
+        <h2> Subscribe for any Update about to HealthVault</h2>
+        <form method="post" action="#">
+          <input type="email" placeholder="Please provide your Email address" required></input>
+          <button>subscribe</button>
+        </form>
+      </div>
+        <!-- <div class="subscribeFormDiv">Hey</div> -->
       </div>
     </section>
     <footer>
