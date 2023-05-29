@@ -23,6 +23,18 @@
     box-shadow: 0px 0px 20px #0a0a0a38;
     border-radius: 8px;
     background-color: rgb(14, 4, 42);
+    border-color: #e3e1e1;
+    border-bottom-style: solid;
+  }
+
+  .mousehover{
+    position: relative;
+    z-index: 9999;
+    color: #e3e1e1;
+  }
+
+  .mother, .mousehover {
+    border-bottom-style: none;
   }
 
   .step {

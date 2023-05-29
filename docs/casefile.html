@@ -9,13 +9,13 @@
     </head>
     <body>
         <section>
-          <div class="container">
-            <p>This is top container</p>
-          </div>
-          <div class="container">
-            <p>This is mousehover container</p>
-          </div>
-            <div class="container">
+            <div class="container mother">
+              <div class="container headname">
+                <p>This is top container</p>
+              </div>
+              <div class="container mousehover" style="display: none;">
+                <p>This is mousehover container</p>
+              </div>
                 <form>
                     <div class="step step-0 active">
                       <p class="error" id="errmsg" name="errmsg"></p>
@@ -90,6 +90,21 @@
             </div>
         </section>
         <script>
+          const mousehover = document.getElementsByClassName('mousehover')[0];
+          const headname = document.getElementsByClassName('headname')[0];
+
+          function showdetails() {
+            mousehover.style.display = null;
+          }
+
+          function hidedetails() {
+            mousehover.style.display = "none";
+          }
+
+          headname.addEventListener('mouseover', showdetails);
+          headname.addEventListener('mouseout', hidedetails);
+        </script>
+        <script>
 const form = document.querySelectorAll('form');
 const symptoms = document.querySelector('.symp-tag');
 const ul = document.querySelector("ul");
@@ -111,7 +126,7 @@ function remove(element, tag){
     element.parentElement.remove();
 }
 function addTag(e){
-    const value = event.target.value;
+    const value = e.target.value;
     if(e.key === ";" || value.indexOf(';') !== -1){
         e.preventDefault();
         let tag = e.target.value.replace(/\s+/g, ' ').replace(/;/g, '');
