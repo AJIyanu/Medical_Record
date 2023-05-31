@@ -33,6 +33,11 @@
     color: #e3e1e1;
   }
 
+  .headname {
+    background-color: #949bf7;
+    padding: 2%;
+  }
+
   .mother, .mousehover {
     border-bottom-style: none;
   }
