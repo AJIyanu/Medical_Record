@@ -18,11 +18,19 @@ section {
 }
 
 .case-form {
-    width: 60%
+    border: 2px solid #0b0224;
+    width: 60%;
 }
 .right-side-info {
     margin-left: 2px;
+    width: 39%;
     display: flexbox;
+}
+
+.top-right {
+    background-color: blueviolet;
+    border: 2px solid;
+    height: 300pt;
 }
 
 .footer {
