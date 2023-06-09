@@ -1,3 +1,5 @@
+/* general appearance definitions here  */
+
 body {
     display: block;
 }
@@ -6,32 +8,112 @@ section {
     margin-top: 0%;
 }
 
+.shape {
+    border: 2px solid;
+    border-radius: 10px;
+    background-color: #e2e611;
+    width: 40%;
+}
+
+/* header section  */
+
 .header {
+    align-items: center;
+    width: 100%;
+    position: relative;
     height: 100px;
+    display: flex;
     background-color: #f1f1f1;
 }
 
+.patient-name {
+    /* display: none; */
+    padding-left: 40px;
+    font-size: 45px;
+    font-family: Bebas Neue;
+    letter-spacing: 2px;
+}
+
+
+/* img {
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  } */
+
+
+.display-img {
+    position: absolute;
+    left: 85%;
+    /* border: #e2e611 solid; */
+    align-self: first baseline;
+    box-shadow: 0px 6px 4px rgba(7, 7, 7, 0.3);
+    height: 150px;
+    padding-top: 30px;
+    border-image: black solid;
+    /* padding-left: 55%; */
+    z-index: 999;
+}
+
+#search-patient {
+    display: none;
+    position: absolute;
+    top: 35px;
+    left: 50px;
+    width: 25%;
+    height: 35%;
+    border: none;
+    border-bottom: 2px solid;
+    background-color: transparent;
+    outline: none;
+    font-size: 18px;
+    background-image: url("../images/icons/examination2.png");
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-size: 30px 30px;
+    padding-bottom: 0px;
+}
+
+/* casefile section  */
+
 .casefile {
     width: 100%;
-    background-color: aqua;
+    /* background-color: aqua; */
     display: inline-flex;
 }
 
 .case-form {
     border: 2px solid #0b0224;
+    border-radius: 10px;
     width: 60%;
 }
 .right-side-info {
     margin-left: 2px;
-    width: 39%;
+    width: 40%;
     display: flexbox;
 }
 
 .top-right {
+    border-radius: 10px;
     background-color: blueviolet;
     border: 2px solid;
     height: 300pt;
 }
+
+.bottom-right {
+    border-radius: 10px;
+    margin-top: 2px;
+    background-color: blue;
+    height: 300px;
+    border: 2px solid;
+}
+
+/* api section  */
+
+.api {
+    width: 100%;
+    display: inline-flex;
+}
+
+/* footer section  */
 
 .footer {
     height: 100px;

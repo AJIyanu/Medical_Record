@@ -4,11 +4,14 @@
         <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>HealtVAULT - Casefile</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue|Shadows+Into+Light">
         <link rel="stylesheet" href="static/css/casefile.css">
     </head>
     <body>
         <section class="header">
-            <P>HealthVault - This is the header section</P>
+            <h3 class="patient-name">Aderemi Joseph Iyanu</h3>
+            <input type="search" name="search-patient" id="search-patient" placeholder="Search Patient with NIN">
+            <img src="static/images/team-3.jpg" alt="profile-picture" loading="lazy" class="display-img">
         </section>
         <section class="casefile">
             <div class="case-form">
@@ -21,6 +24,22 @@
                 <div class="bottom-right">
                     <p>bottom right</p>
                 </div>
+            </div>
+        </section>
+        <section class="api">
+            <div class="shape bp-graph">
+                <p>blood pressure graph goes here</p>
+            </div>
+            <div class="shape test-cases">
+                <div class="shape prev-test">
+                    <p>previous test results appears here</p>
+                </div>
+                <div class="shape new-test">
+                    <p>new test or investagions are added here</p>
+                </div>
+            </div>
+            <div class="shape drug-lookup">
+                <p>drug interraction and look up goes here</p>
             </div>
         </section>
         <section class="footer">
