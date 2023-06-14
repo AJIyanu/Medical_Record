@@ -27,14 +27,14 @@ const data ={
             display: true,
             title: {
               display: true,
-              text: 'X Axis',
+              text: 'last 5 records',
             },
           },
           y: {
             display: true,
             title: {
               display: true,
-              text: 'Y Axis',
+              text: 'Pressure',
             },
           },
         },

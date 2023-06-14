@@ -292,6 +292,30 @@ h2 {
 .api {
     width: 100%;
     display: inline-flex;
+    padding-top: 3px;
+}
+
+.bp-graph, .test-cases {
+    border: 2px solid #f59403;
+    background-color: #dcf8f1;
+}
+
+.test-cases {
+  display: inline-flex;
+  justify-content: center;
+  margin-left: 4px;
+}
+
+.prev-test, .new-test {
+  border-right: 2px solid #030831;
+  width: 50%;
+  height: 98%;
+  margin-top: 3px;
+}
+
+.new-test {
+  border-right: none;
+  border-left: 2px solid #030831;
 }
 
 /* footer section  */
