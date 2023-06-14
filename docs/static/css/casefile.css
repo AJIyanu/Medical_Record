@@ -82,6 +82,10 @@ body {
     width: 100%;
     margin-top: -2px;
     display: inline-flex;
+
+    @media (max-width: 767px) {
+      display: block;
+    }
 }
 
 .case-form {
@@ -92,12 +96,18 @@ body {
     align-items: center;
     justify-content: center;
     background-color:  #E0FFFF;
+    @media (max-width: 767px) {
+      width: 90%;
+    }
 }
 .right-side-info {
     margin-top: 12px;
     margin-left: 2px;
     width: 40%;
     display: flexbox;
+    @media (max-width: 767px) {
+      width: 100%;
+    }
 }
 
 .bio-data {
@@ -293,29 +303,80 @@ h2 {
     width: 100%;
     display: inline-flex;
     padding-top: 3px;
+    @media (max-width: 767px) {
+      display: block;
+    }
 }
 
-.bp-graph, .test-cases {
+.bp-graph, .test-cases, .drug-lookup {
     border: 2px solid #f59403;
     background-color: #dcf8f1;
+    @media (max-width: 767px) {
+      width: 100%;
+      height: 300px;
+      margin-top: 4px;
+      margin-left: none;
+      margin-right: none;
+    }
 }
 
 .test-cases {
-  display: inline-flex;
+  display: block;
   justify-content: center;
   margin-left: 4px;
+  @media (max-width: 767px) {
+    margin-top: 3px;
+    margin-left: none;
+  }
 }
 
 .prev-test, .new-test {
-  border-right: 2px solid #030831;
-  width: 50%;
-  height: 98%;
+  border-bottom: 2px solid #030831;
+  width: 98%;
+  height: 50%;
   margin-top: 3px;
 }
 
 .new-test {
-  border-right: none;
-  border-left: 2px solid #030831;
+  padding-left: 3%;
+  display: flex;
+  align-items: center;
+  border-bottom: none;
+}
+
+#new-test {
+  border: none;
+  border-bottom: solid 2px black;
+  background-color: transparent;
+  background-image: url("../images/icons/icons8-add-100.png");
+  /* <a target="_blank" href="https://icons8.com/icon/41PSsUl01s58/add">Add</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> */
+  outline: none;
+  font-size: 22px;
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-position-y: top;
+  background-size: 35px 35px;
+  width: 90%;
+  height: 32px;
+  padding-top: 1px;
+}
+
+.new-test form {
+  position: relative;
+}
+
+ .new-test button{
+  position: absolute;
+  right: 9%;
+  height: 30px;
+  width: 30px;
+  bottom: 2px;
+  background-color: transparent;
+  border: none;
+}
+
+.drug-lookup {
+  margin-left: 3px;
 }
 
 /* footer section  */

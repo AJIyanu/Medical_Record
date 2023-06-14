@@ -101,10 +101,14 @@
             </div>
             <div class="shape test-cases">
                 <div class="prev-test">
-                    <p>previous test results appears here</p>
+                    <h3 style="text-align: center;"><u>Last 3 test Results</u></h3>
                 </div>
                 <div class="new-test">
-                    <p>new test or investagions are added here</p>
+                    <form action="/addtest" method="post" class="new-test-case">
+                        <label for="new-test" id="new-test-case">Add New Test Here</label>
+                        <input type="text" id="new-test">
+                        <button id="new-test-button"></button>
+                    </form>
                 </div>
             </div>
             <div class="shape drug-lookup">
