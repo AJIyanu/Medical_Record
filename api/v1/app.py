@@ -6,6 +6,7 @@ from os import getenv
 from views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token
 import os
 
 
@@ -13,7 +14,9 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SECRET_KEY'] = 'roseismysecretkey'
+app.config['JWT_SECRET_KEY'] = 'roseismysecretekey'
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+jwt = JWTManager(app)
 auth = None
 
 
