@@ -11,7 +11,6 @@ import os
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
-app.template_folder = '../../web_pages'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SECRET_KEY'] = 'roseismysecretkey'
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
