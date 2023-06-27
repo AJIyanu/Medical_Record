@@ -117,3 +117,8 @@ class PersonAuth(Base):
             return storage.login_class(self, {"person_id": user})
         except NoResultFound:
             return
+
+    @classmethod
+    def jwt_auth(self, userid):
+        """returns class dict"""
+        return Person.user_by_id(userid)

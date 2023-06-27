@@ -7,17 +7,53 @@ from views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token
+from flask_jwt_extended.exceptions import JWTDecodeError, NoAuthorizationError
+from jwt.exceptions import InvalidTokenError #NoTokenError
+from datetime import timedelta
+
 import os
 
+from models import storage
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SECRET_KEY'] = 'roseismysecretkey'
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
 app.config['JWT_SECRET_KEY'] = 'roseismysecretekey'
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 jwt = JWTManager(app)
 auth = None
+
+
+
+@app.errorhandler(NoAuthorizationError)
+def handle_no_token_error(error):
+    response = {
+        'error': 'NoTokenError',
+        'message': 'No JWT token provided.'
+    }
+    return jsonify(response), 401
+
+
+@app.errorhandler(JWTDecodeError)
+def handle_jwt_decode_error(error):
+    response = {
+        'error': 'JWTDecodeError',
+        'message': 'Failed to decode JWT token.'
+    }
+    return jsonify(response), 401
+
+@app.errorhandler(InvalidTokenError)
+def handle_invalid_token_error(error):
+    response = {
+        'error': 'InvalidTokenError',
+        'message': 'Invalid access token.'
+    }
+    return jsonify(response), 401
+
+app.register_error_handler(JWTDecodeError, handle_jwt_decode_error)
+app.register_error_handler(InvalidTokenError, handle_invalid_token_error)
 
 
 @app.before_request
@@ -45,6 +81,11 @@ def not_found(error) -> str:
     return jsonify({"error": "Not found"}), 404
 
 
+@app.teardown_appcontext 
+def close_db(error):
+     """ Close Storage """
+     storage.close()
+
 @app.errorhandler(401)
 def not_authorized(error) -> str:
     """handling unauthorized shits"""
@@ -55,6 +96,10 @@ def not_authorized(error) -> str:
 def forbidden(error) -> str:
     """authorized but not aloowed"""
     return jsonify({"error": "Forbidden"}), 403
+
+
+
+
 
 
 if __name__ == "__main__":

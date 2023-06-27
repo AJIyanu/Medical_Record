@@ -5,7 +5,7 @@ from flask import Blueprint
 
 app_views = Blueprint("app_views", __name__)
 
-# from views.index import *
+from views.login import *
 # from views.css import *
 # from views.images import *
 # from views.js import *
