@@ -85,6 +85,11 @@ class DBStorage:
                 obj_dicts.update({key: objects})
         return obj_dicts
 
+    def close(self):
+        """closes session"""
+        self.__session.remove()
+
+
     def print_changes(self):
         """prints changes to be committed"""
         for obj in self.__session.dirty:
