@@ -54,7 +54,9 @@ class Permissions(constraints, Base):
                     code = kwargs[key]
                     if code == 0 or code == 1 or code == 11:
                         setattr(self, key, kwargs[key])
-    
+        from models import storage
+        storage.new(self)
+
     def transform(self, code):
         """returns the boolen equ"""
         if code == 0 or code == "0":
@@ -107,4 +109,3 @@ class Permissions(constraints, Base):
                 return True
             return False
         return False
-
