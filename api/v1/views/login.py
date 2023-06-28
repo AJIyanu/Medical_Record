@@ -5,7 +5,7 @@ from flask import jsonify, abort, request
 from views import app_views
 from models.loginauth import PersonAuth
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
-#from flask_jwt_extended import get_jwt_claims
+from flask_jwt_extended import get_jwt
 
 
 
@@ -34,6 +34,6 @@ def siginin():
 def dashboarddata():
     """retrieves data after successful login"""
     userid = get_jwt_identity()
- #   role = get_jwt_claims().get('role')
-  #  print(role)
+    role = get_jwt().get('role')
+    print(role)
     return jsonify(user=PersonAuth.jwt_auth(userid)), 200
