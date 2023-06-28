@@ -57,6 +57,11 @@ class Permissions(constraints, Base):
         from models import storage
         storage.new(self)
 
+    def save(self):
+        """saves instance"""
+        from models import storage
+        storage.save()
+
     def transform(self, code):
         """returns the boolen equ"""
         if code == 0 or code == "0":

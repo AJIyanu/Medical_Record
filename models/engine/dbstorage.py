@@ -17,6 +17,7 @@ from models.card import Appointment
 from models.loginauth import PersonAuth
 from models.nurse import Nurse
 from models.vitalsign import VitalSign
+from models.permissions import Permissions
 
 
 class DBStorage:
@@ -33,7 +34,8 @@ class DBStorage:
                "Appointment": Appointment,
                "PersonAuth": PersonAuth,
                "Nurse": Nurse,
-               "VitalSign": VitalSign
+               "VitalSign": VitalSign,
+               "Permissions" : Permissions
                }
 
     def __init__(self):
