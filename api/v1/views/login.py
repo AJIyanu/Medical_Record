@@ -26,9 +26,9 @@ def siginin():
               }
     access_token = create_access_token(identity=log_in.get('id'),
                                        additional_claims=payload)
-    response = {"user": log_in}
+    response = jsonify({"user": log_in})
     set_access_cookies(response, access_token)
-    return jsonify(response), 200
+    return response, 200
 
 
 @app_views.route('/dashboarddata', methods=['GET'], strict_slashes=False)
