@@ -5,7 +5,7 @@ from flask import jsonify, abort, request
 from views import app_views
 from models.loginauth import PersonAuth
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
-from flask_jwt_extended import get_jwt
+from flask_jwt_extended import get_jwt, set_access_cookies
 
 
 
@@ -26,7 +26,9 @@ def siginin():
               }
     access_token = create_access_token(identity=log_in.get('id'),
                                        additional_claims=payload)
-    return jsonify({"user" :log_in, "access_token": access_token }), 200
+    response = {"user": log_in}
+    set_access_cookies(response, access_token)
+    return jsonify(response), 200
 
 
 @app_views.route('/dashboarddata', methods=['GET'], strict_slashes=False)

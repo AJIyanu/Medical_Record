@@ -5,8 +5,8 @@ This module describes the permission tables and levels
 from enum import  Enum
 from sqlalchemy import Column, String, Enum as EnumType, Integer
 from sqlalchemy.schema import DefaultClause
-from base_person import Base
-
+from models.base_person import Base
+from sqlalchemy.orm.exc import NoResultFound
 
 class AllowedValues(Enum):
     """Constrain value for permision"""
@@ -114,3 +114,12 @@ class Permissions(constraints, Base):
                 return True
             return False
         return False
+
+    @classmethod
+    def me(self, role):
+        """returns the instance of role itself"""
+        from models import storage
+        try:
+            return storage.login_class(self, {"id": role})
+        except NoResultFound:
+            return None

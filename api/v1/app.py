@@ -6,10 +6,11 @@ from os import getenv
 from views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
-from flask_jwt_extended import JWTManager, jwt_required, create_access_token
+from flask_jwt_extended import JWTManager, get_jwt, create_access_token
 from flask_jwt_extended.exceptions import JWTDecodeError, NoAuthorizationError
+from flask_jwt_extended  import create_access_token, set_access_cookies, get_jwt_identity
 from jwt.exceptions import InvalidTokenError #NoTokenError
-from datetime import timedelta
+from datetime import timedelta, datetime, timezone
 
 import os
 
@@ -19,12 +20,28 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SECRET_KEY'] = 'roseismysecretkey'
+app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
 app.config['JWT_SECRET_KEY'] = 'roseismysecretekey'
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 jwt = JWTManager(app)
 auth = None
 
+
+@app.after_request
+def refresh_expiring_jwts(response):
+    try:
+        exp_timestamp = get_jwt()["exp"]
+        now = datetime.now(timezone.utc)
+        target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
+        if target_timestamp > exp_timestamp:
+            access_token = create_access_token(identity=get_jwt_identity(),
+                                               additional_claims=get_jwt())
+            set_access_cookies(response, access_token)
+        return response
+    except (RuntimeError, KeyError):
+        # Case where there is not a valid JWT. Just return the original response
+        return response
 
 
 @app.errorhandler(NoAuthorizationError)
@@ -81,7 +98,7 @@ def not_found(error) -> str:
     return jsonify({"error": "Not found"}), 404
 
 
-@app.teardown_appcontext 
+@app.teardown_appcontext
 def close_db(error):
      """ Close Storage """
      storage.close()
