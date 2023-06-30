@@ -18,7 +18,7 @@ class constraints:
             if not column.primary_key:
                 column.default = DefaultClause(0)
                 column.server_default = DefaultClause(0)
-                column.server_onupdate = DefaultClause(0))
+                column.server_onupdate = DefaultClause(0)
 
 class Permissions(constraints, Base):
     """permission table"""
