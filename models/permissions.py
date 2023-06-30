@@ -46,7 +46,7 @@ class Permissions(Base):
             for key in kwargs:
                 if key in perm:
                     code = kwargs[key]
-                    if code == 0 or code == 1 or code == 11:
+                    if code == "0" or code == "1" or code == "11":
                         setattr(self, key, kwargs[key])
         from models import storage
         storage.new(self)
