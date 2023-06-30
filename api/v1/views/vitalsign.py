@@ -33,7 +33,7 @@ def vital_sign(n):
     record = VitalSign.pat_record(patient_id)[:n]
     return jsonify(record), 200
 
-@app_views.route("/vital_sign/<category>/<int:n>", methods=["POST"], strict_slashes=False)
+@app_views.route("/vitalsign/<category>/<int:n>", methods=["POST"], strict_slashes=False)
 @jwt_required()
 def vital_sign_category(category, n):
     """returns specific part according to need"""
@@ -47,5 +47,5 @@ def vital_sign_category(category, n):
     try:
         sub_record = [key[category] for key in record]
     except KeyError:
-        return jsonify(record=[], msg="category not valid")
+        return jsonify(record=[], msg="category not valid"), 404
     return jsonify(sub_record), 200
