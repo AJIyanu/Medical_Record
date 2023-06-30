@@ -33,7 +33,7 @@ def vital_sign(n):
     record = VitalSign.pat_record(patient_id)[:n]
     return jsonify(record), 200
 
-@app_views.route("vital_sign/<category>/<int:n>", methods=["POST"])
+@app_views.route("/vital_sign/<category>/<int:n>", methods=["POST"], strict_slashes=False)
 @jwt_required()
 def vital_sign_category(category, n):
     """returns specific part according to need"""
