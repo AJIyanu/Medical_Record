@@ -2,7 +2,6 @@
 """
 This module describes the permission tables and levels
 """
-from enum import  Enum
 from sqlalchemy import Column, String, Enum as EnumType, Integer
 from sqlalchemy.schema import DefaultClause
 from models.base_person import Base
@@ -20,14 +19,14 @@ class constraints:
                 column.server_default = DefaultClause(0)
                 column.server_onupdate = DefaultClause(0)
 
-class Permissions(constraints, Base):
+class Permissions(Base):
     """permission table"""
 
     __tablename__ = "Permissions"
 
     id = Column(String(15), primary_key=True)
-    casefile = Column(Enum('0', '1', '11'), nullable=False)
-    vitalsign = Column(Enum("0", "1", "11"), nullable=False)
+    casefile = Column(EnumType(0, 1, 11), default=0, nullable=False)
+    vitalsign = Column(EnumType(0, 1, 11), default=0, nullable=False)
 
 
     def __init__(self, *args, **kwargs):
