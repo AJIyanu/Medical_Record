@@ -8,11 +8,6 @@ from sqlalchemy.schema import DefaultClause
 from models.base_person import Base
 from sqlalchemy.orm.exc import NoResultFound
 
-class AllowedValues(Enum):
-    """Constrain value for permision"""
-    NOPERM = 0
-    VIEW = 1
-    EDIT = 11
 
 class constraints:
     id = Column(Integer, primary_key=True)
@@ -21,9 +16,9 @@ class constraints:
     def __declare_last__(cls):
         for column in cls.__table__.columns:
             if not column.primary_key:
-                column.default = DefaultClause(str(AllowedValues.NOPERM.value))
-                column.server_default = DefaultClause(str(AllowedValues.NOPERM.value))
-                column.server_onupdate = DefaultClause(str(AllowedValues.NOPERM.value))
+                column.default = DefaultClause(0)
+                column.server_default = DefaultClause(0)
+                column.server_onupdate = DefaultClause(0))
 
 class Permissions(constraints, Base):
     """permission table"""
@@ -31,8 +26,8 @@ class Permissions(constraints, Base):
     __tablename__ = "Permissions"
 
     id = Column(String(15), primary_key=True)
-    casefile = Column(EnumType(AllowedValues), nullable=False)
-    vitalsign = Column(EnumType(AllowedValues), nullable=False)
+    casefile = Column(Enum(0, 1, 11), nullable=False)
+    vitalsign = Column(Enum(0, 1, 11), nullable=False)
 
 
     def __init__(self, *args, **kwargs):
