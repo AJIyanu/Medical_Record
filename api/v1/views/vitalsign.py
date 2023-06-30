@@ -31,4 +31,21 @@ def vital_sign(n):
     if not Permissions.me(get_jwt().get("role")).permission("vitalsign", "view"):
         return jsonify({"error": "forbidden", "msg": "You are not permitted to this level"})
     record = VitalSign.pat_record(patient_id)[:n]
-    return jsonify(record)
+    return jsonify(record), 200
+
+@app_views.route("vital_sign/<category>/<int:n>", methods=["POST"])
+@jwt_required()
+def vital_sign_category(category, n):
+    """returns specific part according to need"""
+    patient_id = request.json.get("patient_id")
+    if not Permissions.me(get_jwt().get("role")).permission("vitalsign", "view"):
+        return jsonify({"error": "forbidden", "msg": "You are not permitted to this level"})
+    record = VitalSign.pat_record(patient_id)[:n]
+    if category == "bloodpressure":
+        pressure = [(key["diastolic"], key["systolic"]) for key in record]
+        return jsonify(pressure)
+    try:
+        sub_record = [key[category] for key in record]
+    except KeyError:
+        return jsonify(record=[], msg="category not valid")
+    return jsonify(sub_record), 200
