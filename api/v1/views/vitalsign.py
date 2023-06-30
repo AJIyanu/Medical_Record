@@ -22,3 +22,13 @@ def last_vital_sign():
         return jsonify(msg="not permitted"), 403
     record = VitalSign.pat_last_saved(details.get("patient_id"))
     return jsonify(record=record), 200
+
+@app_views.route("/vitalsign/<int:n>", methods=["POST"], strict_slashes=False)
+@jwt_required()
+def vital_sign(n):
+    """gets a number of vitalsign in descending order"""
+    patient_id = request.json.get("patient_id")
+    if not Permissions.me(get_jwt().get("role")).permission("vitalsign", "view"):
+        return jsonify({"error": "forbidden", "msg": "You are not permitted to this level"})
+    record = VitalSign.pat_record(patient_id)[:n]
+    return jsonify(record)
