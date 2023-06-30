@@ -18,7 +18,7 @@ class constraints:
             if not column.primary_key:
                 column.default = DefaultClause(0)
                 column.server_default = DefaultClause(0)
-                column.server_onupdate = DefaultClause(0))
+                column.server_onupdate = DefaultClause(0)
 
 class Permissions(constraints, Base):
     """permission table"""
@@ -26,8 +26,8 @@ class Permissions(constraints, Base):
     __tablename__ = "Permissions"
 
     id = Column(String(15), primary_key=True)
-    casefile = Column(Enum(0, 1, 11), nullable=False)
-    vitalsign = Column(Enum(0, 1, 11), nullable=False)
+    casefile = Column(Enum('0', '1', '11'), nullable=False)
+    vitalsign = Column(Enum("0", "1", "11"), nullable=False)
 
 
     def __init__(self, *args, **kwargs):
