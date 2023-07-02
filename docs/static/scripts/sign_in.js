@@ -10,26 +10,39 @@ docsignInBtn.addEventListener('click', function (event) {
   const password = passwordInput.value;
   const hosID = hosIDInput.value;
 
-  const formData = new FormData();
-  formData.append('email', email);
-  formData.append('password', password);
-  formData.append('institution_id', hosID);
+  const login_details = {
+    email: emailInput.value,
+    pwd: passwordInput.value,
+    role: 'Doctor',
+    hosID: hosIDInput.value
+  };
 
-  fetch('/signin', {
+  fetch('http://127.0.0.1:5000/api/v1/authme', {
     method: 'POST',
-    body: formData
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(login_details)
   })
-    .then(function (response) {
-      if (response.ok) {
-        window.location.href = '/status';
-      } else {
-      // Handle the case where the server returns an error
-        window.location.href = '/signup';
-      }
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+  //  .then(fetch('http://127.0.0.1:5000/api/v1/dashboarddata'))
+    .then(data => {
+	    window.location.href = 'http://127.0.0.1:5000/api/v1/dashboarddata';
     })
     .catch(function (error) {
       console.error(error);
     });
+
+  // fetch('http://127.0.0.1:5000/api/v1/dashboarddata', {
+  //   method: 'GET',
+  // })
+  // .then(response => response.json())
+  // .then(data => {
+  // console.log(data)
+  // })
 });
 
 const signInBtn = document.getElementById('pat_signin');
