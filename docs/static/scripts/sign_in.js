@@ -13,7 +13,7 @@ docsignInBtn.addEventListener('click', function (event) {
   const login_details = {
     email: emailInput.value,
     pwd: passwordInput.value,
-    role: "Doctor",
+    role: 'Doctor',
     hosID: hosIDInput.value
   };
 
@@ -26,7 +26,11 @@ docsignInBtn.addEventListener('click', function (event) {
   })
     .then(response => response.json())
     .then(data => {
-      console.log(data)
+      console.log(data);
+    })
+  //  .then(fetch('http://127.0.0.1:5000/api/v1/dashboarddata'))
+    .then(data => {
+	    window.location.href = 'http://127.0.0.1:5000/api/v1/dashboarddata';
     })
     .catch(function (error) {
       console.error(error);
@@ -40,7 +44,6 @@ docsignInBtn.addEventListener('click', function (event) {
   // console.log(data)
   // })
 });
-
 
 const signInBtn = document.getElementById('pat_signin');
 
