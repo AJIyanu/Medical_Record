@@ -28,10 +28,13 @@ docsignInBtn.addEventListener('click', function (event) {
     .then(data => {
       console.log(data);
     })
-  //  .then(fetch('http://127.0.0.1:5000/api/v1/dashboarddata'))
-    .then(data => {
-	    window.location.href = 'http://127.0.0.1:5000/api/v1/dashboarddata';
-    })
+   .then(data => {
+    fetch('http://127.0.0.1:5000/api/v1/dashboarddata')
+    .then(response => {console.log(response.json()).})
+   })
+    // .then(data => {
+	  //   window.location.href = 'http://127.0.0.1:5000/api/v1/dashboarddata';
+    // })
     .catch(function (error) {
       console.error(error);
     });
