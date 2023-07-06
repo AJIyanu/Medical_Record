@@ -5,17 +5,32 @@ docsignInBtn.addEventListener('click', function (event) {
   const emailInput = document.getElementById('email-input');
   const passwordInput = document.getElementById('password-input');
   const hosIDInput = document.getElementById('hosID');
+  const errormsg = document.querySelector("Info");
 
   const email = emailInput.value;
   const password = passwordInput.value;
   const hosID = hosIDInput.value;
 
+  if (email === "") {
+    errormsg.innerText = "please fill in your email";
+    errormsg.style.color = red;
+    return;
+  }
+  if (password === "") {
+    errormsg.innerText = "please fill in your password";
+    return;
+  }
+
   const login_details = {
     email: emailInput.value,
     pwd: passwordInput.value,
     role: 'Doctor',
-    hosID: hosIDInput.value
+    user: "staff"
   };
+
+  if (hosID !== "") {
+    login_details.hosID = hosID;
+  }
 
   fetch('http://127.0.0.1:5000/api/v1/authme', {
     method: 'POST',
@@ -26,11 +41,19 @@ docsignInBtn.addEventListener('click', function (event) {
   })
     .then(response => response.json())
     .then(data => {
+      if (!data.hasOwnProperty('error')) {
+      localStorage.setItem("healthvaultaccesstoken", data.access_token)
+      }
       console.log(data);
     })
    .then(data => {
-    fetch('http://127.0.0.1:5000/api/v1/dashboarddata')
-    .then(response => {console.log(response.json()).})
+    fetch('http://127.0.0.1:5000/api/v1/dashboarddata', {
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + localStorage.getItem("healthvaultaccesstoken")
+    }
+  })
+    .then(response => {console.log(response.json())})
    })
     // .then(data => {
 	  //   window.location.href = 'http://127.0.0.1:5000/api/v1/dashboarddata';
