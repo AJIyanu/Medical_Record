@@ -33,12 +33,12 @@ def siginin():
     if details.get("user") == "staff":
         role = details.get("role")
         try:
-            code = details.get("inst_code")
-            id = log_in.get('id')
+            code = details["hosID"]
+            id = log_in['id']
             if not personality[role].validate_inst_code(id, code):
                 return jsonify(error="You are not authorized for this institution")
-            payload.update(inst_code=details.get("inst_code"))
-        except IndexError:
+            payload.update(inst_code=details.get("hosID"))
+        except KeyError:
             pass
     access_token = create_access_token(identity=log_in.get('id'),
                                        additional_claims=payload)
