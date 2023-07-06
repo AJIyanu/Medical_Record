@@ -5,7 +5,7 @@ docsignInBtn.addEventListener('click', function (event) {
   const emailInput = document.getElementById('email-input');
   const passwordInput = document.getElementById('password-input');
   const hosIDInput = document.getElementById('hosID');
-  const errormsg = document.querySelector("Info");
+  const errormsg = document.getElementsByClassName("Info");
 
   const email = emailInput.value;
   const password = passwordInput.value;
@@ -13,7 +13,7 @@ docsignInBtn.addEventListener('click', function (event) {
 
   if (email === "") {
     errormsg.innerText = "please fill in your email";
-    errormsg.style.color = red;
+    // errormsg.style = "red";
     return;
   }
   if (password === "") {
