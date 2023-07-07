@@ -43,12 +43,11 @@ docsignInBtn.addEventListener('click', function (event) {
     .then(data => {
       if (!data.hasOwnProperty('error')) {
         localStorage.setItem('healthvaultaccesstoken', data.access_token);
-      }
+      } else {
       errormsg.innerText = data.error;
-    })
-    .then(data => {
-	   // window.location.href = data.dashboarddata';
-      console.log(data);
+      }
+      console.log(data.user.personality);
+      window.location.href = "/dashboard/" + data.user.personality;
     })
     .catch(function (error) {
       console.error(error);
