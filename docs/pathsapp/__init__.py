@@ -8,3 +8,4 @@ app_views = Blueprint("app_views", __name__)
 
 from pathsapp.forms import *
 from pathsapp.dashboard import *
+from website import Login_Manager

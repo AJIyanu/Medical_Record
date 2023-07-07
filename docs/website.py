@@ -4,14 +4,30 @@ Route module for web pages
 """
 from os import getenv
 from pathsapp import app_views
+from flask_login import LoginManager
 from flask import Flask, jsonify, abort, request
-import os
+from pathsapp.user import User
 
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
+Login_Manager = LoginManager()
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SECRET_KEY'] = 'roseismysecretkey'
+Login_Manager.init_app(app)
+
+
+
+@Login_Manager.user_loader
+def user_loader(user_id):
+    """needed later"""
+    return User()
+
+@Login_Manager.request_loader
+def request_loader(request):
+    """needed later"""
+    return User()
+
 
 
 @app.before_request
