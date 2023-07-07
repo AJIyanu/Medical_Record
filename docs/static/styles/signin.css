@@ -91,19 +91,10 @@ button:hover{
 
 form p{
 	color: red;
-	margin: 20px auto;
-	transition: .6s ease-in;
-	font-weight: bold;
-	justify-content: center;
+	text-align: center;
+	padding-top: 0px;
 }
 
-.info {
-	width: 80%;
-	color: rgb(16, 246, 16);
-	justify-content: center;
-	font-size: smaller;
-	text-align: center;
-}
 
 .whitebg {
 	color: rgb(5, 130, 5);
