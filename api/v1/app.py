@@ -20,28 +20,12 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SECRET_KEY'] = 'roseismysecretkey'
-app.config["JWT_TOKEN_LOCATION"] = ["cookies", "headers"]
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
+app.config["JWT_TOKEN_LOCATION"] = ["headers"]
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=2)
 app.config['JWT_SECRET_KEY'] = 'roseismysecretekey'
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 jwt = JWTManager(app)
 auth = None
-
-
-@app.after_request
-def refresh_expiring_jwts(response):
-    try:
-        exp_timestamp = get_jwt()["exp"]
-        now = datetime.now(timezone.utc)
-        target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
-        if target_timestamp > exp_timestamp:
-            access_token = create_access_token(identity=get_jwt_identity(),
-                                               additional_claims=get_jwt())
-            set_access_cookies(response, access_token)
-        return response
-    except (RuntimeError, KeyError):
-        # Case where there is not a valid JWT. Just return the original response
-        return response
 
 
 @app.errorhandler(NoAuthorizationError)

@@ -42,8 +42,7 @@ def siginin():
             pass
     access_token = create_access_token(identity=log_in.get('id'),
                                        additional_claims=payload)
-    response = jsonify(user=log_in, access_token=access_token)
-    set_access_cookies(response, access_token)
+    response = jsonify(nin=log_in.get('nin'), access_token=access_token)
     return response, 200
 
 

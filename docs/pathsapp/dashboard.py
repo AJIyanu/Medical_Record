@@ -1,9 +1,12 @@
 from pathsapp import app_views
-from flask import render_template
-from flask_login import login_required
+from flask import render_template, request, redirect, url_for
+import base64
 
 @app_views.route('/dashboard/<user>', methods=['GET'])
-@login_required
 def dashboard(user):
     """returns the sign in page"""
-    return render_template("{}_dashboard.html".format(user))
+    if request.cookies.get('user'):
+        nin = request.cookies.get('nin')
+        nin = base64.b64decode(nin).decode('utf-8')
+        return render_template("{}_dashboard.html".format(user), nin=nin)
+    redirect(url_for('login'))

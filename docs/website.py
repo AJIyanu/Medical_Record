@@ -3,31 +3,38 @@
 Route module for web pages
 """
 from os import getenv
+from flask_jwt_extended import JWTManager, get_jwt, create_access_token
+from flask_jwt_extended  import create_access_token, set_access_cookies, get_jwt_identity
+from datetime import timedelta, datetime, timezone
 from pathsapp import app_views
-from flask_login import LoginManager
 from flask import Flask, jsonify, abort, request
-from pathsapp.user import User
 
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
-Login_Manager = LoginManager()
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SECRET_KEY'] = 'roseismysecretkey'
-Login_Manager.init_app(app)
+app.config["JWT_TOKEN_LOCATION"] = ["cookies", "headers"]
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=2)
+app.config['JWT_SECRET_KEY'] = 'roseismysecretekey'
+jwt = JWTManager(app)
 
 
 
-@Login_Manager.user_loader
-def user_loader(user_id):
-    """needed later"""
-    return User()
-
-@Login_Manager.request_loader
-def request_loader(request):
-    """needed later"""
-    return User()
-
+@app.after_request
+def refresh_expiring_jwts(response):
+    try:
+        exp_timestamp = get_jwt()["exp"]
+        now = datetime.now(timezone.utc)
+        target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
+        if target_timestamp > exp_timestamp:
+            access_token = create_access_token(identity=get_jwt_identity(),
+                                               additional_claims=get_jwt())
+            set_access_cookies(response, access_token)
+        return response
+    except (RuntimeError, KeyError):
+        # Case where there is not a valid JWT. Just return the original response
+        return response
 
 
 @app.before_request
