@@ -76,6 +76,17 @@
   option {
   background-color: #030009;}
 
+  .slide-in {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 5s ease, transform 5s ease;
+  }
+
+  .slide-in.reveal {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
 
   /* .symptoms-tag ul{
     display: flex;

@@ -73,7 +73,7 @@ body:nth-child(1) {
   border-radius: 50%;
   position: absolute;
   top: 30%;
-  right: 10%; 
+  right: 10%;
   translate: transform(-50%, -50%);
   filter: blur(90px);
   overflow: hidden;
@@ -85,7 +85,7 @@ body:nth-child(1) {
   border-radius: 50%;
   position: absolute;
   top: -5%;
-  left: -3%; 
+  left: -3%;
   translate: transform(-50%, -50%);
   filter: blur(35px);
 }
@@ -168,8 +168,19 @@ footer {
 }
 
 .nav{
+  display: flex;
   position: sticky;
   top: 0;
+}
+
+.nav h1 {
+  font-size: 2.3rem;
+  position: absolute;
+  left: 12%;
+}
+
+.nav span {
+  color: #E8AA42;
 }
 
 svg {
