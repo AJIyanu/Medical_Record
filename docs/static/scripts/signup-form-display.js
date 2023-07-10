@@ -20,7 +20,7 @@ prevBtn.forEach((button) => {
   });
 });
 
-proceed.addEventListener('submit', (event) => {
+proceed.addEventListener('click', (event) => {
   event.preventDefault();
   const pwd = document.getElementById('password');
   const vpwd = document.getElementById('vpassword');
@@ -30,8 +30,8 @@ proceed.addEventListener('submit', (event) => {
   if (pwd.value !== vpwd.value) {
     err.innerHTML = `<p>password must be same</p>`
   } else {
-    formData.set("email", email.value);
-    formData.set("password", pwd.value);
+    // formData.set("email", email.value);
+    // formData.set("password", pwd.value);
     changeStep('next');
   }
 });
