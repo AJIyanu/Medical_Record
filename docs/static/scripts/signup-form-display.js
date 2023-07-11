@@ -30,8 +30,8 @@ proceed.addEventListener('click', (event) => {
   if (pwd.value !== vpwd.value) {
     err.innerHTML = `<p>password must be same</p>`
   } else {
-    // formData.set("email", email.value);
-    // formData.set("password", pwd.value);
+    formData.set("email", email.value);
+    formData.set("password", pwd.value);
     changeStep('next');
   }
 });
