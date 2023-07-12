@@ -19,6 +19,7 @@ class Doctor(Person, Base):
     allperson_id = Column(String(60), ForeignKey('allpersons.id'), unique=True, primary_key=True)
     __specialization = Column(String(20))
     __authinst = Column(String(128))
+    # __accesscode = Column(String(15))
 
 
 
@@ -34,6 +35,8 @@ class Doctor(Person, Base):
     @specialization.setter
     def specialization(self, value):
         """sets specialization for doctors"""
+        if value is None:
+            return
         self.__specialization = value
 
     @property
@@ -45,6 +48,8 @@ class Doctor(Person, Base):
     def authinst(self, value):
         """adds authorized institution to doctor"""
         from models.base_institution import Institution
+        if value is None:
+            return
         try:
             prev = self.authinst
         except TypeError:
@@ -54,6 +59,13 @@ class Doctor(Person, Base):
         else:
             raise ValueError("Insititution does not exist")
         self.__authinst = json.dumps(prev)
+
+    # @property
+    # def accesscode(self):
+    #     """returns users access code"""
+    #     return self.__accesscode
+
+
 
     @classmethod
     def validate_inst_code(self, id, code):

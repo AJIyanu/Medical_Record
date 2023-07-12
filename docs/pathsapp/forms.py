@@ -1,4 +1,9 @@
+#!/usr/bin/env python3
+""" Module of Index views
+"""
 from pathsapp import app_views
+from datetime import datetime
+import json
 from flask import render_template, request, redirect
 
 @app_views.route('/signin', methods=['GET', 'POST'])
@@ -18,13 +23,16 @@ def vitalsign():
 
 @app_views.route("/signup", methods=["GET", "POST"])
 def register():
-    return render_template("signup.html")
+    if request.method == "GET":
+        return render_template("signup.html")
+    user_data = request.json
+    if user_data['user'] == "doctor":
+        from register_function import register_doctor
+        user_data["dob"] = datetime.strptime(json.loads(user_data['dob']), "%Y-%m-%d")
+        register_doctor(**user_data)
+    return "saved"
 
 
 @app_views.route("/logout")
 def logout():
     return "logged out"
-
-
-def register_user(**user_data):
-    from models.personauth

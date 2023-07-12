@@ -64,8 +64,9 @@ class Person(Base):
                 kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
                 kwargs['dob'] = datetime.strptime(kwargs['dob'], '%Y-%m-%d')
-            except:
-                pass
+            except KeyError:
+                self.created_at = datetime.now()
+                self.updated_at = datetime.now()
             finally:
                 self.__dict__.update(kwargs)
         from models import storage
@@ -83,7 +84,10 @@ class Person(Base):
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
-        dictionary['dob'] = self.dob.isoformat()
+        try:
+            dictionary['dob'] = self.dob.isoformat()
+        except:
+            pass
         if "_sa_instance_state" in dictionary:
             del dictionary["_sa_instance_state"]
         return dictionary
@@ -147,6 +151,8 @@ class Person(Base):
     @nin.setter
     def nin(self, value):
         """sets NIN value and make sure it exists"""
+        if value is None:
+            return
         try:
             int(value)
         except ValueError as msg:
@@ -154,3 +160,8 @@ class Person(Base):
         if len(value) != 11:
             raise ValueError("NIN must be 11 digits")
         self.__nin = value
+
+    def purge(self):
+        """deletes object"""
+        from models import storage
+        storage.delete(self)

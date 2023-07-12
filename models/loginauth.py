@@ -46,6 +46,7 @@ class PersonAuth(Base):
             # self.__hashed_password = bcrypt.hashpw(pwd.encode('utf-8'), salt)
             # if self.reset_token != token:
             #     raise ValueError("Wrong token")
+            """create here token validation  here otherwise compromised"""
             self.__hashed_password = passwordhash.hash(pwd)
             self.reset_token = str(uuid.uuid4())
             self.save()
