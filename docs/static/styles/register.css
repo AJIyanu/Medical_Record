@@ -76,6 +76,17 @@
   option {
   background-color: #030009;}
 
+  .slide-in {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 5s ease, transform 5s ease;
+  }
+
+  .slide-in.reveal {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
 
   /* .symptoms-tag ul{
     display: flex;
@@ -150,6 +161,7 @@ margin-top: 15px;
 
 h3 {
   color: rgb(233, 233, 220);
+  text-align: center;
 }
 
 h5 {
@@ -182,4 +194,27 @@ h5 {
 
 #tags-container .tag:hover {
   background-color: #ddd;
+}
+
+
+.nav {
+  position: relative;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  width: 100%
+}
+
+#left-nav {
+  position: absolute;
+  left: 3px;
+  font-size: 30px;
+  display: none;
+}
+
+#right-nav {
+  position: absolute;
+  right: 3px;
+  font-size: 30px;
+  display: none;
 }

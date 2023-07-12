@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Reister as a Patient</title>
-        <link rel="stylesheet" href="static/css/register.css">
+        <link rel="stylesheet" href="../static/styles/register.css">
+	<link href="../static/styles/bootstrap.min.css" rel="stylesheet">
+	<link href="../static/styles/bootstrap-icons.css" rel="stylesheet">
         <!-- <link rel="stylesheet" href="form.css"> -->
     </head>
     <body>
@@ -12,28 +14,47 @@
         <section>
             <div class="container">
                 <form>
-                    <h3 color="white" align="center">REGISTER</h>
+                  <div class="nav">
+                    <i class="bi bi-arrow-left-short" id="left-nav"></i>
+                    <h3 id="header-title">JOIN HEALTHVAULT</h3>
+		    <i class="bi bi-arrow-right-short" id="right-nav"></i>
+                  </div>
                     <div class="step step-0 active">
-                      <p class="error" id="errmsg" name="errmsg"></p>
                       <div class="form-group">
-                        <label for="email">Email</label>
-			            <input type="email" id="email" name="email" placeholder="Email">
-                        <label for="password">Password</label>
-			            <input type="password" id="password" name="password" placeholder="Password">
-                        <label for="vpassword">Confirm Password</label>
-			            <input type="password" id="vpassword" name="vpassword" placeholder="Confirm Password">
-			            <button type="submit" class="find-btn">Proceed</button>
+                        <label for="personalty">You are a/an...</label>
+			                  <select id="personality">
+                          <option value="null" disabled selected>--</option>
+                          <option value="Patient">Patient</option>
+                          <option value="Staff">HealthCare Worker</option>
+                        </select>
+                        <label for="jurisdiction" id="staff" class="slide-in" style="display: none;">Jurisdiction</label>
+			                  <select id="jurisdiction" class="slide-in" style="display: none;">
+                          <option value="null" selected disabled>--</option>
+                          <option value="doctor">Doctor</option>
+                          <option value="nurse">Nurse</option>
+                        </select>
+                        <label for="license" id="licnse" style="display: none;">Enter your license number</label>
+                        <input type="text" id="license" style="display: none;">
+                        <label for="nin">NIN</label>
+                        <input type="number" name="nin" id="nin">
                       </div>
                     </div>
-                </form>
 
-                <form>
                   <div class="step step-1">
+                    <div class="form-group signin-details">
+                      <p class="error" id="errmsg" name="errmsg"></p>
+                      <label for="email">Email</label>
+                      <input type="email" id="email" name="email" placeholder="Email">
+                      <label for="password">Password</label>
+                      <input type="password" id="password" name="password" placeholder="Password">
+                      <label for="vpassword">Confirm Password</label>
+                      <input type="password" id="vpassword" name="vpassword" placeholder="Confirm Password">
+                      <button type="button" class="find-btn" id="proceed">Proceed</button>
+                    </div>
+                  </div>
+
+                  <div class="step step-2">
                     <h5>Personal Details</h5>
-                    <!-- <div class="symptoms-tag">
-                      <label for="symptoms">Symptoms</label>
-		                  <ul><input class="symp-tag" type="text" id="symptoms" name="symptoms"></ul>
-                    </div> -->
                         <div class="form-group personal">
                             <label for="surname"></label>
                             <input type="text" id="surname" name="surname" placeholder="Surname">
@@ -48,7 +69,7 @@
                         </div>
                         <div class="form-group personal">
                             <select title="Sex" name="sex" id="sex">
-                                <option>-- sex --</option>
+                                <option disabled selected>-- sex --</option>
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
@@ -56,10 +77,6 @@
                         <div class="form-group personal">
                           <label for="dob"></label>
                             <input type="date" name="dob" id="dob" placeholder="Date of Birth">
-                        </div>
-                        <div class="form-group personal">
-                            <label for="nin"></label>
-                            <input type="text" id="nin" name="nin" placeholder="NIN">
                         </div>
                         <div class="form-group personal">
                             <label for="state-select">State of Origin</label>
@@ -73,7 +90,7 @@
                         <button type="button" class="nxt-btn">Next</button>
                     </div>
 
-                    <div class="step step-2">
+                    <div class="step step-3">
 				              <h5>Contacts and Work</h5>
                         <div class="form-group personal">
                             <label for="phone"></label>
@@ -99,7 +116,7 @@
                         <button type="button" class="nxt-btn">Next</button>
                     </div>
 
-                    <div class="step step-3">
+                    <div class="step step-4">
 			                <h5>Next of Kin</h5>
                         <div class="form-group personal">
                             <label for="nextofkinnin"></label>
@@ -124,153 +141,7 @@
                 </form>
             </div>
         </section>
-        <script>
-          const stateSelect = document.getElementById('state-select');
-          const lgaSelect = document.getElementById('lga-select');
-
-          fetch('/states')
-          .then(response => response.json())
-          .then(options => {
-            options.forEach(option => {
-              const optionElement = document.createElement('option');
-              optionElement.textContent = option;
-              stateSelect.appendChild(optionElement)
-            });
-          });
-
-          stateSelect.addEventListener('change', (event) => {
-            const seloption = event.target.value;
-            console.log('change detected');
-
-            console.log(seloption)
-
-            fetch('/lga/' + seloption)
-            .then(response => response.json())
-            .then(options => {
-              console.log(options);
-              while(lgaSelect.firstChild) {
-                lgaSelect.removeChild(lgaSelect.firstChild);
-              }
-            options.forEach(option => {
-              const optionElement = document.createElement('option');
-              optionElement.textContent = option;
-              lgaSelect.appendChild(optionElement)
-            });
-          });
-          });
-
-        </script>
-        <script>
-const form = document.querySelectorAll('form');
-// const symptoms = document.querySelector('.symp-tag');
-// const ul = document.querySelector("ul");
-// let tags = [];
-
-// createTag();
-// function createTag(){
-//     ul.querySelectorAll("li").forEach(li => li.remove());
-//     tags.slice().reverse().forEach(tag =>{
-//         let liTag = `<li>${tag} <i class="remove-icon" onclick="remove(this, '${tag}')">&times;</i></li>`;
-//         ul.insertAdjacentHTML("afterbegin", liTag);
-//     });
-// }
-// function remove(element, tag){
-//     let index  = tags.indexOf(tag);
-//     tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
-//     element.parentElement.remove();
-// }
-// function addTag(e){
-//     const value = event.target.value;
-//     if(e.key === ";" || value.indexOf(';') !== -1){
-//         e.preventDefault();
-//         let tag = e.target.value.replace(/\s+/g, ' ').replace(/;/g, '');
-//         if(tag.length > 1 && !tags.includes(tag)){
-//             if(tags.length < 20){
-//                 tag.split(',').forEach(tag => {
-//                     tags.push(tag);
-//                     createTag();
-//                 });
-//             }
-//         }
-//         e.target.value = "";
-//     }
-// }
-// symptoms.addEventListener("keyup", addTag);
-
-const steps = Array.from(document.querySelectorAll('form .step'));
-const nxtBtn = document.querySelectorAll('form .nxt-btn');
-const prevBtn = document.querySelectorAll('form .prev-btn');
-const formData = new FormData();
-let patientData;
-
-nxtBtn.forEach((button) => {
-  button.addEventListener('click', () => {
-    changeStep('next');
-  });
-});
-prevBtn.forEach((button) => {
-  button.addEventListener('click', () => {
-    changeStep('prev');
-  });
-});
-
-form[0].addEventListener('submit', (event) => {
-  event.preventDefault();
-  const pwd = document.getElementById('password');
-  const vpwd = document.getElementById('vpassword');
-  const err = document.getElementById('errmsg');
-  const email = document.getElementById('email');
-
-  if (pwd.value !== vpwd.value) {
-    err.innerHTML = `<p>password must be same</p>`
-  } else {
-    formData.set("email", email.value);
-    formData.set("password", pwd.value);
-    changeStep('next');
-  }
-});
-
-
-form[1].addEventListener('submit', (e) => {
-  e.preventDefault();
-  setTimeout(function() {
-  window.location.href = "signin.html";
-   }, 1500);
-  alert("You are not being redirected to the login page.");
-  form[1].querySelectorAll('input').forEach((input) => {
-    const { name, value } = input;
-    const sex = document.getElementById("sex");
-    formData.append( name, value );
-    formData.append('sex', sex.value);
-  });
-
-
-  fetch('/newperson', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-  if (response.redirected) {
-    window.location.href = response.url;
-  } else { console.log(response.json())}
-})
-  .catch(error => console.error(error));
-});
-
-function changeStep (btn) {
-  let index = 0;
-  const active = document.querySelector('.active');
-  index = steps.indexOf(active);
-  steps[index].classList.remove('active');
-  if (btn === 'next') {
-    index++;
-  } else if (btn === 'prev') {
-    index--;
-  }
-  steps[index].classList.add('active');
-}
-
-
-	</script>
+        <script src="../static/scripts/stateslga.js"></script>
+        <script src="../static/scripts/signup-form-display.js"></script>
     </body>
 </html>

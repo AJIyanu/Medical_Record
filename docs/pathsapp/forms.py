@@ -15,6 +15,12 @@ def vitalsign():
         return render_template("vitalsign.html")
     return render_template("vitalsign.html")
 
+
+@app_views.route("/signup", methods=["GET", "POST"])
+def register():
+    return render_template("signup.html")
+
+
 @app_views.route("/logout")
 def logout():
     return "logged out"
