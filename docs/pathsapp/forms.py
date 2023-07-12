@@ -24,3 +24,7 @@ def register():
 @app_views.route("/logout")
 def logout():
     return "logged out"
+
+
+def register_user(**user_data):
+    from models.personauth
