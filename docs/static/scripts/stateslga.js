@@ -13,14 +13,14 @@ fetch('/states')
 
 stateSelect.addEventListener('change', (event) => {
   const seloption = event.target.value;
-  console.log('change detected');
+  // console.log('change detected');
 
-  console.log(seloption)
+  // console.log(seloption)
 
   fetch('/lga/' + seloption)
   .then(response => response.json())
   .then(options => {
-    console.log(options);
+    // console.log(options);
     while(lgaSelect.firstChild) {
       lgaSelect.removeChild(lgaSelect.firstChild);
     }

@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Reister as a Patient</title>
         <link rel="stylesheet" href="../static/styles/register.css">
-	<link href="../static/styles/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<!-- <link href="../static/styles/bootstrap.min.css" rel="stylesheet"> -->
 	<link href="../static/styles/bootstrap-icons.css" rel="stylesheet">
         <!-- <link rel="stylesheet" href="form.css"> -->
     </head>
@@ -21,7 +22,7 @@
                   </div>
                     <div class="step step-0 active">
                       <div class="form-group">
-                        <label for="personalty">You are a/an...</label>
+                        <label for="personalty">You are a/an... <span class="required">*</span></label>
 			                  <select id="personality" required>
                           <option value="null" disabled selected>--</option>
                           <option value="Patient">Patient</option>
@@ -43,9 +44,9 @@
                   <div class="step step-1">
                     <div class="form-group signin-details">
                       <p class="error" id="errmsg" name="errmsg"></p>
-                      <label for="email">Email</label>
+                      <label for="email">Email <span class="required">*</span></label>
                       <input type="email" id="email" name="email" placeholder="Email" required>
-                      <label for="password">Password</label>
+                      <label for="password">Password <span class="required">*</span></label>
                       <input type="password" id="password" name="password" placeholder="Password" required>
                       <label for="vpassword">Confirm Password</label>
                       <input type="password" id="vpassword" name="vpassword" placeholder="Confirm Password">
@@ -57,11 +58,11 @@
                     <h5>Personal Details</h5>
                         <div class="form-group personal">
                             <label for="surname"></label>
-                            <input type="text" id="surname" name="surname" placeholder="Surname" required>
+                            <input type="text" id="surname" name="surname" placeholder="Surname (required)" required>
                         </div>
                         <div class="form-group personal">
                             <label for="firstname"></label>
-                            <input type="text" id="firstname" name="firstname" placeholder="Firstname" required>
+                            <input type="text" id="firstname" name="firstname" placeholder="Firstname (required)" required>
                         </div>
                         <div class="form-group personal">
                             <label for="middlename"></label>
@@ -69,19 +70,19 @@
                         </div>
                         <div class="form-group personal">
                             <select title="Sex" name="sex" id="sex" required>
-                                <option value="null" disabled selected>-- sex --</option>
+                                <option value="null" disabled selected>-- sex (required)--</option>
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
                         </div>
                         <div class="form-group personal">
-                          <label for="dob"></label>
-                            <input type="date" name="dob" id="dob" placeholder="Date of Birth" required>
+                          <label for="dob">Date of Birth<span class="required">*</span></label>
+                            <input type="date" name="dob" id="dob" required>
                         </div>
                         <div class="form-group personal">
-                            <label for="state-select">State of Origin</label>
+                            <label for="state-select">State of Origin <span class="required">*</span></label>
                             <select type="text" name="state-select" id="state-select" required>
-                              <option value"null" disabled selected> -- State of Origin -- </option>
+                              <option value="null" disabled selected> -- State of Origin -- </option>
                             </select>
 
                             <label for="lga-select">LGA</label>
@@ -94,11 +95,11 @@
 				              <h5>Contacts and Work</h5>
                         <div class="form-group personal">
                             <label for="phone"></label>
-                            <input type="number" id="phone" name="phone" placeholder="Your Phone Number" required>
+                            <input type="number" id="phone" name="phone" placeholder="Your Phone Number (required)" required>
                         </div>
                     <div class="form-group personal">
                       <label for="address"></label>
-                      <input type="text" id="address" name="address" placeholder="Enter your home address" required>
+                      <input type="text" id="address" name="address" placeholder="Enter your home address (required)" required>
                     </div>
                     <div class="form-group personal">
                       <label for="occupation"></label>
