@@ -22,7 +22,7 @@
                     <div class="step step-0 active">
                       <div class="form-group">
                         <label for="personalty">You are a/an...</label>
-			                  <select id="personality">
+			                  <select id="personality" required>
                           <option value="null" disabled selected>--</option>
                           <option value="Patient">Patient</option>
                           <option value="Staff">HealthCare Worker</option>
@@ -44,9 +44,9 @@
                     <div class="form-group signin-details">
                       <p class="error" id="errmsg" name="errmsg"></p>
                       <label for="email">Email</label>
-                      <input type="email" id="email" name="email" placeholder="Email">
+                      <input type="email" id="email" name="email" placeholder="Email" required>
                       <label for="password">Password</label>
-                      <input type="password" id="password" name="password" placeholder="Password">
+                      <input type="password" id="password" name="password" placeholder="Password" required>
                       <label for="vpassword">Confirm Password</label>
                       <input type="password" id="vpassword" name="vpassword" placeholder="Confirm Password">
                       <button type="button" class="find-btn" id="proceed">Proceed</button>
@@ -57,31 +57,31 @@
                     <h5>Personal Details</h5>
                         <div class="form-group personal">
                             <label for="surname"></label>
-                            <input type="text" id="surname" name="surname" placeholder="Surname">
+                            <input type="text" id="surname" name="surname" placeholder="Surname" required>
                         </div>
                         <div class="form-group personal">
                             <label for="firstname"></label>
-                            <input type="text" id="firstname" name="firstname" placeholder="Firstname">
+                            <input type="text" id="firstname" name="firstname" placeholder="Firstname" required>
                         </div>
                         <div class="form-group personal">
                             <label for="middlename"></label>
                             <input type="text" id="middlename" name="middlename" placeholder="Middlename">
                         </div>
                         <div class="form-group personal">
-                            <select title="Sex" name="sex" id="sex">
-                                <option disabled selected>-- sex --</option>
+                            <select title="Sex" name="sex" id="sex" required>
+                                <option value="null" disabled selected>-- sex --</option>
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
                         </div>
                         <div class="form-group personal">
                           <label for="dob"></label>
-                            <input type="date" name="dob" id="dob" placeholder="Date of Birth">
+                            <input type="date" name="dob" id="dob" placeholder="Date of Birth" required>
                         </div>
                         <div class="form-group personal">
                             <label for="state-select">State of Origin</label>
-                            <select type="text" name="state-select" id="state-select">
-                              <option disabled selected> -- State of Origin -- </option>
+                            <select type="text" name="state-select" id="state-select" required>
+                              <option value"null" disabled selected> -- State of Origin -- </option>
                             </select>
 
                             <label for="lga-select">LGA</label>
@@ -94,11 +94,11 @@
 				              <h5>Contacts and Work</h5>
                         <div class="form-group personal">
                             <label for="phone"></label>
-                            <input type="number" id="phone" name="phone" placeholder="Your Phone Number">
+                            <input type="number" id="phone" name="phone" placeholder="Your Phone Number" required>
                         </div>
                     <div class="form-group personal">
                       <label for="address"></label>
-                      <input type="text" id="address" name="address" placeholder="Enter your home address">
+                      <input type="text" id="address" name="address" placeholder="Enter your home address" required>
                     </div>
                     <div class="form-group personal">
                       <label for="occupation"></label>
@@ -135,7 +135,7 @@
                             <input type="phone" id="nokphone" name="nokphone" placeholder="Next of Kin Phone NUmber">
                         </div>
                         <button type="button" class="prev-btn">Previous</button>
-                        <button type="submit" class="submit-btn">Submit</button>
+                        <button type="submit" class="submit-btn" id="submit">Submit</button>
                     </div>
 
                 </form>
