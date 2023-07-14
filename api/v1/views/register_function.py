@@ -17,18 +17,20 @@ def register_doctor(**userdata):
     try:
         new_user.save()
         status = "saved"
-    except Exception:
-        print("cannot save")
+        new_user_auth = login()
+        new_user_auth.person_id = new_user.id
+        new_user_auth.email = userdata.get("email")
+        new_user_auth.set_password = userdata.get("pwd")
+        try:
+            new_user_auth.save()
+            print(new_user.to_dict())
+        except Exception as msgg:
+            print(f"{msgg}, auth didnt save")
+            new_user.purge()
+            status = "error login"
+    except Exception as msg:
+        print(msg)
         status = "error"
-    print(new_user.to_dict())
-    new_user_auth = login()
-    new_user_auth.person_id = new_user.id
-    new_user_auth.email = userdata.get("email")
-    new_user_auth.set_password = userdata.get("pwd")
-    try:
-        new_user_auth.save()
-    except Exception:
-        new_user.purge()
-        status = "error login"
+
     # print(new_user_auth.to_dict())
     return status

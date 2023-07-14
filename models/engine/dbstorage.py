@@ -63,6 +63,7 @@ class DBStorage:
         if obj is not None:
             self.__session.delete(obj)
             self.__session.commit()
+            self.__session.flush()
 
     def reload(self):
         """creates and reloads content"""
