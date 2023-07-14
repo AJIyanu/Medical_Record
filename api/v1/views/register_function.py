@@ -31,6 +31,4 @@ def register_doctor(**userdata):
     except Exception as msg:
         print(msg)
         status = "error"
-
-    # print(new_user_auth.to_dict())
     return status
