@@ -20,7 +20,7 @@ def register_doctor(**userdata):
         new_user_auth = login()
         new_user_auth.person_id = new_user.id
         new_user_auth.email = userdata.get("email")
-        new_user_auth.set_password = userdata.get("pwd")
+        new_user_auth.set_password = userdata.get("password")
         try:
             new_user_auth.save()
             print(new_user.to_dict())
