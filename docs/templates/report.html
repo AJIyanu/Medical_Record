@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ paient }} - Medical report</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue|Shadows+Into+Light">
+        <link href="../static/scripts/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="../static/styles/report.css">
+        <link href="../static/images/favicon_light.ico" rel="icon">
+        <link href="../favicon.ico" rel="apple-touch-icon">
+    </head>
+    <body>
+        <header>
+            <h3 class="patient-name" id="patient-name">Patience's Name</h3>
+            <h6 class="admission-status" id="admission-status">Admssion Status: <span id="status">Not admitted</span></h6>
+            <div class="referral-status">
+                <h6>Referral-status: <span id="referral-status">not being reffered</span></h6>
+                <div class="indicator"></div>
+            </div>
+        </header>
+        <section class="essentials">
+            <p>This section descibes the allergies and disabilities and persistent ailments</p>
+            <div class="physical"></div>
+            <div class="allergies"></div>
+            <div class="medications"></div>
+        </section>
+        <section class="present-diagnosis">
+            <p>presemt diagnosis if any</p>
+        </section>
+        <section class="test-results">
+            <p>past test results comes here</p>
+        </section>
+        <section class="medical-history">
+            <div class="actions">
+                <button class="prev">Previou</button>
+                <button class="sort">Sort</button>
+                <button class="filter">Filter by</button>
+                <button class="next">Next</button>
+            </div>
+            <div id="report">
+                <p class="doctor">case filed by {{}}</p>
+                <p class="date">on {{}}</p>
+                <p class="complaint">patient complained about</p>
+                <p class="symptoms">with following symptoms</p>
+                <p class="dianosis">doctor diagnosed</p>
+                <p id="medication">doctor prescribed these drugs</p>
+                <p id="result">sickness was treated</p>
+            </div>
+        </section>
+        <footer>
+            this is bottom sticky <footer></footer>
+        </footer>
+    </body>
+    <!-- <script src="../static/scr"></script> -->
