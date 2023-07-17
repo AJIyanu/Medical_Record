@@ -34,12 +34,13 @@ submit.addEventListener('click', (event) => {
       occupation: document.getElementById('occupation').value,
       nextofkinnin: document.getElementById('nextofkinnin').value
     };
+    console.log(userData);
 
     axios.post('http://127.0.0.1:5000/api/v1/signup', userData, {
       // method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      },
+      }
       // body: JSON.stringify(userData)
     })
       .then(response => {

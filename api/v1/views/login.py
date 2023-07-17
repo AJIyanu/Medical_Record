@@ -42,7 +42,7 @@ def siginin():
             pass
     access_token = create_access_token(identity=log_in.get('id'),
                                        additional_claims=payload)
-    response = jsonify(nin=log_in.get('nin'), access_token=access_token)
+    response = jsonify(nin=log_in.get('_Person__nin'), access_token=access_token)
     return response, 200
 
 

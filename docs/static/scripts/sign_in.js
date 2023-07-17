@@ -43,16 +43,18 @@ docsignInBtn.addEventListener('click', function (event) {
     .then(data => {
       if (!data.hasOwnProperty('error')) {
         localStorage.setItem('healthvaultaccesstoken', data.access_token);
-        fetch('/signin', {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        })
-        .then(response => {
-          window.location.href = response.url
-        })
+cookie.setItem('nin', data.nin);
+//        fetch('/signin', {
+  //        method: "POST",
+	      //
+    //      headers: {
+      //      'Content-Type': 'application/json'
+        //  },
+//          body: JSON.stringify(data)
+  //      })
+    //    .then(response => {
+          window.location.href = 
+      //  })
       } else {
       errormsg.innerText = data.error;
       }
