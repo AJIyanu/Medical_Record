@@ -7,7 +7,7 @@ from models.loginauth import PersonAuth
 from models.doctor import Doctor
 from models.base_institution import Institution
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
-from flask_jwt_extended import get_jwt, set_access_cookies
+from flask_jwt_extended import get_jwt, set_access_cookie, create_refresh_tokens
 import base64
 
 
@@ -43,8 +43,10 @@ def siginin():
             pass
     access_token = create_access_token(identity=log_in.get('id'),
                                        additional_claims=payload)
+    refresh_token = create_refresh_token(identity=log_in.get('id'),
+                                        additional_claims=payload)
     nin = base64.b64encode(log_in.get('_Person__nin').encode('utf-8')).decode('utf-8')
-    response = jsonify(nin=nin, access_token=access_token)
+    response = jsonify(nin=nin, access_token=access_token, refresh_token=refresh_token))
     return response, 200
 
 
@@ -61,6 +63,16 @@ def dashboarddata(nin):
     if user['_Person__nin'] == nin:
         return jsonify(user=user, institution=institution), 200
     return(jsonify(error="you need to sign in"))
+
+
+@app_views.route("/refresh", methods=['GET'], strict_slashes=False)
+@jwt_required(refresh=True)
+def refresh():
+    """returns a new token on expiry"""
+    identity = get_jwt_identity()
+    payload = get_jwt()
+    access_token = create_access_token(identity=identity, additional_claims=payload)
+    return jsonify(access_token=access_token)
 
 
 @app_views.route("/logout", methods=["DELETE"])
