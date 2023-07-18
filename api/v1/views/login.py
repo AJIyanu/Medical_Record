@@ -63,7 +63,7 @@ def dashboarddata(nin):
     return(jsonify(error="you need to sign in"))
 
 
-@app.route("/logout", methods=["DELETE"])
+@app_views.route("/logout", methods=["DELETE"])
 @jwt_required(verify_type=False)
 def logout():
     """Returns "Access token revoked" or "Refresh token revoked"""
