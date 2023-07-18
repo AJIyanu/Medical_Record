@@ -27,6 +27,7 @@
 
   <!-- Template Main CSS File -->
   <link href="../static/styles/dashboard.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <!-- =======================================================
   * Template Name: Impact
@@ -38,6 +39,8 @@
 </head>
 
 <body>
+
+	<div id="nin-variable" data-nin="{{ nin }}" style="display=none;">{{ nin }}</div>
 
   <!-- ======= Header ======= -->
   <section id="topbar" class="topbar d-flex align-items-center">
@@ -61,7 +64,7 @@
       <a href="doctor.html" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="../static/images/mylogo_light.png" alt="logo">
-	<h1>HealthVault - <span id="hospid"></span></h1>
+	<h1>HealthVault<span id="hospid"></span></h1>
       </a>
       <nav id="navbar" class="navbar">
         <ul>
@@ -80,7 +83,7 @@
               </li>
               <li><a href="#">Help & FAQs</a></li>
               <li><a href="#">Feedbacks</a></li>
-              <li><a href="signin.html">Log out</a></li>
+	      <li><p id="logout">Log out</p></li>
             </ul>
           </li>
         </ul>
@@ -113,7 +116,7 @@
       <div class="row gy-5" data-aos="fade-in">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
 	        <h2>Welcome <span id="welcome"></span></h2>
-		<p>You are logged in to <b id="hospidbold"></b>. You have no set apppointment here today.</p>
+		<p id="hospidbold"></p>
           <div class="d-flex justify-content-center justify-content-lg-start">
             <a href="casefile.html" class="btn-get-started"><i class="bi bi-journal-medical"></i> Casefile</a>
           </div>
@@ -496,38 +499,9 @@
 
   <!-- Template Main JS File -->
   <script src="../static/scripts/temp.js"></script>
-  <!-- <script>
-  setTimeout(function() {
-    document.getElementById("alert").classList.add("fade-out");
-  }, 10000); // wait 5 seconds before triggering the animation
-  </script> -->
-
 </body>
 
-<script>
-  const title = document.querySelector('title');
-  const welcome = document.getElementById('welcome');
-  const cookies = document.cookie.split(';');
-  const hospid = document.getElementById('hospid')
-  const hospidbold = document.getElementById('hospidbold')
-
-  let userData = null;
-
-  cookies.forEach(cookie => {
-    const [name, value] = cookie.split('=');
-
-  if (name.trim() === 'userdata') {
-    userData = JSON.parse(decodeURIComponent(value));
-    }
-  });
-  console.log(userData);
-
-  title.innerText = `${userData.surname} ${userData.firstname} - Home`;
-  welcome.innerText = `${userData.user} ${userData.surname} ${userData.firstname}`;
-  hospidbold.innerText = `${userData.hosID}`
-  hospid.innerText = `${userData.hosID}`;
-
-</script>
+<script src="../static/scripts/dashboard_user_data.js"></script>
 
 
 </html>

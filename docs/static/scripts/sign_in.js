@@ -43,20 +43,20 @@ docsignInBtn.addEventListener('click', function (event) {
     .then(data => {
       if (!data.hasOwnProperty('error')) {
         localStorage.setItem('healthvaultaccesstoken', data.access_token);
-cookie.setItem('nin', data.nin);
-//        fetch('/signin', {
-  //        method: "POST",
-	      //
-    //      headers: {
-      //      'Content-Type': 'application/json'
+        document.cookie = 'nin=' + data.nin + ';path=/';
+        //        fetch('/signin', {
+        //        method: "POST",
+        //
+        //      headers: {
+        //      'Content-Type': 'application/json'
         //  },
-//          body: JSON.stringify(data)
-  //      })
-    //    .then(response => {
-          window.location.href = 
+        //          body: JSON.stringify(data)
+        //      })
+        //    .then(response => {
+        window.location.href = '/dashboard/doctor';
       //  })
       } else {
-      errormsg.innerText = data.error;
+        errormsg.innerText = data.error;
       }
       // console.log(data.user.personality);
       // window.location.href = "/dashboard/" + data.user.personality;

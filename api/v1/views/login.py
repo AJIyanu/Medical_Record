@@ -8,6 +8,7 @@ from models.doctor import Doctor
 from models.base_institution import Institution
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 from flask_jwt_extended import get_jwt, set_access_cookies
+import base64
 
 
 personality = {
@@ -42,17 +43,32 @@ def siginin():
             pass
     access_token = create_access_token(identity=log_in.get('id'),
                                        additional_claims=payload)
-    response = jsonify(nin=log_in.get('_Person__nin'), access_token=access_token)
+    nin = base64.b64encode(log_in.get('_Person__nin').encode('utf-8')).decode('utf-8')
+    response = jsonify(nin=nin, access_token=access_token)
     return response, 200
 
 
-@app_views.route('/dashboarddata', methods=['GET'], strict_slashes=False)
+@app_views.route('/dashboarddata/<nin>', methods=['GET'], strict_slashes=False)
 @jwt_required()
-def dashboarddata():
+def dashboarddata(nin):
     """retrieves data after successful login"""
     userid = get_jwt_identity()
     role = get_jwt().get('role')
     inst_code = get_jwt().get("inst_code")
     institution = Institution.search_by_code(inst_code)
-    return jsonify(user=PersonAuth.jwt_auth(userid),
-                   institution=institution), 200
+    user = PersonAuth.jwt_auth(userid)
+    user['personality'] = user.get("personality").capitalize()
+    if user['_Person__nin'] == nin:
+        return jsonify(user=user, institution=institution), 200
+    return(jsonify(error="you need to sign in"))
+
+
+@app.route("/logout", methods=["DELETE"])
+@jwt_required(verify_type=False)
+def logout():
+    """Returns "Access token revoked" or "Refresh token revoked"""
+    token = get_jwt()
+    jti = token["jti"]
+    ttype = token["type"]
+    jwt_redis_blocklist.set(jti, "", ex=ACCESS_EXPIRES)
+    return jsonify(msg=f"{ttype.capitalize()} token successfully revoked")
