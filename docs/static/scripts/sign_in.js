@@ -45,15 +45,6 @@ docsignInBtn.addEventListener('click', function (event) {
         document.cookie = 'nin=' + data.nin + ';path=/';
         sessionStorage.setItem('healthvaultaccesstoken', data.access_token);
         localStorage.setItem('healthvaultrefreshtoken', data.refresh_token);
-        //        fetch('/signin', {
-        //        method: "POST",
-        //
-        //      headers: {
-        //      'Content-Type': 'application/json'
-        //  },
-        //          body: JSON.stringify(data)
-        //      })
-        //    .then(response => {
         window.location.href = '/dashboard/doctor';
       //  })
       } else {

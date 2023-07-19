@@ -4,8 +4,8 @@ const logout = document.getElementById('logout');
 const hospidbold = document.getElementById('hospidbold');
 const hospid = document.getElementById('hospid');
 const nin = document.getElementById('nin-variable').dataset.nin;
-const accessToken = sessionStorage.getItem('healthvaultaccesstoken');
-const freshToken = localStorage.getItem('healthvaultfreshtoken');
+let accessToken = sessionStorage.getItem('healthvaultaccesstoken');
+const freshToken = localStorage.getItem('healthvaultrefreshtoken');
 
 const freshconfig = {
   headers: {
@@ -13,7 +13,7 @@ const freshconfig = {
   }
 };
 
-const config = {
+let config = {
   headers: {
     Authorization: `Bearer ${accessToken}`
   }
@@ -21,26 +21,37 @@ const config = {
 
 const getUser = axios.create();
 
+let count = 4;
+
 function refreshtoken () {
   console.log('refreshing...');
-  return axios.post('http://127.0.0.1:5000/api/v1/refresh', freshcoinfig).then(response => {
-    console.log(response.data);
+  count = count - 1;
+  return axios.get('http://127.0.0.1:5000/api/v1/refresh', freshconfig).then(response => {
+    console.log(response.data.access_token);
     sessionStorage.setItem('healthvaultaccesstoken', response.data.access_token);
+    accessToken = response.data.access_token;
+    config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    };
   });
 }
 
 getUser.interceptors.response.use(
   response => response,
   async function (error) {
-    const config = error.config;
-    console.log(config);
-    if (error.response.status == 401) {
+    if (error.response.status == 401 && count > 1) {
       console.log('jwt expired');
       await refreshtoken();
-      return getUser(config);
+      accessToken = sessionStorage.getItem('healthvaultaccesstoken');
+      console.log(config);
+    return getUser.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, config);
     }
     return Promise.reject(error);
   });
+
+console.log("access token before request " + accessToken);
 
 getUser.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, {
   headers: {
@@ -64,6 +75,7 @@ getUser.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, {
   })
   .catch(function (error) {
     console.error(error);
+    // window.location.href = "/signin";
   });
 
 logout.addEventListener('click', () => {
