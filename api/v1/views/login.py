@@ -61,7 +61,7 @@ def dashboarddata(nin):
     user = PersonAuth.jwt_auth(userid)
     user['personality'] = user.get("personality").capitalize()
     if user['_Person__nin'] == nin:
-        return jsonify(user=user, institution=institution), 200
+        return jsonify(user=user, institution=institution, role=role), 200
     return(jsonify(error="you need to sign in"))
 
 
@@ -70,7 +70,11 @@ def dashboarddata(nin):
 def refresh():
     """returns a new token on expiry"""
     identity = get_jwt_identity()
-    payload = get_jwt()
+    payload = {
+            "role": get_jwt().get("role"),
+            "inst_code": get_jwt().get("inst_code"),
+            "device": get_jwt().get("device")
+            }
     access_token = create_access_token(identity=identity, additional_claims=payload)
     return jsonify(access_token=access_token)
 
