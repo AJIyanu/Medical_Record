@@ -23,7 +23,3 @@ def register():
         status = register_doctor(**user_data)
     return jsonify(status=status)
 
-
-@app_views.route("/logout")
-def logout():
-    return "logged out"

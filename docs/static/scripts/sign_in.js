@@ -42,8 +42,9 @@ docsignInBtn.addEventListener('click', function (event) {
     .then(response => response.json())
     .then(data => {
       if (!data.hasOwnProperty('error')) {
-        localStorage.setItem('healthvaultaccesstoken', data.access_token);
         document.cookie = 'nin=' + data.nin + ';path=/';
+        sessionStorage.setItem('healthvaultaccesstoken', data.access_token);
+        localStorage.setItem('healthvaultrefreshtoken', data.refresh_token);
         //        fetch('/signin', {
         //        method: "POST",
         //

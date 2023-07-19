@@ -7,7 +7,7 @@ from models.loginauth import PersonAuth
 from models.doctor import Doctor
 from models.base_institution import Institution
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
-from flask_jwt_extended import get_jwt, set_access_cookie, create_refresh_tokens
+from flask_jwt_extended import get_jwt, create_refresh_token
 import base64
 
 
@@ -46,7 +46,7 @@ def siginin():
     refresh_token = create_refresh_token(identity=log_in.get('id'),
                                         additional_claims=payload)
     nin = base64.b64encode(log_in.get('_Person__nin').encode('utf-8')).decode('utf-8')
-    response = jsonify(nin=nin, access_token=access_token, refresh_token=refresh_token))
+    response = jsonify(nin=nin, access_token=access_token, refresh_token=refresh_token)
     return response, 200
 
 

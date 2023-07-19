@@ -21,7 +21,7 @@ app.register_blueprint(app_views)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SECRET_KEY'] = 'roseismysecretkey'
 app.config["JWT_TOKEN_LOCATION"] = ["headers"]
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=2)
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=2)
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(hours=24)
 app.config['JWT_SECRET_KEY'] = 'roseismysecretekey'
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
