@@ -45,7 +45,7 @@ docsignInBtn.addEventListener('click', function (event) {
         document.cookie = 'nin=' + data.nin + ';path=/';
         sessionStorage.setItem('healthvaultaccesstoken', data.access_token);
         localStorage.setItem('healthvaultrefreshtoken', data.refresh_token);
-        window.location.href = '/dashboard/doctor';
+        window.location.href = '/dashboard/' + data.role.toLowerCase();
       //  })
       } else {
         errormsg.innerText = data.error;
