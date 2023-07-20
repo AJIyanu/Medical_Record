@@ -27,7 +27,6 @@ function refreshtoken () {
   console.log('refreshing...');
   count = count - 1;
   return axios.get('http://127.0.0.1:5000/api/v1/refresh', freshconfig).then(response => {
-    console.log(response.data.access_token);
     sessionStorage.setItem('healthvaultaccesstoken', response.data.access_token);
     accessToken = response.data.access_token;
     config = {
@@ -42,16 +41,12 @@ getUser.interceptors.response.use(
   response => response,
   async function (error) {
     if (error.response.status == 401 && count > 1) {
-      console.log('jwt expired');
       await refreshtoken();
       accessToken = sessionStorage.getItem('healthvaultaccesstoken');
-      console.log(config);
-    return getUser.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, config);
+      return getUser.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, config);
     }
     return Promise.reject(error);
   });
-
-console.log("access token before request " + accessToken);
 
 getUser.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, {
   headers: {
@@ -75,7 +70,7 @@ getUser.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, {
   })
   .catch(function (error) {
     console.error(error);
-    // window.location.href = "/signin";
+    window.location.href = '/signin';
   });
 
 logout.addEventListener('click', () => {
@@ -83,10 +78,12 @@ logout.addEventListener('click', () => {
   const fresh = localStorage.getItem('healthvaultfreshtoken');
   localStorage.removeItem('healthvaultfreshtoken');
 
-  axios.delete('http://127.0.0.1:5000/logout', config)
+  axios.delete('http://127.0.0.1:5000/api/v1/logout', config)
     .then(function (response) {
-      axios.delete('http://127.0.0.1:5000/logout', freshconfig)
+      sessionStorage.removeItem('healthvaultaccesstoken');
+      axios.delete('http://127.0.0.1:5000/api/v1/logout', freshconfig)
         .then(function (res) {
+          localStorage.removeItem('healthvaultrefreshtoken');
           window.location.href = '/signin';
         });
     });

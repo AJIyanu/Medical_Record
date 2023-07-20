@@ -42,7 +42,10 @@ class Doctor(Person, Base):
     @property
     def authinst(self):
         """returns list of authorized institution for doctor"""
-        return json.loads(self.__authinst)
+        try:
+            return json.loads(self.__authinst)
+        except TypeError:
+            return []
 
     @authinst.setter
     def authinst(self, value):

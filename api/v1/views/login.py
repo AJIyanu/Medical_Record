@@ -86,5 +86,5 @@ def logout():
     token = get_jwt()
     jti = token["jti"]
     ttype = token["type"]
-    jwt_redis_blocklist.set(jti, "", ex=ACCESS_EXPIRES)
+#    jwt_redis_blocklist.set(jti, "", ex=ACCESS_EXPIRES)
     return jsonify(msg=f"{ttype.capitalize()} token successfully revoked")
