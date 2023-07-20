@@ -5,6 +5,7 @@ from flask import jsonify, abort, request
 from views import app_views
 from models.loginauth import PersonAuth
 from models.doctor import Doctor
+from models.nurse import Nurse
 from models.base_institution import Institution
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 from flask_jwt_extended import get_jwt, create_refresh_token
@@ -12,7 +13,8 @@ import base64
 
 
 personality = {
-                "Doctor": Doctor
+                "Doctor": Doctor,
+                "Nurse": Nurse
     }
 
 
@@ -28,11 +30,11 @@ def siginin():
     except ValueError:
         return jsonify({"error": "password error, try forgot password"}), 401
     payload = {
-                "role": details.get("role", "guest"),
+                "role": log_in.get("personality", "guest"),
                 "device": details.get("device", "onetime")
               }
     if details.get("user") == "staff":
-        role = details.get("role")
+        role = log_in.get("personality")
         try:
             code = details["hosID"]
             id = log_in['id']
@@ -46,7 +48,8 @@ def siginin():
     refresh_token = create_refresh_token(identity=log_in.get('id'),
                                         additional_claims=payload)
     nin = base64.b64encode(log_in.get('_Person__nin').encode('utf-8')).decode('utf-8')
-    response = jsonify(nin=nin, access_token=access_token, refresh_token=refresh_token)
+    response = jsonify(nin=nin, access_token=access_token, refresh_token=refresh_token,
+                       role=role)
     return response, 200
 
 
