@@ -45,6 +45,7 @@ submit.addEventListener('click', (event) => {
     })
       .then(response => {
         console.log(response);
+        window.location, href = '/sigin';
       });
   } else {
     alert('please fill all required field');

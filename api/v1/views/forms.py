@@ -17,9 +17,12 @@ def vitalsign():
 @app_views.route("/signup", methods=["POST"])
 def register():
     user_data = request.json
-    if user_data['user']:# == "doctor":
+    user_data["dob"] = datetime.strptime(user_data['dob'], "%Y-%m-%d")
+    if user_data['user'] == "doctor":
         from views.register_function import register_doctor
-        user_data["dob"] = datetime.strptime(user_data['dob'], "%Y-%m-%d")
         status = register_doctor(**user_data)
+    if user_data["user"] == "nurse":
+        from views.register_function import register_nurse
+        status = register_nurse(**user_data)
     return jsonify(status=status)
 

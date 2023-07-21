@@ -23,7 +23,33 @@ def register_doctor(**userdata):
         new_user_auth.set_password(userdata.get("password"))
         try:
             new_user_auth.save()
-            print(new_user.to_dict())
+        except Exception as msgg:
+            print(f"{msgg}, auth didnt save")
+            new_user.purge()
+            status = "error login"
+    except Exception as msg:
+        print(msg)
+        status = "error"
+    return status
+
+def register_nurse(**userdata):
+    """registers a nurse"""
+    nurse = classes.get("Nurse")
+    login = classes.get("PersonAuth")
+    new_user = nurse(**userdata)
+    new_user.nin = userdata.get("nin")
+    new_user.authinst = "GENOYSK293"
+#    new_user.specialization = userdata.get("specialization")
+    print(userdata)
+    try:
+        new_user.save()
+        status = "saved"
+        new_user_auth = login()
+        new_user_auth.person_id = new_user.id
+        new_user_auth.email = userdata.get("email")
+        new_user_auth.set_password(userdata.get("password"))
+        try:
+            new_user_auth.save()
         except Exception as msgg:
             print(f"{msgg}, auth didnt save")
             new_user.purge()

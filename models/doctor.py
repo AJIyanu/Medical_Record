@@ -76,3 +76,18 @@ class Doctor(Person, Base):
         from models import storage
         user = storage.cls_by_id(self, id)
         return True if code in user.authinst else False
+
+    @classmethod
+    def update_me(self, id, key, value):
+        """uodates data in base"""
+        from models import storage
+        user = storage.cls_by_id(self, id)
+        if user is not None:
+            setattr(user, key, value)
+            if key == "authinst":
+                user.authinst = value
+            if key == "nin":
+                user.nin = value
+            user.save()
+            return "updated"
+        return "error: couldnt update"
