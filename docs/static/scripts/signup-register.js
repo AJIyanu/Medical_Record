@@ -45,7 +45,12 @@ submit.addEventListener('click', (event) => {
     })
       .then(response => {
         console.log(response);
-        window.location, href = '/sigin';
+        if (response.data.status === "saved") {
+          alert("your data has been saved. Please sign in now")
+        window.location.href = '/sigin';
+        } else {
+          alert("There was an error Registering you. If Error Persists Please contact IT");
+        }
       });
   } else {
     alert('please fill all required field');
