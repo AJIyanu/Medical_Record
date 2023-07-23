@@ -5,7 +5,7 @@ from flask import jsonify, abort, render_template, send_file
 from sqlalchemy.orm.exc import NoResultFound
 from views import app_views
 
-app_views.route("/id_from_nin/<nin>")
+app_views.route("/id_from_nin/<nin>", methods=['GET'])
 def nin(nin):
     """returns user id based on nin"""
     from models.base_person import Person
@@ -18,7 +18,7 @@ def nin(nin):
     return jsonify(user=user.get('id'))
 
 
-app_views.route("/user_from_nin/<nin>")
+app_views.route("/user_from_nin/<nin>", methods=['GET'])
 def user_nin(nin):
     """returns user data from on nin"""
     from models.base_person import Person

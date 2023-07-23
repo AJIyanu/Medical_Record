@@ -48,7 +48,7 @@ patient_name.addEventListener('click', function(event) {
 search.addEventListener('input', function(event) {
   const nin = event.target.value;
   if (nin.length === 11) {
-    axios.get("http://127.0.0.1:5000/api/v1/user_from_nin/" + nin)
+    axios.get(`http://127.0.0.1:5000/api/v1/user_from_nin/${nin}`)
     .then((res) => {
         const result = document.querySelector('li');
         result.innerText = res.data.surname + " " + res.data.firstname;
