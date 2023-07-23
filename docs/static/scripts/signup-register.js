@@ -45,11 +45,11 @@ submit.addEventListener('click', (event) => {
     })
       .then(response => {
         console.log(response);
-        if (response.data.status === "saved") {
-          alert("your data has been saved. Please sign in now")
-        window.location.href = '/sigin';
+        if (response.data.status === 'saved') {
+          alert('your data has been saved. Please sign in now');
+          window.location.href = '/signin';
         } else {
-          alert("There was an error Registering you. If Error Persists Please contact IT");
+          alert('There was an error Registering you. If Error Persists Please contact IT');
         }
       });
   } else {

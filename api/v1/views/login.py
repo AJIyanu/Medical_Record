@@ -6,6 +6,7 @@ from views import app_views
 from models.loginauth import PersonAuth
 from models.doctor import Doctor
 from models.nurse import Nurse
+from models.patient import Patient
 from models.base_institution import Institution
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 from flask_jwt_extended import get_jwt, create_refresh_token
@@ -14,7 +15,8 @@ import base64
 
 personality = {
                 "Doctor": Doctor,
-                "Nurse": Nurse
+                "nurses": Nurse,
+                "patient": Patient
     }
 
 
@@ -33,8 +35,10 @@ def siginin():
                 "role": log_in.get("personality", "guest"),
                 "device": details.get("device", "onetime")
               }
+    role = log_in.get("personality")
     if details.get("user") == "staff":
-        role = log_in.get("personality")
+        if role == "patient":
+            return jsonify(error="Please log in at the Patient Section"), 401
         try:
             code = details["hosID"]
             id = log_in['id']

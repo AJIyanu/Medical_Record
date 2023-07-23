@@ -24,5 +24,8 @@ def register():
     if user_data["user"] == "nurse":
         from views.register_function import register_nurse
         status = register_nurse(**user_data)
+    if user_data["user"] == "null":
+        from views.register_function import register_patient
+        status = register_patient(**user_data)
     return jsonify(status=status)
 

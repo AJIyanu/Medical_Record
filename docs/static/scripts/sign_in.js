@@ -24,7 +24,6 @@ docsignInBtn.addEventListener('click', function (event) {
   const login_details = {
     email: emailInput.value,
     pwd: passwordInput.value,
-    role: 'Doctor',
     user: 'staff'
   };
 
@@ -72,24 +71,41 @@ signInBtn.addEventListener('click', function (event) {
   event.preventDefault();
   const emailInput = document.getElementById('emailinput');
   const passwordInput = document.getElementById('passwordinput');
+  const errormsg = document.getElementById('error');
 
   const email = emailInput.value;
   const password = passwordInput.value;
 
-  const formData = new FormData();
-  formData.append('email', email);
-  formData.append('password', password);
+  if (email === '') {
+    errormsg.innerText = 'please fill in your email';
+    return;
+  }
+  if (password === '') {
+    errormsg.innerText = 'please fill in your password';
+    return;
+  }
 
-  fetch('/signin', {
+  const login_details = {
+    email: emailInput.value,
+    pwd: passwordInput.value
+  };
+
+  fetch('http://127.0.0.1:5000/api/v1/authme', {
     method: 'POST',
-    body: formData
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(login_details)
   })
-    .then(function (response) {
-      if (response.ok) {
-        window.location.href = '/status';
+    .then(response => response.json())
+    .then(data => {
+      if (!data.hasOwnProperty('error')) {
+        document.cookie = 'nin=' + data.nin + ';path=/';
+        sessionStorage.setItem('healthvaultaccesstoken', data.access_token);
+        localStorage.setItem('healthvaultrefreshtoken', data.refresh_token);
+        window.location.href = '/dashboard/' + data.role.toLowerCase();
       } else {
-      // Handle the case where the server returns an error
-        window.location.href = '/signup';
+        errormsg.innerText = data.error;
       }
     })
     .catch(function (error) {
