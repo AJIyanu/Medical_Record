@@ -22,10 +22,11 @@
   <link href="../static/styles/bootstrap.min.css" rel="stylesheet">
   <link href="../static/styles/bootstrap-icons.css" rel="stylesheet">
   <!-- <link href="/doctor/static/css/dyn/aos" rel="stylesheet"> -->
-  <link href="../`static/styles/glightbox.min.css" rel="stylesheet">
+  <link href="../static/styles/glightbox.min.css" rel="stylesheet">
   <link href="../static/styles/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link href="../static/styles/dashboard.css" rel="stylesheet">
 
   <!-- =======================================================
@@ -38,7 +39,7 @@
 </head>
 
 <body>
-
+	<div id="nin-variable" data-nin="{{ nin }}" style="display: none;">{{ nin }}</div>
   <!-- ======= Header ======= -->
   <section id="topbar" class="topbar d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
@@ -79,7 +80,7 @@
               </li>
               <li><a href="#">FAQs</a></li>
               <li><a href="#">Feedbacks</a></li>
-              <li><a href="/logout">Log out</a></li>
+              <li><a href="" id="logout">Log out</a></li>
             </ul>
           </li>
         </ul>
@@ -97,14 +98,14 @@
     <div class="container position-relative">
       <div class="row gy-5" data-aos="fade-in">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
-	 <h2>Welcome <span id="welcome"></span></h2>
+	        <h2>Welcome <span id="welcome"></span></h2>
           <p>Maintain a healthy lifestyle, monitor your health status, avoid possible illness and diseases and get the best presciption from history</p>
           <div class="d-flex justify-content-center justify-content-lg-start">
             <a href="#about" class="btn-get-started">Recent History</a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2">
-          <img src="static/images/homepage.jpg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
+          <img src="../static/images/book appointment.jpg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
         </div>
       </div>
     </div>
@@ -480,29 +481,10 @@
   <script src="assets/vendor/php-email-form/validate.js"></script> -->
 
   <!-- Template Main JS File -->
-  <!-- <script src="/doctor/static/js/temp"></script> -->
+  <script src="../static/scripts/temp.js"></script>
 
 </body>
 
-<script>
-  const title = document.querySelector('title');
-  const welcome = document.getElementById('welcome');
-  const cookies = document.cookie.split(';');
-
-  let userData = null;
-
-  cookies.forEach(cookie => {
-    const [name, value] = cookie.split('=');
-
-  if (name.trim() === 'userdata') {
-    userData = JSON.parse(decodeURIComponent(value));
-    }
-  });
-  console.log(userData);
-
-  title.innerText = `${userData.surname} ${userData.firstname} - Home`;
-  welcome.innerText = `${userData.user} ${userData.surname} ${userData.firstname}`;
-
-</script>
+<script src="../static/scripts/dashboard_user_data.js"></script>
 
 </html>

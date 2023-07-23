@@ -9,9 +9,15 @@ from flask import render_template, request, redirect, jsonify
 @app_views.route("/vitalsign", methods=["POST"])
 def vitalsign():
     """returns vitalsign"""
-    if request.method == "GET":
-        return render_template("vitalsign.html")
-    return render_template("vitalsign.html")
+    details = request.json
+    from views.register_function import new_vitalsign
+    status = new_vitalsign(**details)
+    return jsonify(status=status)
+
+@app_views.route("/casefile", methods=['POST'])
+def casefile():
+    """saves casefile and return status"""
+    return jsonify({"pass": "not yet implemented"})
 
 
 @app_views.route("/signup", methods=["POST"])
@@ -28,4 +34,3 @@ def register():
         from views.register_function import register_patient
         status = register_patient(**user_data)
     return jsonify(status=status)
-

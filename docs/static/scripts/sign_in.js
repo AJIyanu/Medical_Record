@@ -45,25 +45,14 @@ docsignInBtn.addEventListener('click', function (event) {
         sessionStorage.setItem('healthvaultaccesstoken', data.access_token);
         localStorage.setItem('healthvaultrefreshtoken', data.refresh_token);
         window.location.href = '/dashboard/' + data.role.toLowerCase();
-      //  })
       } else {
         errormsg.innerText = data.error;
       }
-      // console.log(data.user.personality);
-      // window.location.href = "/dashboard/" + data.user.personality;
     })
     .catch(function (error) {
       console.error(error);
     });
-
-  // fetch('http://127.0.0.1:5000/api/v1/dashboarddata', {
-  //   method: 'GET',
-  // })
-  // .then(response => response.json())
-  // .then(data => {
-  // console.log(data)
-  // })
-});
+  });
 
 const signInBtn = document.getElementById('pat_signin');
 
@@ -111,4 +100,4 @@ signInBtn.addEventListener('click', function (event) {
     .catch(function (error) {
       console.error(error);
     });
-});
+  })

@@ -9,18 +9,16 @@
         <!-- <link rel="stylesheet" href="form.css"> -->
     </head>
     <body>
-      <section class="main">
-        <div class="nin-search" id="nin-search" style="display: none;">
-          <input type="search" name="ninsearch" id="ninsearch" placeholder="Enter 11 digits NIN here">
-          <ul>
-            <li></li>
-          </ul>
-        </div>
-        <div class="container">
+      <section class="main"><div class="container">
           <div class="info">
             <h3>Vital Signs</h3>
             <h4 id="pat-name">Click here to find patient</h4>
-            <!-- <p>what is necceasy</p> -->
+            <div class="nin-search" id="nin-search" style="display: none;">
+              <input type="search" name="ninsearch" id="ninsearch" placeholder="Enter 11 digits NIN here">
+                <ul>
+                  <li></li>
+                </ul>
+            </div>
           </div>
           <div class="form">
             <form action="">
@@ -58,70 +56,5 @@
         </div>
       </section>
     </body>
-    <script>
-      const form = document.querySelector('form');
-      const save = document.querySelector('button');
-      const formData = new FormData();
-      const name = document.getElementById('pat-name');
-      const search = document.getElementById('nin-search')
-      const searchinput = document.getElementById('ninsearch');
-
-      save.addEventListener('click', function (event) {
-        event.preventDefault();
-        form.querySelectorAll('input').forEach((input) => {
-          const { name, value } = input;
-          formData.append( name, value );
-          });
-        if ( searchinput.value.length !== 11 ) {
-          const nameclear = document.querySelector('h4');
-          name.style.color = 'red';
-          nameclear.textContent = "please find a patient first";
-          setTimeout(function() {
-            name.style.color = 'black'
-            nameclear.textContent = "Click to find Patient";
-              }, 4000);
-        } else if (search.style.display !== 'none') {
-          const nameclear = document.querySelector('h4');
-          name.style.color = 'red';
-          nameclear.textContent = "please click patient name"
-        } else {
-          alert("your data has been saved")
-          window.location.href = 'doctor.html'
-          // console.log(searchinput.value)
-        }
-      });
-
-      name.addEventListener('click', function(event) {
-        if (search.style.display === '') {
-          search.style.display = 'none';
-          const nameclear = document.querySelector('h4');
-          name.style.color = 'black'
-          nameclear.textContent = "Click to find patient";
-        } else {
-        search.style.display = null;
-        const nameclear = document.querySelector('h4');
-        name.style.color = 'black'
-        nameclear.textContent = "searching...";
-        }
-      })
-
-      search.addEventListener('input', function(event) {
-        const nin = event.target.value;
-        if (nin.length === 11) {
-          const result = document.querySelector('li');
-          result.innerText = "Aderemi Joseph Iyanu"
-        } else {
-          const result = document.querySelector('li');
-          result.innerText = ""
-        }
-      })
-
-      const update = document.querySelector('li');
-      update.addEventListener('click', function(event) {
-        const nameclear = document.querySelector('h4');
-        nameclear.textContent = "AJ Iyanu";
-        search.style.display = 'none';
-      })
-
-    </script>
+    <script src="../static/scripts/new-vitalsign.js"></script>
 </html>

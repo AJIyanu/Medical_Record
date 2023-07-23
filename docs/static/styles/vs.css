@@ -39,6 +39,10 @@ section {
     border-radius: 10pt;
 }
 
+.info {
+    position: relative;
+}
+
 h3 {
     text-align: center;
     font-size: large;
@@ -107,8 +111,10 @@ i {
 }
 
 .nin-search {
-    position: relative;
-    margin-bottom: none;
+    margin: 20px;
+    position: absolute;
+    top: 30px;
+    left: 25px;
 }
 
 ul {

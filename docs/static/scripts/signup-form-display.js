@@ -24,8 +24,9 @@ prevBtn.forEach((button) => {
 
 left.addEventListener('click', () => {
   changeStep('prev');
-  right.style.display = 'bkock';
+  right.style.display = 'block';
 });
+
 right.addEventListener('click', () => { changeStep('next'); });
 
 proceed.addEventListener('click', (event) => {
@@ -80,6 +81,8 @@ const jurislabel = document.getElementById('staff');
 const juris = document.getElementById('jurisdiction');
 const license = document.getElementById('license');
 const licenselabel = document.getElementById('licnse');
+const occupationlabel = document.getElementById('occupation-label');
+const occupation = document.getElementById('occupation');
 
 person.addEventListener('change', () => {
   if (person.value === 'Staff') {
@@ -93,6 +96,8 @@ person.addEventListener('change', () => {
     jurislabel.style.display = 'none';
     license.style.display = 'none';
     licenselabel.style.display = 'none';
+    occupationlabel.style.display = "none";
+    occupation.style.display = "none";
   }
 });
 
@@ -104,22 +109,3 @@ function revealElements () {
     element.classList.add('reveal');
   });
 }
-
-// let index = 0;
-// const active = document.querySelector('.active');
-// index = steps.indexOf(active);
-
-// if (index > 0) {
-//  left.style.display = 'block';
-//  console.log("here");
-// } else {
-//  left.style.display = 'none';
-// }
-//
-// if (index === steps.length - 1) {
-//  right.style.display = 'none';
-// } else if (index === 0 || index === 1) {
-//  right.style.display = 'none';
-// } else {
-//  right.style.display = 'block';
-// }

@@ -1,3 +1,7 @@
+#body {
+    display: flex;
+}
+
 header {
     display: inline-flex;
     margin: 0%;
@@ -13,8 +17,19 @@ header {
     justify-content: space-between;
 }
 
-section {
-    height: 400px;
+.medical-history {
+    width: 65%;
+    height: 600px;
+    padding-top: 40px;
+    padding-left: 40px;
+    border: 2px solid;
+    border-color: black;
+    background-color: aqua;
+}
+
+.patient-data {
+    width: 35%;
+    background-color: palegreen;
 }
 
 footer{

@@ -57,7 +57,7 @@ getUser.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, {
     const userData = response.data;
     const user = userData.user;
     welcome.innerText = `${user.personality} ${user.surname} ${user.firstname}`;
-    console.log(userData);
+    // console.log(userData);
     title.innerText = `${user.personality} ${user.surname} ${user.firstname}`;
 
     if (userData.institution) {
@@ -65,7 +65,11 @@ getUser.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, {
       hospid.innerText = ` - ${institution.name}`;
       hospidbold.innerText = 'You have 2 appointments here';
     } else {
+      try {
       hospidbold.innerText = 'You\'re not logged into any hospital';
+      } catch (err) {
+        console.error(err);
+      }
     }
   })
   .catch(function (error) {
@@ -73,7 +77,8 @@ getUser.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, {
     window.location.href = '/signin';
   });
 
-logout.addEventListener('click', () => {
+logout.style.cursor = "pointer";
+logout.addEventListener('click', (e) => {
   sessionStorage.removeItem('healthvaultaccesstoken');
   const fresh = localStorage.getItem('healthvaultfreshtoken');
   localStorage.removeItem('healthvaultfreshtoken');
@@ -81,7 +86,7 @@ logout.addEventListener('click', () => {
   axios.delete('http://127.0.0.1:5000/api/v1/logout', config)
     .then(function (response) {
       sessionStorage.removeItem('healthvaultaccesstoken');
-      axios.delete('http://127.0.0.1:5000/api/v1/logout', freshconfig)
+      axios.delete('http://127.0.0.1:5000/api/v1/logout', fresh)
         .then(function (res) {
           localStorage.removeItem('healthvaultrefreshtoken');
           window.location.href = '/signin';

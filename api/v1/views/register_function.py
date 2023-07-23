@@ -82,3 +82,16 @@ def register_patient(**userdata):
         print(msg)
         status = "error"
     return status
+
+
+def new_vitalsign(**patientdata):
+    """registers a new vital sign for patient"""
+    vitalsign = classes.get("VitalSign")
+    data = vitalsign(**patientdata)
+    try:
+        data.save()
+        status = "data saved succesfully"
+    except Exception as err:
+        print(f"vital-sign error: {err}")
+        status = "data not saved"
+    return status
