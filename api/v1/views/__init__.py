@@ -8,7 +8,7 @@ app_views = Blueprint("app_views", __name__, url_prefix='/api/v1')
 from views.login import *
 from views.vitalsign import *
 from views.forms import *
-# from views.js import *
+from views.fetchdata import *
 # from views.signinout import *
 # from views.docdashboard import *
 # from views.patdashboard import *

@@ -48,8 +48,14 @@ patient_name.addEventListener('click', function(event) {
 search.addEventListener('input', function(event) {
   const nin = event.target.value;
   if (nin.length === 11) {
-    const result = document.querySelector('li');
-    result.innerText = "Aderemi Joseph Iyanu"
+    axios.get("http://127.0.0.1:5000/api/v1/user_from_nin/" + nin)
+    .then((res) => {
+        const result = document.querySelector('li');
+        result.innerText = res.data.surname + " " + res.data.firstname;
+    }).catch((err) => {
+        console.error(err)
+    });
+    // result.innerText = "Aderemi Joseph Iyanu"
   } else {
     const result = document.querySelector('li');
     result.innerText = ""
