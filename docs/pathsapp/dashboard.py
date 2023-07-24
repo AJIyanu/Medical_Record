@@ -8,6 +8,5 @@ def dashboard(user):
     if request.cookies.get('nin'):
         nin = request.cookies.get('nin')
         nin = base64.b64decode(nin).decode('utf-8')
-        print(nin)
         return render_template("{}_dashboard.html".format(user), nin=nin)
     return redirect(url_for("app_views.login"))

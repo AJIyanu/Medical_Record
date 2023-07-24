@@ -13,12 +13,14 @@ def login():
     return render_template("signin.html")
 
 
-@app_views.route("/vitalsign", methods=["GET", "POST"])
+@app_views.route("/vitalsign", methods=["GET"])
 def vitalsign():
     """returns vitalsign"""
-    if request.method == "GET":
-        return render_template("vitalsign.html")
-    return render_template("vitalsign.html")
+    if request.cookies.get('nin'):
+        nin = request.cookies.get('nin')
+        nin = base64.b64decode(nin).decode('utf-8')
+        return render_template("vitalsign.html", nin=nin)
+    return redirect(url_for("app_views.login"))
 
 
 @app_views.route("/signup", methods=["GET"])
