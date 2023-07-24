@@ -5,6 +5,8 @@ const formData = new FormData();
 const patient_name = document.getElementById('pat-name');
 const search = document.getElementById('nin-search')
 const searchinput = document.getElementById('ninsearch');
+let patientName;
+let allData;
 
 save.addEventListener('click', function (event) {
   event.preventDefault();
@@ -12,6 +14,7 @@ save.addEventListener('click', function (event) {
     const { patient_name, value } = input;
     formData.append( patient_name, value );
     });
+
   if ( searchinput.value.length !== 11 ) {
     const patient_nameclear = document.querySelector('h4');
     patient_name.style.color = 'red';
@@ -25,9 +28,7 @@ save.addEventListener('click', function (event) {
     patient_name.style.color = 'red';
     patient_nameclear.textContent = "please click patient name"
   } else {
-    alert("your data has been saved")
-    window.location.href = 'doctor.html'
-    // console.log(searchinput.value)
+
   }
 });
 
@@ -50,12 +51,13 @@ search.addEventListener('input', function(event) {
   if (nin.length === 11) {
     axios.get(`http://127.0.0.1:5000/api/v1/user_from_nin/${nin}`)
     .then((res) => {
+        allData = res.data;
         const result = document.querySelector('li');
-        result.innerText = res.data.surname + " " + res.data.firstname;
+        patientName = allData.patient_data.surname + " " + allData.patient_data.firstname;
+        result.innerText = patientName;
     }).catch((err) => {
         console.error(err)
     });
-    // result.innerText = "Aderemi Joseph Iyanu"
   } else {
     const result = document.querySelector('li');
     result.innerText = ""
@@ -65,6 +67,6 @@ search.addEventListener('input', function(event) {
 const update = document.querySelector('li');
 update.addEventListener('click', function(event) {
   const patient_nameclear = document.querySelector('h4');
-  patient_nameclear.textContent = "AJ Iyanu";
+  patient_nameclear.textContent = patientName;
   search.style.display = 'none';
 })
