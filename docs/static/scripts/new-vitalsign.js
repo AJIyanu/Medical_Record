@@ -15,7 +15,6 @@ const config = {
     Authorization: 'Bearer ' + sessionStorage.getItem('healthvaultaccesstoken')
   }
 };
-console.log(config);
 
 axios.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, config)
   .then(res => {
@@ -23,8 +22,6 @@ axios.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, config)
     if (!res.data.institution) {
       alert('you have not signed into any institution. Please sign in again');
       window.location.href = '/signin';
-    } else {
-      console.log(staffData);
     }
   })
   .catch(err => {
@@ -58,17 +55,16 @@ save.addEventListener('click', function (event) {
     patient_name.style.color = 'red';
     patient_nameclear.textContent = 'please click patient name';
   } else {
-    console.log(formData);
     axios.post('http://127.0.0.1:5000/api/v1/vitalsign', formData, {
       headers: {
         'Content-Type': 'application/json'
       }
     })
     .then(res => {
-      console.log(res);
       Swal.fire({
-        text: res.data.status,
+        text: res.data.status.success,
         icon: 'success',
+        allowOutsideClick: false,
         showCancelButton: true,
         confirmButtonText: 'Home',
         cancelButtonText: 'New'
@@ -81,10 +77,11 @@ save.addEventListener('click', function (event) {
       });
     })
     .catch(err => {
-      console.error(err);
       Swal.fire({
-          text: res.data.status + '\n if error persist contact IT',
+          title: err.response.data.status.error,
+          text: 'if error persist contact IT',
           icon: 'error',
+          allowOutsideClick: false,
           showCancelButton: true,
           confirmButtonText: 'Home',
           cancelButtonText: 'New'
@@ -94,7 +91,10 @@ save.addEventListener('click', function (event) {
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             window.location.href = "/vitalsign";
           }
+
   })
+});
+}
 });
 
 patient_name.addEventListener('click', function (event) {
@@ -118,7 +118,6 @@ search.addEventListener('input', function (event) {
       .then((res) => {
         allData = res.data;
         const result = document.querySelector('li');
-        console.log(allData);
         patientName = allData.patient_data.surname + ' ' + allData.patient_data.firstname;
         result.innerText = patientName;
       }).catch((err) => {
