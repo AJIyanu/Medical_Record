@@ -7,7 +7,7 @@ from flask_jwt_extended import JWTManager, get_jwt, create_access_token
 from flask_jwt_extended  import create_access_token, set_access_cookies, get_jwt_identity
 from datetime import timedelta, datetime, timezone
 from pathsapp import app_views
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, send_file, request
 
 
 app = Flask(__name__)
@@ -41,6 +41,11 @@ def refresh_expiring_jwts(response):
 def handle_before():
     """handles stuff before request is made"""
     pass
+
+@app.route("/favicon.ico", methods=["GET"])
+def favicon():
+    """returns favicon"""
+    return send_file("favicon_light.ico")
 
 
 @app.errorhandler(404)

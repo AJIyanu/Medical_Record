@@ -6,7 +6,6 @@ submit.addEventListener('click', (event) => {
   event.preventDefault();
 
   let reqcheck = true;
-  const selcheck =
 
   req.forEach(field => {
     if (field.value === '' || field.value === 'null') {

@@ -1,7 +1,7 @@
 
 const form = document.querySelector('form');
 const save = document.querySelector('button');
-const formData = new FormData();
+let formData = {};
 const patient_name = document.getElementById('pat-name');
 const search = document.getElementById('nin-search');
 const searchinput = document.getElementById('ninsearch');
@@ -15,6 +15,7 @@ const config = {
     Authorization: 'Bearer ' + sessionStorage.getItem('healthvaultaccesstoken')
   }
 };
+console.log(config);
 
 axios.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, config)
   .then(res => {
@@ -25,14 +26,24 @@ axios.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, config)
     } else {
       console.log(staffData);
     }
-  });
+  })
+  .catch(err => {
+    console.error(err);
+    window.location.href = '/signin';
+  })
 
 save.addEventListener('click', function (event) {
   event.preventDefault();
   form.querySelectorAll('input').forEach((input) => {
-    const { patient_name, value } = input;
-    formData.append(patient_name, value);
+    const { name, value } = input;
+    formData[name] = value;
   });
+  try {
+  formData.staff_id = staffData.user.id;
+  formData.healthcare_id = staffData.institution.id;
+  formData.patient_id = allData.patient_data.id
+  } catch { err => {console.error(err)}
+  }
 
   if (searchinput.value.length !== 11) {
     const patient_nameclear = document.querySelector('h4');
@@ -47,8 +58,43 @@ save.addEventListener('click', function (event) {
     patient_name.style.color = 'red';
     patient_nameclear.textContent = 'please click patient name';
   } else {
-
-  }
+    console.log(formData);
+    axios.post('http://127.0.0.1:5000/api/v1/vitalsign', formData, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      console.log(res);
+      Swal.fire({
+        text: res.data.status,
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonText: 'Home',
+        cancelButtonText: 'New'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/dashboard/nurses";
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          window.location.href = "/vitalsign";
+        }
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      Swal.fire({
+          text: res.data.status + '\n if error persist contact IT',
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonText: 'Home',
+          cancelButtonText: 'New'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/dashboard/nurses";
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            window.location.href = "/vitalsign";
+          }
+  })
 });
 
 patient_name.addEventListener('click', function (event) {
@@ -68,10 +114,11 @@ patient_name.addEventListener('click', function (event) {
 search.addEventListener('input', function (event) {
   const nin = event.target.value;
   if (nin.length === 11) {
-    axios.get(`http://127.0.0.1:5000/api/v1/user_from_nin/${nin}`)
+    axios.get(`http://127.0.0.1:5000/api/v1/user_from_nin/${nin}`, config)
       .then((res) => {
         allData = res.data;
         const result = document.querySelector('li');
+        console.log(allData);
         patientName = allData.patient_data.surname + ' ' + allData.patient_data.firstname;
         result.innerText = patientName;
       }).catch((err) => {

@@ -32,6 +32,5 @@ def user_nin(nin):
         return jsonify(error=msg), 401
     except NoResultFound:
         return jsonify(error="user does not exist"), 401
-    nin = get_jwt().get("nin")
     staff_id = get_jwt_identity()
-    return jsonify(patient_data=user, staff_id=staff_id, staff_nin=nin)
+    return jsonify(patient_data=user, staff_id=staff_id)

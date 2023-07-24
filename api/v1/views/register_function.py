@@ -90,8 +90,8 @@ def new_vitalsign(**patientdata):
     data = vitalsign(**patientdata)
     try:
         data.save()
-        status = "data saved succesfully"
+        status = {"success": "data saved succesfully"}
     except Exception as err:
         print(f"vital-sign error: {err}")
-        status = "data not saved"
+        status = {"error": "data not saved"}
     return status

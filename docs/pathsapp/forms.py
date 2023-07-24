@@ -3,8 +3,8 @@
 """
 from pathsapp import app_views
 from datetime import datetime
-import json
-from flask import render_template, request, redirect
+import base64
+from flask import render_template, request, redirect, url_for
 
 @app_views.route('/signin', methods=['GET'])
 def login():

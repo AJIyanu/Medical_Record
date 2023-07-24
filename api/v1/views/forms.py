@@ -12,7 +12,9 @@ def vitalsign():
     details = request.json
     from views.register_function import new_vitalsign
     status = new_vitalsign(**details)
-    return jsonify(status=status)
+    if "error" in status:
+        return jsonify(status=status), 400
+    return jsonify(status=status), 200
 
 @app_views.route("/casefile", methods=['POST'])
 def casefile():
