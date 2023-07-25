@@ -6,9 +6,12 @@
         <title>HealtVAULT - Casefile</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue|Shadows+Into+Light">
         <link href="https://fonts.googleapis.com/css2?family=Righteous:wght@300;400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="static/css/casefile.css">
+        <link rel="stylesheet" href="../static/styles/casefile.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
+	    <div id="nin-variable" data-nin="{{ nin }}" style="display: none;">{{ nin }}</div>
         <section class="header">
             <h3 class="patient-name">Aderemi Joseph Iyanu</h3>
             <input type="search" name="search-patient" id="search-patient" placeholder="Search Patient with NIN">
@@ -45,13 +48,13 @@
                               <label for="impression">Add your impression here</label>
                               <textarea id="impression" name="impression" rows="3"></textarea>
                           </div>
-                      <div class="form-group">
+                      <div class="symptoms-tag">
                               <label for="allergies">Add allergies here</label>
-                              <input type="text" id="allergies" name="allergies">
+                              <ul class="allerg"><input type="text" class="symp-tag" id="allergies" name="allergies"></ul>
                           </div>
-                      <div class="form-group">
+                      <div class="symptoms-tag">
                               <label for="disabilities">Add disabilities here</label>
-                              <input type="text" id="disabilities" name="disabilities">
+                              <ul class="disab"><input type="text" class="symp-tag" id="disabilities" name="disabilities"></ul>
                           </div>
                           <button type="button" class="prev-btn">Previous</button>
                           <button type="button" class="nxt-btn">Next</button>
@@ -119,7 +122,8 @@
             <p>another section</p>
         </section>
     </body>
-    <script src="static/js/casefile-multipage.js"></script>
+    <script src="../static/scripts/casefile-multipage.js"></script>
+    <script src="../static/scripts/casefile-taginput.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="static/js/bp-graph.js"></script>
+    <script src="../static/scripts/bp-graph.js"></script>
 </html>

@@ -172,12 +172,14 @@ body {
 
   .symptoms-tag ul{
     display: flex;
-    background: white;
+    background: transparent;
     flex-wrap: wrap;
     padding: 7px;
     margin: 12px 0;
-    border-radius: 5px;
-    border: 1px solid #cebaef;
+    border: 2px solid #cebaef;
+    border-top: none;
+    border-right: none;
+    border-left: none;
   }
   .symptoms-tag ul  li{
     color: rgb(14, 4, 42);
@@ -206,7 +208,23 @@ body {
     border-radius: 4px;
     outline: none;
     font-size: 18px;
+    color: #ffffff;
+    background-color: transparent;
   }
+
+textarea {
+  width: 100%;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  /* border-bottom: 2pt; */
+  background-color: transparent;
+  color: #ffffff;
+  border-width: 2px;
+  border-color: #ffff;
+  font-size: 18px;
+}
 
   button.nxt-btn,
   button.prev-btn,
@@ -239,19 +257,7 @@ label.firstname {
   float: left;
 }
 
-textarea {
-  width: 100%;
-  outline: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  /* border-bottom: 2pt; */
-  background-color: transparent;
-  color: #ffff;
-  border-width: 2px;
-  border-color: #ffff;
-  font-size: 18px;
-}
+
 
 p.error {
   color: red;

@@ -25,14 +25,14 @@ def vitalsign():
 
 @app_views.route("/signup", methods=["GET"])
 def register():
-    if request.method == "GET":
-        return render_template("signup.html")
-    # user_data = request.json
-    # if user_data['user']:# == "doctor":
-    #     from pathsapp.register_function import register_doctor
-    #     user_data["dob"] = datetime.strptime(user_data['dob'], "%Y-%m-%d")
-    #     status = register_doctor(**user_data)
-    # return status
+    """returns signup page"""
+    return render_template("signup.html")
+
+
+@app_views.route("/casefile", methods=["GET"])
+def casefile():
+    """returns casefile page"""
+    return render_template("casefile2.html")
 
 
 @app_views.route("/logout")

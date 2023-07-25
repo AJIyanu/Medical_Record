@@ -95,3 +95,8 @@ def new_vitalsign(**patientdata):
         print(f"vital-sign error: {err}")
         status = {"error": "data not saved"}
     return status
+
+
+def new_vitalsign(**patientdata):
+    """saves patient case file"""
+    casefile = classes.get("Casefile")
