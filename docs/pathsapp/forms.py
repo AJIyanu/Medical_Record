@@ -32,7 +32,12 @@ def register():
 @app_views.route("/casefile", methods=["GET"])
 def casefile():
     """returns casefile page"""
-    return render_template("casefile2.html")
+    if request.cookies.get('nin'):
+        nin = request.cookies.get('nin')
+        nin = base64.b64decode(nin).decode('utf-8')
+        return render_template("casefile2.html", nin=nin)
+    return redirect(url_for("app_views.login"))
+
 
 
 @app_views.route("/logout")
