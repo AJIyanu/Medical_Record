@@ -97,6 +97,14 @@ def new_vitalsign(**patientdata):
     return status
 
 
-def new_vitalsign(**patientdata):
+def new_casefile(**patientdata):
     """saves patient case file"""
     casefile = classes.get("Casefile")
+    data = casefile(**patientdata)
+    try:
+        data.save()
+        status = {"success": "data saved succesfully"}
+    except Exception as err:
+        print(f"casefile error: {err}")
+        status = {"error": f"data not saved because {err}"}
+    return status

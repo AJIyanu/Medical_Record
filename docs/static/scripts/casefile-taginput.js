@@ -1,8 +1,8 @@
 const tagInputs = document.querySelectorAll('.symp-tag');
 const ul = document.querySelectorAll('ul');
-let tags = [];
-let allergy = [];
-let disability = [];
+export let tags = [];
+export let allergy = [];
+export let disability = [];
 
 createTag();
 function createTag () {

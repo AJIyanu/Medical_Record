@@ -3,10 +3,11 @@
 """
 from views import app_views
 from datetime import datetime
-import json
+from flask_jwt_extended import jwt_required
 from flask import render_template, request, redirect, jsonify
 
 @app_views.route("/vitalsign", methods=["POST"])
+@jwt_required()
 def vitalsign():
     """returns vitalsign"""
     details = request.json
@@ -17,9 +18,15 @@ def vitalsign():
     return jsonify(status=status), 200
 
 @app_views.route("/casefile", methods=['POST'])
+@jwt_required()
 def casefile():
     """saves casefile and return status"""
-    return jsonify({"pass": "not yet implemented"})
+    details = request.json
+    from views.register_function import new_casefile
+    status = new_casefile(**details)
+    if "error" in status:
+        return jsonify(status=status), 400
+    return jsonify(status=status), 200
 
 
 @app_views.route("/signup", methods=["POST"])
