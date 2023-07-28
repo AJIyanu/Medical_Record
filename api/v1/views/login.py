@@ -14,7 +14,7 @@ import base64
 
 
 personality = {
-                "Doctor": Doctor,
+                "doctor": Doctor,
                 "nurses": Nurse,
                 "patient": Patient
     }
@@ -45,8 +45,8 @@ def siginin():
             if not personality[role].validate_inst_code(id, code):
                 return jsonify(error="You are not authorized for this institution")
             payload.update(inst_code=details.get("hosID"))
-        except KeyError:
-            pass
+        except KeyError as msg:
+            print("error message", msg)
     access_token = create_access_token(identity=log_in.get('id'),
                                        additional_claims=payload)
     refresh_token = create_refresh_token(identity=log_in.get('id'),
