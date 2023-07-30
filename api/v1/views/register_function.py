@@ -11,9 +11,9 @@ def register_doctor(**userdata):
     doctor = classes.get("Doctor")
     login = classes.get("PersonAuth")
     new_user = doctor(**userdata)
-    new_user.authinst = userdata.get("authinst", "GENOYSK293")
-    new_user.specialization = userdata.get("specialization")
     new_user.nin = userdata.get("nin")
+    new_user.specialization = userdata.get("specialization")
+    new_user.authinst = userdata.get("authinst", "GENOYSK293")
     try:
         new_user.save()
         status = "saved"

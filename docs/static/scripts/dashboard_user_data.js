@@ -80,16 +80,16 @@ getUser.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, {
 logout.style.cursor = "pointer";
 logout.addEventListener('click', (e) => {
   sessionStorage.removeItem('healthvaultaccesstoken');
-  const fresh = localStorage.getItem('healthvaultfreshtoken');
-  localStorage.removeItem('healthvaultfreshtoken');
+  // const fresh = localStorage.getItem('healthvaultfreshtoken');
+  localStorage.removeItem('healthvaultrefreshtoken');
 
-  axios.delete('http://127.0.0.1:5000/api/v1/logout', config)
-    .then(function (response) {
-      sessionStorage.removeItem('healthvaultaccesstoken');
-      axios.delete('http://127.0.0.1:5000/api/v1/logout', fresh)
-        .then(function (res) {
-          localStorage.removeItem('healthvaultrefreshtoken');
+  // axios.delete('http://127.0.0.1:5000/api/v1/logout', config)
+  //   .then(function (response) {
+  //     sessionStorage.removeItem('healthvaultaccesstoken');
+  //     axios.delete('http://127.0.0.1:5000/api/v1/logout', fresh)
+  //       .then(function (res) {
+  //         localStorage.removeItem('healthvaultrefreshtoken');
           window.location.href = '/signin';
-        });
-    });
+    //     });
+    // });
 });

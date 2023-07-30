@@ -25,8 +25,9 @@ class caseFile(Record, Base):
     examination = Column(Text)
     observation = Column(Text)
     impression = Column(Text)
-    patient_id = Column(String(60), ForeignKey("patient.allperson_id"), nullable=False)
-    doctor, patient = relationship('Doctor'), relationship('Patient')
+    patient_id = Column(String(60), ForeignKey("allpersons._Person__nin"), nullable=False)
+    # doctor = relationship('Doctor', primaryjoin="doctor.allperson_id == doctor.ref_id")
+    # patient = relationship('Person', primaryjoin="allpersons._Person__nin == Person.nin")
     healthcare_id = Column(String(60), ForeignKey("institution.id"), nullable=False)
 
     def __init__(self, *args, **kwargs) -> None:

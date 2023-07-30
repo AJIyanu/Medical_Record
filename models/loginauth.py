@@ -19,7 +19,7 @@ class PersonAuth(Base):
     """this class defines methods to authorize all persons"""
     __tablename__ = "personauth"
     email = Column(String(60), primary_key=True, unique=True, nullable=False)
-    __hashed_password = Column(String(60), nullable=False)
+    __hashed_password = Column(String(128), nullable=False)
     person_id = Column(String(60), ForeignKey('allpersons.id'), unique=True)
     session_token = Column(String(60))
     reset_token = Column(String(60))
