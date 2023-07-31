@@ -9,7 +9,6 @@ const nin = document.getElementById('nin-variable').dataset.nin;
 let allData;
 let staffData;
 
-const formdata = new FormData(form);
 const config = {
     headers: {
       Authorization: 'Bearer ' + sessionStorage.getItem('healthvaultaccesstoken'),
@@ -72,6 +71,7 @@ errorDisplay.addEventListener('click', () => {
 
 submit.addEventListener("click", (register) => {
     register.preventDefault();
+    const formdata = new FormData(form);
 
     const filedata = {};
     formdata.forEach((value, key) => {
@@ -81,11 +81,26 @@ submit.addEventListener("click", (register) => {
     try {
         filedata.staff_id = staffData.user.id;
         filedata.healthcare_id = staffData.institution.id;
-        filedata.patient_id = allData.patient_data.id
+        filedata.patient_id = allData.patient_data._Person__nin
         } catch { err => {console.error(err)}
     }
 
     axios.post("http://127.0.0.1:5000/api/v1/casefile", filedata, config)
-    .then(response => console.log(response.data));
-    console.log(filedata);
+    .then(response => {
+      Swal.fire({
+        text: response.data.status.success,
+        icon: 'success',
+        allowOutsideClick: false,
+        showCancelButton: true,
+        confirmButtonText: 'Home',
+        cancelButtonText: 'New'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/dashboard/doctor";
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          window.location.href = "/casefile";
+        }
+      });
+    })
+    .catch()
 })
