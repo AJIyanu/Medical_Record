@@ -4,10 +4,13 @@ const errorDisplay = document.getElementById("error");
 const age = document.getElementById("age");
 const sex = document.getElementById("sex");
 const blood = document.getElementById("blood-group");
+const bpg = document.getElementById("bp-graph").getContext('2d');
 const allergies = document.getElementById("allergies");
 const genotype = document.getElementById("genotype");
 const admission = document.getElementById("admission-status");
 export let allData;
+let dias = [];
+let systo = [];
 
 searchPat.addEventListener("input", function(event) {
     let patNin = event.target.value;
@@ -25,9 +28,15 @@ searchPat.addEventListener("input", function(event) {
         displayName.style.display = 'block';
         console.log(allData);
         fetch_vitalsign(allData.patient_data.id);
+        fetch_bloodpresuure(allData.patient_data.id);
         age.innerText = `Age: ${calculateAgeFromStrpDate(allData.patient_data.dob)} years`;
         sex.innerText = `Sex: ${allData.patient_data.sex}`;
-
+        // Create the chart
+        const bpgraph = new Chart(bpg, {
+            type: 'line',
+            data: data,
+            options: options,
+          });
     })
     .catch((error) => {
         console.error(error);
@@ -70,7 +79,24 @@ function fetch_vitalsign (patnin) {
 
 }
 
+function fetch_bloodpresuure (patnin) {
+    axios.post(`http://127.0.0.1:5000/api/v1/vitalsign/bloodpressure/5`,
+    {patient_id: patnin},
+    {
+    headers: {
+        Authorization: 'Bearer ' + sessionStorage.getItem('healthvaultaccesstoken'),
+        "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        for (let i = 0; i < response.data.length; i++) {
+            dias.push(response.data[i][0]);
+            systo.push(response.data[i][1]);
+        }
+        console.log(response.data);
+    })
 
+}
 
 function calculateAgeFromStrpDate(strpDate) {
     const currentDate = new Date();
@@ -104,3 +130,43 @@ function calculateAgeFromStrpDate(strpDate) {
   const strpDate = '2018-01-16T00:00:00';
   const formattedDate = formatDateAsAt(strpDate);
   console.log(formattedDate);
+
+  const data ={
+      labels: ['5', '4', '3', '2', '1'],
+      datasets: [
+          {
+              label: "dias",
+              data: dias,
+              borderColor: 'rgb(255, 99, 132)',
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              fill: false,
+          },
+          {
+              label: "syst",
+              data: systo,
+              borderColor: 'rgb(54, 162, 235)',
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              fill: false,
+          },
+      ],
+  }
+
+      const options = {
+          responsive: true,
+          scales: {
+            x: {
+              display: true,
+              title: {
+                display: true,
+                text: 'last 5 records',
+              },
+            },
+            y: {
+              display: true,
+              title: {
+                display: true,
+                text: 'Pressure',
+              },
+            },
+          },
+        };
