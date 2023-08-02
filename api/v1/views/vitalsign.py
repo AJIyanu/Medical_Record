@@ -16,10 +16,10 @@ from models.permissions import Permissions
 def last_vital_sign():
     """gets the last vital sign for the patient"""
     details = request.json
-    role = get_jwt().get("role")
-    print(role)
-    if not Permissions.me(role).permission("vitalsign", "view"):
-        return jsonify(msg="not permitted"), 403
+    # role = get_jwt().get("role")
+    # print(role)
+    # if not Permissions.me(role).permission("vitalsign", "view"):
+    #     return jsonify(msg="not permitted"), 403
     record = VitalSign.pat_last_saved(details.get("patient_id"))
     return jsonify(record=record), 200
 

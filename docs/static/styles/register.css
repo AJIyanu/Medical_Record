@@ -222,3 +222,19 @@ h5 {
   font-size: 30px;
   display: none;
 }
+
+#backhome {
+	display: flex;
+	position: absolute;
+	top: 20px;
+	left: 40px;
+}
+
+#home {
+	font-family: 'Franklin Gothic Medium';
+	font-size: 1.5rem;
+	text-decoration: none;
+	color: rgb(7, 7, 112);
+	padding-top: 10px;
+	margin-left: 15px;
+}

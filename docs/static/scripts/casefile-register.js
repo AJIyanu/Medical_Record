@@ -1,12 +1,12 @@
-import { allergy, tags, disability } from "./casefile-taginput.js";
+import { tags } from "./casefile-taginput.js";
+import { allData } from "./casefile-api-data.js";
 const form = document.querySelector('form');
+const searchPat = document.getElementById("search-patient");
 const submit = document.querySelector('button.submit-btn');
 const displayName = document.querySelector('h3.patient-name');
-const searchPat = document.getElementById("search-patient");
 const errorDisplay = document.getElementById("error");
 const nin = document.getElementById('nin-variable').dataset.nin;
 
-let allData;
 let staffData;
 
 const config = {
@@ -33,31 +33,6 @@ axios.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, {
     console.error(err);
     window.location.href = '/signin';
   })
-
-searchPat.addEventListener("input", function(event) {
-    let patNin = event.target.value;
-    if (patNin.length === 11) {
-        axios.get(`http://127.0.0.1:5000/api/v1/user_from_nin/${patNin}`, {
-        headers: {
-            Authorization: 'Bearer ' + sessionStorage.getItem('healthvaultaccesstoken')
-        }
-    })
-    .then((response) => {
-        allData = response.data;
-        const patientName = `${allData.patient_data.surname} ${allData.patient_data.firstname} ${allData.patient_data.middlename}`;
-        displayName.innerText = patientName;
-        searchPat.style.display = 'none';
-        displayName.style.display = 'block';
-    })
-    .catch((error) => {
-        console.error(error);
-        errorDisplay.innerText = 'error finding patient\'s data or NIN does not exist. click to try again';
-        searchPat.style.display = 'none';
-        errorDisplay.style.display = 'block';
-        patNin = '';
-    })
-    }
-})
 
 displayName.addEventListener('click', function() {
     displayName.style.display = 'none';
@@ -102,5 +77,21 @@ submit.addEventListener("click", (register) => {
         }
       });
     })
-    .catch()
+    .catch(err => {
+      Swal.fire({
+          title: err.response.data.status.error,
+          text: 'if error persist contact IT',
+          icon: 'error',
+          allowOutsideClick: false,
+          showCancelButton: true,
+          confirmButtonText: 'Home',
+          cancelButtonText: 'New'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/dashboard/nurses";
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            window.location.href = "/casefile";
+          }
+        });
+      });
 })
