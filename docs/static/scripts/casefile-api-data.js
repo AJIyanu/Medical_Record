@@ -28,15 +28,25 @@ searchPat.addEventListener("input", function(event) {
         displayName.style.display = 'block';
         console.log(allData);
         fetch_vitalsign(allData.patient_data.id);
-        fetch_bloodpresuure(allData.patient_data.id);
+	console.log(allData.patient_data.id);
+        // fetch_bloodpresuure(allData.patient_data.id);
         age.innerText = `Age: ${calculateAgeFromStrpDate(allData.patient_data.dob)} years`;
         sex.innerText = `Sex: ${allData.patient_data.sex}`;
         // Create the chart
-        const bpgraph = new Chart(bpg, {
-            type: 'line',
-            data: data,
-            options: options,
-          });
+        //const bpgraph = new Chart(bpg, {
+          //  type: 'line',
+            //data: data,
+//            options: options,
+  //        });
+    })
+    .then((response) => {
+	fetch_bloodpresuure(allData.patient_data.id)
+	console.log(dias, systo);
+	const bpgraph = new Chart(bpg, {
+              type: 'line',
+              data: data,
+              options: options,
+            });
     })
     .catch((error) => {
         console.error(error);
