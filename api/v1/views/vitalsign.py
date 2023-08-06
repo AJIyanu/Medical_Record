@@ -38,6 +38,7 @@ def vital_sign(n):
 def vital_sign_category(category, n):
     """returns specific part according to need"""
     patient_id = request.json.get("patient_id")
+    print(patient_id)
     # if not Permissions.me(get_jwt().get("role")).permission("vitalsign", "view"):
     #    return jsonify({"error": "forbidden", "msg": "You are not permitted to this level"})
     record = VitalSign.pat_record(patient_id)[:n]

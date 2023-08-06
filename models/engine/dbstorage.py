@@ -46,7 +46,7 @@ class DBStorage:
         host = "localhost"
         url = "{}:{}@{}/{}".format(usr, pwd, host, db)
         self.__engine = create_engine("mysql+mysqlconnector://{}".format(url),
-                                      pool_pre_ping=True)
+                                      pool_size=10, pool_pre_ping=True)
 
 
     def new(self, obj):
@@ -171,6 +171,7 @@ class DBStorage:
             return
         Session =self.__session
         query = Session.query(obj).filter_by(**kwargs).order_by(desc(obj.created_at))
+        print(query)
         if not query.first():
             raise NoResultFound
         if all:
