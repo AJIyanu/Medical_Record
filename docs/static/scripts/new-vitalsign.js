@@ -20,6 +20,7 @@ axios.get('http://127.0.0.1:5000/api/v1/dashboarddata/' + nin, config)
   .then(res => {
     staffData = res.data;
     if (!res.data.institution) {
+      Cookies.set("pwd", window.location.href, {expires: (5/(24 * 60))})
       alert('you have not signed into any institution. Please sign in again');
       window.location.href = '/signin';
     }

@@ -14,6 +14,10 @@ function getCookie(name) {
 }
 
 const formal_url = getCookie("pwd");
+if (formal_url) {
+  const errormsg = document.getElementById('error');
+  errormsg.innerText = "Please Sign in again"
+}
 
 docsignInBtn.addEventListener('click', function (event) {
   event.preventDefault();
@@ -61,6 +65,7 @@ docsignInBtn.addEventListener('click', function (event) {
         localStorage.setItem('healthvaultrefreshtoken', data.refresh_token);
         if (formal_url) {
           console.log(formal_url);
+          window.location.href = formal_url;
         } else {
         window.location.href = '/dashboard/' + data.role.toLowerCase();
         }
