@@ -1,4 +1,19 @@
 const docsignInBtn = document.getElementById('doc_signin');
+function getCookie(name) {
+  const cookies = document.cookie.split(';');
+
+  for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.trim().split('=');
+
+      if (cookieName === name) {
+          return cookieValue;
+      }
+  }
+
+  return null;
+}
+
+const formal_url = getCookie("pwd");
 
 docsignInBtn.addEventListener('click', function (event) {
   event.preventDefault();
@@ -44,7 +59,11 @@ docsignInBtn.addEventListener('click', function (event) {
         document.cookie = 'nin=' + data.nin + ';path=/';
         sessionStorage.setItem('healthvaultaccesstoken', data.access_token);
         localStorage.setItem('healthvaultrefreshtoken', data.refresh_token);
+        if (formal_url) {
+          console.log(formal_url);
+        } else {
         window.location.href = '/dashboard/' + data.role.toLowerCase();
+        }
       } else {
         errormsg.innerText = data.error;
       }

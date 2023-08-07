@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 """ Module of Index views
 """
-from pathsapp import app_views
-from datetime import datetime
 import base64
+from datetime import datetime
+
+from pathsapp import app_views
 from flask import render_template, request, redirect, url_for
+from flask import session, make_response
 
 @app_views.route('/signin', methods=['GET'])
 def login():
     """returns the sign in page"""
-    # if request.method == "GET":
+    redirect_route = session.get("formal", None)
+    if redirect_route:
+        response = make_response(render_template("signin.html"))
+        response.set_cookie("pwd", redirect_route)
+        return response
     return render_template("signin.html")
 
 
@@ -20,6 +26,8 @@ def vitalsign():
         nin = request.cookies.get('nin')
         nin = base64.b64decode(nin).decode('utf-8')
         return render_template("vitalsign.html", nin=nin)
+    current = request.path
+    session["formal"] = current
     return redirect(url_for("app_views.login"))
 
 
@@ -36,10 +44,13 @@ def casefile():
         nin = request.cookies.get('nin')
         nin = base64.b64decode(nin).decode('utf-8')
         return render_template("casefile2.html", nin=nin)
+    current = request.path
+    session["formal"] = current
     return redirect(url_for("app_views.login"))
 
 
 
 @app_views.route("/logout")
 def logout():
+    """log out user"""
     return "logged out"
