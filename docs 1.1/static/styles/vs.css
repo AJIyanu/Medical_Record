@@ -1,0 +1,150 @@
+:root {
+    --accent :  #4b323a;
+    --styl-col: #52e4d7;
+    --color-secondary: #00c9b8;
+    --text-font: "ubuntu";
+  }
+
+* {
+    font: var(--text-font);
+    box-sizing: border-box;
+    color: black;
+    font-size: 1.15rem;
+}
+
+body {
+    background-color: var(--color-secondary);
+}
+
+section {
+    /* background-image: url('../images/vitalsign.png'); */
+    background-position: center;
+    /* background-color: var(--styl-col); */
+    background-size: cover;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    min-height: 90vh;
+}
+
+.container {
+    display: block;
+    max-width: 400px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--styl-col);
+    box-shadow: 0px 0px 30px #00000038;
+    border-radius: 10pt;
+}
+
+.info {
+    position: relative;
+}
+
+h3 {
+    text-align: center;
+    font-size: large;
+    font-family: Bebas Neue;
+    font-size: xx-large;
+    font-weight: bold;
+    /* color: white; */
+}
+ h4 {
+    /* color: white; */
+    font-family: monospace;
+    text-align: center;
+    /* margin-left: 40px; */
+    margin-top: 1px;
+    margin-bottom: none;
+    padding: 0%;
+    cursor: pointer;
+}
+
+label {
+    /* color: white; */
+    margin-left: 20px;
+    font-weight: bold;
+    font-family: Shadows Into Light;
+}
+
+input {
+    display: inline-flex;
+    width: 30%;
+    outline: none;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    background: transparent;
+    border-color: black;
+    margin-top: 20px;
+}
+
+.line-4 input {
+    width: 15%;
+}
+
+.line-5 input {
+    width: 20%;
+}
+
+button {
+    width: 50%;
+    position: relative;
+    align-self: center;
+    margin-bottom:10px;
+    margin-top: 10px;
+    margin-left: 25%;
+    background-color: #008a7e;
+    border-radius: 3pt;
+    border: 1pt;
+    border-color: black;
+    box-shadow: 0px 0px 30px #00000038;
+    font-family: Shadows Into Light;
+    font-weight: bold;
+}
+
+i {
+    color: red;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.nin-search {
+    margin: 20px;
+    position: absolute;
+    top: 30px;
+    left: 25px;
+}
+
+ul {
+    margin-top: 3pt;
+    list-style-type: none;
+    padding: 0;
+    align-items: center;
+}
+
+li {
+    background-color: rgb(219, 215, 215);
+    margin-top: 0pt;
+    border-radius: 3pt;
+    width: 100%;
+    text-align: center;
+    margin-top: 0%;
+    cursor: pointer;
+}
+
+.nin-search input {
+
+    margin-right: 40pt;
+    border-bottom: none;
+    width: 100%;
+    border-radius: 4pt;
+    background-color: white;
+    box-shadow: 0px 0px 30px #00000038;
+}
+
+span {
+    font-family: Shadows Into Light;
+    /* color: white; */
+}

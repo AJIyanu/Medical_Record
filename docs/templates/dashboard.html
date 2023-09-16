@@ -1,0 +1,145 @@
+<!doctype HTML>
+<html>
+  <head>
+   <meta charset="utf-8">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Dashboard - Surname Firstname</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../static/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/styles/dashboard.css">
+	<!-- <link rel="stylesheet" href="static/styles/landingpage.css">
+    <link rel="stylesheet" href="static/styles/bloz.css"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patua+One&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <section class="side-nav">
+      <div class="logo">
+        <h3><b>H</b>ealth<i>VAULT</i></h3>
+      </div>
+      <div class="menu">
+        <div class="sub-menu">
+          <i class=" bi bi-house-door-fill"></i>
+          <a href="">Home</a>
+        </div>
+        <div class="sub-menu">
+          <i class="bi bi-calendar2-plus-fill"></i>
+          <a href="">Appointment</a>
+        </div>
+        <div class="sub-menu">
+          <i class="bi-pen-fill"></i>
+          <a href="">Edit Profile</a>
+        </div>
+        <div class="sub-menu">
+          <i class="bi-gear-fill"></i>
+          <a href="">Settings</a>
+        </div>
+      </div>
+      <div class="end-menu">
+        <div class="sub-menu">
+          <i class="bi-box-arrow-left"></i>
+          <a href="">Log out</a>
+        </div>
+      </div>
+    </section>
+    <section class="content">
+      <div class="header">
+        <i class="bi bi-list" style="margin-right: 20px; font-size: 1.8rem;"></i>
+        <input type="search" name="search-content" id="search">
+        <i class="bi-bell-fill" style="margin-left: 55%; font-size: 1.2rem;"></i>
+        <i class="bi-envelope-fill" style="margin-left: 30px; font-size: 1.2rem;"></i>
+        <img src="../static/images/favicon.ico" alt="dp" width="35px" style="margin-left: 30px;">
+      </div>
+      <div class="welcome">
+        <div class="user">
+          <div id="dp">
+            <img src="../static/images/doctor.png" alt="display picture" width="210">
+          </div>
+          <p><i>Welcome,</i> Surname Firstname</p>
+        </div>
+        <div class="front-img">
+          <img src="../static/images/dasboard.jpg" alt="frontie" width="600px">
+        </div>
+      </div>
+      <div class="card-container">
+        <div class="cards">
+          <i class="bi-calendar2-check-fill" style="font-size: 2.2rem;"></i>
+          <p style="margin-top: 10%;">Book Appointment</p>
+        </div>
+        <div class="cards">
+          <i class="bi-hospital-fill" style="font-size: 2.2rem;"></i>
+          <p style="margin-top: 10%;">Find Hospital Near you</p>
+        </div>
+        <div class="cards">
+          <i class="bi-capsule" style="font-size: 2.2rem;"></i>
+          <p style="margin-top: 10%;">Find Drugs</p>
+        </div>
+        <div class="cards">
+          <i class="bi-cpu-fill" style="font-size: 2.2rem;"></i>
+          <p style="margin-top: 10%;">Ask AI</p>
+        </div>
+      </div>
+      <div class="charts">
+        <div class="blood-pressure">
+          <canvas id="myChart" style="width:100%; height: 100%;"></canvas>
+        </div>
+        <div class="prescription"></div>
+      </div>
+      <div class="report">
+        <h2 style="margin-left: 50px; font-weight: bold;">Medical History</h2>
+        <div class="row title">
+          <div id="date">Date</div>
+          <div id="doctor">Doctor's name</div>
+          <div id="diagnosis">Diagnosis</div>
+          <div id="prescription">Prescription</div>
+        </div>
+        <div class="row">
+          <div id="date">2-3-2021</div>
+          <div id="doctor">Doctor Rihanna Titilayo</div>
+          <div id="diagnosis">Malaria</div>
+          <div id="prescription">Paracetamol</div>
+        </div>
+        <div id="others"></div>
+      </div>
+      <div class="footnote">
+        <p style="text-align: right; margin-right: 70px ;">designed by AJ Iyanu</p>
+      </div>
+    </section>
+  </body>
+  <script src="../static/scripts/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script>
+    const yValues = Array.from({length: 21}, (_, i) => i * 10); //[100,200,300,400,500,600,700,800,900,1000];
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    // labels: xValues,
+    datasets: [{
+      data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
+      borderColor: "red",
+      fill: false
+    },{
+      data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
+      borderColor: "green",
+      fill: false
+    },{
+      data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
+      borderColor: "blue",
+      fill: false
+    }],
+    labels: yValues
+  },
+  options: {
+    legend: {display: false}
+  }
+});
+  </script>
+</html>

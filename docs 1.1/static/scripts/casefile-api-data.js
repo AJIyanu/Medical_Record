@@ -26,28 +26,13 @@ searchPat.addEventListener('input', function (event) {
         displayName.innerText = patientName;
         searchPat.style.display = 'none';
         displayName.style.display = 'block';
-        console.log(allData);
         fetch_vitalsign(allData.patient_data.id);
-        console.log(allData.patient_data.id);
         // fetch_bloodpresuure(allData.patient_data.id);
         age.innerText = `Age: ${calculateAgeFromStrpDate(allData.patient_data.dob)} years`;
         sex.innerText = `Sex: ${allData.patient_data.sex}`;
-        // Create the chart
-        // const bpgraph = new Chart(bpg, {
-        //  type: 'line',
-        // data: data,
-        //            options: options,
-        //        });
+        return allData.patient_data.id
       })
-      .then((response) => {
-        fetch_bloodpresuure(allData.patient_data.id);
-        console.log(dias, systo);
-        const bpgraph = new Chart(bpg, {
-          type: 'line',
-          data: data,
-          options: options
-        });
-      })
+      .then(patientid => fetch_bloodpresuure(patientid))
       .catch((error) => {
         console.error(error);
         errorDisplay.innerText = 'error finding patient\'s data or NIN does not exist. click to try again';
@@ -102,7 +87,16 @@ function fetch_bloodpresuure (patnin) {
         systo.push(response.data[i][1]);
       }
       console.log(response.data);
-    });
+    })
+    .then((response) => {
+      // fetch_bloodpresuure(allData.patient_data.id);
+      console.log(dias, systo);
+      const bpgraph = new Chart(bpg, {
+        type: 'line',
+        data: data,
+        options: options
+      });
+    })
 }
 
 function calculateAgeFromStrpDate (strpDate) {

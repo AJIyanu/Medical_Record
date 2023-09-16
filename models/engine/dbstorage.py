@@ -171,7 +171,7 @@ class DBStorage:
             return
         Session =self.__session
         query = Session.query(obj).filter_by(**kwargs).order_by(desc(obj.created_at))
-        print(query.all())
+        # print(query.all())
         if not query.first():
             raise NoResultFound
         if all:

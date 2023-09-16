@@ -1,0 +1,56 @@
+#body {
+    display: flex;
+}
+
+header {
+    display: inline-flex;
+    margin: 0%;
+    padding: 0%;
+    width: 100%;
+    height: 40px;
+    position: sticky;
+    top: 0px;
+    background-color: greenyellow;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.medical-history {
+    width: 65%;
+    height: 600px;
+    padding-top: 40px;
+    padding-left: 40px;
+    border: 2px solid;
+    border-color: black;
+    background-color: aqua;
+}
+
+.patient-data {
+    width: 35%;
+    background-color: palegreen;
+}
+
+footer{
+    width: 100%;
+    height: 5%;
+    bottom: 0%;
+    position: sticky;
+    background-color: greenyellow;
+}
+
+.indicator {
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    background-color: red;
+    margin-left: 5px;
+}
+
+.referral-status {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+    /* background-color: black; */
+}

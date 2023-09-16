@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vital Signs</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue|Shadows+Into+Light">
+        <link rel="stylesheet" href="../static/styles/vs.css">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- <link rel="stylesheet" href="form.css"> -->
+    </head>
+    <body>
+	    <div id="nin-variable" data-nin="{{ nin }}" style="display: none;">{{ nin }}</div>
+      <section class="main"><div class="container">
+          <div class="info">
+            <h3>Vital Signs</h3>
+            <h4 id="pat-name">Click here to find patient</h4>
+            <div class="nin-search" id="nin-search" style="display: none;">
+              <input type="search" name="ninsearch" id="ninsearch" placeholder="Enter 11 digits NIN here">
+                <ul>
+                  <li></li>
+                </ul>
+            </div>
+          </div>
+          <div class="form">
+            <form action="">
+              <div class="line line-1">
+                <label for="temp" class="form-label">Temperature:</label>
+                <input type="number" name="temp" id="temp">
+                <span>&deg;C</span>
+              </div>
+              <div class="line line-2">
+                <label for="hrtbt" class="form-label">Heart Rate: <i>*</i></label>
+                <input type="number" name="hrtbt" id="hrtbt" required>
+              </div>
+              <div class="line line-3">
+                <label for="resprt" class="form-label">Respiration</label>
+                <input type="number" name="resprt" id="resprt">
+              </div>
+              <div class="line line-4">
+                <label for="bp" class="form-label">Blood Pressure: <i>*</i></label>
+                <input type="number" name="systolic" id="bp" required>
+                <span>/</span>
+                <input type="number" name="diastolic" id="bp2"required>
+                <span>mmHg</span>
+              </div>
+              <div class="line line-5">
+                <label for="weight" class="form-label">Weight: <i>*</i></label>
+                <input type="number" name="weight" id="weight" required>
+              <label for="oxygen" class="form-label">SPO<sub>2</sub>: <i>*</i></label>
+                <input type="number" name="oxygen" id="oxygen" required>
+              </div>
+              <div class="action-btn">
+                <button type="submit">save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </body>
+    <script src="../static/scripts/new-vitalsign.js"></script>
+</html>
