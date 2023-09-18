@@ -9,7 +9,7 @@ body {
 .header {
     display: flex;
     align-items: center;
-    background-color: rgb(20,34,81);
+    background-color: rgb(102, 56, 12);
     width: 100%;
     color: aliceblue;
     font-weight: bold;
@@ -37,7 +37,7 @@ body {
 .form {
     position: relative;
     width: 70%;
-    background-color: rgba(90, 92, 241, 0.753);
+    background-color: rgba(201, 136, 15, 0.753);
     border-radius: 15px;
     border: none;
     box-shadow: 10px 10px 20px rgba(39, 39, 39, 0.726);

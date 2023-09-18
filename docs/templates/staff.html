@@ -70,44 +70,52 @@
         </div>
       </div>
       <div class="card-container">
-        <div class="cards" id="bookme">
-          <i class="bi-calendar2-check-fill" style="font-size: 2.2rem;"></i>
-          <p style="margin-top: 10%;">Book Appointment</p>
+        <div class="cards" id="casefile">
+          <i class="bi-folder2-open" style="font-size: 2.2rem;"></i>
+          <p style="margin-top: 10%;">Open Casefile</p>
         </div>
-        <div class="cards" id="findhealth">
-          <i class="bi-hospital-fill" style="font-size: 2.2rem;"></i>
-          <p style="margin-top: 10%;">Find Hospital Near you</p>
+        <div class="cards" id="vitalsign">
+          <i class="bi-heart-pulse-fill" style="font-size: 2.2rem;"></i>
+          <p style="margin-top: 10%;">VitalSign</p>
         </div>
-        <div class="cards" id="finddrug">
+        <div class="cards" id="medscape">
           <i class="bi-capsule" style="font-size: 2.2rem;"></i>
-          <p style="margin-top: 10%;">Find Drugs</p>
+          <p style="margin-top: 10%;">Medscape</p>
         </div>
-        <div class="cards" id="ai">
-          <i class="bi-cpu-fill" style="font-size: 2.2rem;"></i>
-          <p style="margin-top: 10%;">Ask AI</p>
+        <div class="cards" id="precord">
+          <i class="bi-archive-fill" style="font-size: 2.2rem;"></i>
+          <p style="margin-top: 10%;">Patient Record</p>
         </div>
       </div>
       <div class="charts">
-        <div class="blood-pressure">
+        <div class="appointment">
           <canvas id="myChart" style="width:100%; height: 100%;"></canvas>
         </div>
-        <div class="prescription"></div>
+        <!-- <div class="prescription"></div> -->
       </div>
       <div class="report">
-        <h2 style="margin-left: 50px; font-weight: bold;">Medical History</h2>
+        <h2 style="margin-left: 50px; font-weight: bold;">My Patient's History</h2>
         <div class="row title">
           <div class="date">Date</div>
-          <div class="doctor">Doctor's name</div>
+          <div class="doctor">Patient's name</div>
           <div class="diagnosis">Diagnosis</div>
           <div class="prescribe">Prescription</div>
         </div>
-        <!-- <div class="row">
-          <div id="date">2-3-2021</div>
-          <div id="doctor">Doctor Rihanna Titilayo</div>
-          <div id="diagnosis">Malaria</div>
-          <div id="prescription">Paracetamol</div>
-        </div> -->
-        <!-- <div id="others"></div> -->
+        <div class="row">
+          <div class="date">
+            <p>2-3-2021</p>
+          </div>
+          <div class="doctor">
+            <p>Doctor Rihanna Titilayo</p>
+          </div>
+          <div class="diagnosis">
+            <p>Malaria</p>
+          </div>
+          <div class="prescribe">
+            <p>Paracetamol</p>
+            </div>
+        </div>
+        <!-- <div id="others"><button>print</button></div> -->
       </div>
       <div class="footnote">
         <p style="text-align: right; margin-right: 70px ;">designed by AJ Iyanu</p>
@@ -115,33 +123,5 @@
     </section>
   </body>
   <script src="../static/scripts/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script src="../static/scripts/dasboard.js"></script>
-  <script>
-    const yValues = Array.from({length: 21}, (_, i) => i * 10); //[100,200,300,400,500,600,700,800,900,1000];
-
-new Chart("myChart", {
-  type: "line",
-  data: {
-    // labels: xValues,
-    datasets: [{
-      data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
-      borderColor: "red",
-      fill: false
-    },{
-      data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
-      borderColor: "green",
-      fill: false
-    },{
-      data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
-      borderColor: "blue",
-      fill: false
-    }],
-    labels: yValues
-  },
-  options: {
-    legend: {display: false}
-  }
-});
-  </script>
 </html>

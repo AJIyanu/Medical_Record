@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>HealtVAULT - Casefile</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue|Shadows+Into+Light">
+        <link href="https://fonts.googleapis.com/css2?family=Righteous:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../static/styles/casefile.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+    </head>
+    <body>
+	    <div id="nin-variable" data-nin="{{ nin }}" style="display: none;">{{ nin }}</div>
+        <section class="header">
+            <h3 class="patient-name">Aderemi Joseph Iyanu</h3>
+            <input type="search" name="search-patient" id="search-patient" placeholder="Search Patient with NIN">
+            <p id="error"></p>
+            <img src="../static/images/doctor.png" alt="profile-picture" loading="lazy" class="display-img">
+        </section>
+        <section class="casefile">
+            <div class="case-form">
+                <div class="format-form">
+                <form>
+                    <div class="step step-1 active">
+                      <h2> Symptoms and Complaints! </h2>
+                      <div class="symptoms-tag">
+                        <label for="symptoms">Symptoms</label>
+                            <ul><input class="symp-tag" type="text" id="symptoms" name="symptoms"></ul>
+                      </div>
+                          <div class="form-group">
+                              <label for="complaints">Patients Complaints</label>
+                              <textarea id="complaints" name="complaints" rows="3"></textarea>
+                          </div>
+                          <div class="form-group">
+                              <label for="examination">On Examinations</label>
+                              <textarea id="examination" name="examination" rows="2"></textarea>
+                          </div>
+                          <div class="form-group">
+                              <label for="observation">Physical Observation</label>
+                              <textarea id="observation" name="observation" rows="2"></textarea>
+                          </div>
+                          <button type="button" class="nxt-btn">Next</button>
+                      </div>
+
+                      <div class="step step-2">
+                  <h2>Impression</h2>
+                          <div class="form-group">
+                              <label for="impression">Add your impression here</label>
+                              <textarea id="impression" name="impression" rows="3"></textarea>
+                          </div>
+                      <div class="symptoms-tag">
+                              <label for="allergies">Add allergies here</label>
+                              <ul class="allerg"><input type="text" class="symp-tag" id="allergies" name="allergies"></ul>
+                          </div>
+                      <div class="symptoms-tag">
+                              <label for="disabilities">Add disabilities here</label>
+                              <ul class="disab"><input type="text" class="symp-tag" id="disabilities" name="disabilities"></ul>
+                          </div>
+                          <button type="button" class="prev-btn">Previous</button>
+                          <button type="button" class="nxt-btn">Next</button>
+                      </div>
+
+                      <div class="step step-3">
+                  <h2>Plan</h2>
+                          <div class="form-group">
+                              <label for="diagnosis">Your Diagnosis</label>
+                              <input type="text" id="diagnosis" name="diagnosis">
+                          </div>
+                      <div class="form-group">
+                              <label for="prescription">Your Prescription</label>
+                              <input type="text" id="prescription" name="prescription">
+                          </div>
+                          <button type="button" class="prev-btn">Previous</button>
+                          <button type="submit" class="submit-btn">Submit</button>
+                      </div>
+
+                  </form>
+                  </div>
+            </div>
+            <div class="right-side-info">
+                <div class="bio-data">
+                    <h3 id="bio-data-header">Patient's Basic Information</h3>
+                    <p id="age">Age: -- years</p>
+                    <p id="blood-group">Blood-group: --</p>
+                    <p id="genotype">Geneotype: --</p>
+                    <p id="sex">Sex: --</p>
+                    <p id="allergies">Allergies: --</p>
+                    <p id="admission-status">Admission Status: Not Admitted</p>
+                </div>
+                <div class="vital-sign">
+                    <h3 id="vital-sign-header">Patient's Vital Sign History</h3>
+                    <p id="temperature">Temperature: -- &deg;C</p>
+                    <p id="heart-rate">Heart-Rate: -- per minute</p>
+                    <p id="respiration">Respiration: --</p>
+                    <p id="weight">Weigt: --kg</p>
+                    <p id="spo2">SPO2: --</p>
+                    <p id="blood-pressure">Blood-Pressure: --/--mmHg</p>
+                </div>
+            </div>
+        </section>
+        <section class="api">
+            <div class="shape bp-graph">
+                <canvas id="bp-graph" width="500" height="400"></canvas>
+            </div>
+            <div class="shape test-cases">
+                <div class="prev-test">
+                    <h3 style="text-align: center;"><u>Last 3 test Results</u></h3>
+                </div>
+                <div class="new-test">
+                    <form action="/addtest" method="post" class="new-test-case">
+                        <label for="new-test" id="new-test-case">Add New Test Here</label>
+                        <input type="text" id="new-test">
+                        <button id="new-test-button"></button>
+                    </form>
+                </div>
+            </div>
+            <div class="shape drug-lookup">
+                <p>drug interraction and look up goes here</p>
+            </div>
+        </section>
+        <section class="footer">
+            <p>another section</p>
+        </section>
+    </body>
+    <!-- <script type="module" src="../static/scripts/casefile-api-data.js"></script> -->
+    <script src="../static/scripts/casefile-multipage.js"></script>
+    <script type="module" src="../static/scripts/casefile-taginput.js"></script>
+    <!-- <script type="module" src="../static/scripts/casefile-register.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="../static/scripts/bp-graph.js"></script> -->
+</html>
