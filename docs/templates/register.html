@@ -26,60 +26,64 @@
                 </div>
                 <button id="upload">Upload</button>
             </div>
-            <div style="height: 30px;"></div>
-            <div style="display: flex; width: 80%; align-items: center; padding: 10px;">
-                <label for="surname">Surname</label>
-                <input type="text" name="Surname" id="surname">
-            </div>
-            <div style="display: flex; width: 81%; align-items: center; padding: 10px;">
-                <label for="firstname">Firstname</label>
-                <input type="text" name="firstname" id="firstname">
-            </div>
-            <div style="display: flex; width: 85%; align-items: center; padding: 10px;">
-                <label for="middlename">Middlename</label>
-                <input type="text" name="middlename" id="middlename">
-            </div>
-            <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email">
-                <label for="password" style="margin-left: 10px;">Password</label>
-                <input type="password" name="password" id="password">
-            </div>
-            <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
-                <label for="phone" style="width: 260px;">Phone Number(s)</label>
-                <input type="text" name="phone" id="phone" placeholder="Seperate multiple with ',' eg 080xxx, 080xxx">
-                <label for="sex" style="margin-left: 10px;">Sex</label>
-                <select name="sex" id="sex">
-                    <option value="null" selected disabled>--</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
-                <label for="nin">NIN</label>
-                <input type="text" name="nin" id="nin">
-            </div>
-            <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
-                <label for="dob" style="width: 130px;">Date of Birth</label>
-                <input type="datetime" name="dob" id="dob">
-            </div>
-            <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
-                <label for="nok" style="width: 260px;">Next of Kin</label>
-                <input type="text" name="nok" id="nok" placeholder="Surname Firstname Middlename">
-                <label for="phone2" style="margin-left: 10px;">Phone</label>
-                <input type="text" name="phone2" id="phone2">
-            </div>
-            <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
-                <label for="address">Address</label>
-                <textarea name="address" id="address" cols="70" rows="10"></textarea>
-            </div>
-            <div style="text-align: center;">
-                <button id="submit" type="submit">Register</button>
-            </div>
+            <form action="/signup" method="post">
+                <div style="height: 30px;"></div>
+                <div style="display: flex; width: 80%; align-items: center; padding: 10px;">
+                    <label for="surname">Surname</label>
+                    <input type="text" name="surname" id="surname" required>
+                </div>
+                <div style="display: flex; width: 81%; align-items: center; padding: 10px;">
+                    <label for="firstname">Firstname</label>
+                    <input type="text" name="firstname" id="firstname" required>
+                </div>
+                <div style="display: flex; width: 85%; align-items: center; padding: 10px;">
+                    <label for="middlename">Middlename</label>
+                    <input type="text" name="middlename" id="middlename">
+                </div>
+                <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" required>
+                    <label for="password" style="margin-left: 10px;">Password</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
+                <p id="error" data-error="{{ error }}" style="display: none;"></p>
+                <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
+                    <label for="phone" style="width: 260px;">Phone Number(s)</label>
+                    <input type="text" name="phone" id="phone" placeholder="Seperate multiple with ',' eg 080xxx, 080xxx" required>
+                    <label for="sex" style="margin-left: 10px;">Sex</label>
+                    <select name="sex" id="sex" required>
+                        <option value="null" selected disabled>--</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
+                    <label for="nin">NIN</label>
+                    <input type="text" name="nin" id="nin" required>
+                </div>
+                <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
+                    <label for="dob" style="width: 130px;">Date of Birth</label>
+                    <input type="date" name="dob" id="dob" required>
+                </div>
+                <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
+                    <label for="nok" style="width: 260px;">Next of Kin</label>
+                    <input type="text" name="nok" id="nok" placeholder="Surname Firstname Middlename">
+                    <label for="phone2" style="margin-left: 10px;">Phone</label>
+                    <input type="text" name="phone2" id="phone2">
+                </div>
+                <div style="display: flex; width: 100%; align-items: center; padding: 10px;">
+                    <label for="address">Address</label>
+                    <textarea name="address" id="address" cols="70" rows="10"></textarea>
+                </div>
+                <div style="text-align: center;">
+                    <button id="submit" type="submit">Register</button>
+                </div>
+            </form>
         </div>
     </section>
     <section class="footnote">
         <p>Become a member and enjoy the massage of healthvault</p>
     </section>
 </body>
+<script src="../static/scripts/register.js"></script>
 </html>

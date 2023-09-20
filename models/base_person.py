@@ -59,11 +59,11 @@ class Person(Base):
             if "id" not in kwargs.keys():
                 self.id = str(uuid.uuid4())
             try:
+                kwargs['dob'] = datetime.strptime(kwargs['dob'], '%Y-%m-%d')
                 kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
                 kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
-                kwargs['dob'] = datetime.strptime(kwargs['dob'], '%Y-%m-%d')
             except KeyError:
                 self.created_at = datetime.now()
                 self.updated_at = datetime.now()

@@ -15,23 +15,25 @@
 		<div class="main">
 			<input type="checkbox" id="chk" aria-hidden="true">
 				<div class="signup">
-					<form>
+					<form action="/signin" method="post">
 						<label for="chk" aria-hidden="true">Staff</label>
-            <p id="error"></p>
+            			<p data-error="{{ error }}" id="error" style="text-align: center;"></p>
 						<input type="email" id="email-input" name="email" placeholder="Email" required="true">
 						<input type="password" id="password-input" name="pswd" placeholder="Password" required="true">
 						<input type="text" id="hosID" name="instid" placeholder="Hospital_ID" required="true">
+						<input type="hidden" name="user" id="user" value="staff">
 						<button id="doc_signin">Sign in</button>
 					</form>
 				</div>
 
 				<div class="login">
-					<form>
+					<form action="/signin" method="post">
 						<label for="chk" aria-hidden="true">Patient</label>
-						<p id="ErrorMessage" align="center"></p>
+						<p id="ErrorMessage" data-error="{{ error }}" style="text-align: center;"></p>
 						<input type="text" id="emailinput" name="email" placeholder="Email" required>
 						<input type="password" id="passwordinput" name="pswd" placeholder="Password" required>
 						<button type="submit" id ="pat_signin">Sign in</button>
+						<input type="hidden" name="user" id="user" value="patient">
 					</form>
 				</div>
 		</div>

@@ -3,7 +3,7 @@
   <head>
    <meta charset="utf-8">
    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Dashboard - Surname Firstname</title>
+    <title>Dashboard - {{ surname }} {{ firstname }}</title>
 
     <!-- css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -46,7 +46,7 @@
       <div class="end-menu">
         <div class="sub-menu">
           <i class="bi-box-arrow-left"></i>
-          <a href="">Log out</a>
+          <a href="/logout">Log out</a>
         </div>
       </div>
     </section>
@@ -63,7 +63,7 @@
           <div id="dp">
             <img src="../static/images/doctor.png" alt="display picture" width="210">
           </div>
-          <p><i>Welcome,</i> Surname Firstname</p>
+          <p><i>Welcome,</i> {{ surname }} {{ firstname }} </p>
         </div>
         <div class="front-img">
           <img src="../static/images/dasboard.jpg" alt="frontie" width="600px">
@@ -91,7 +91,9 @@
         <div class="blood-pressure">
           <canvas id="myChart" style="width:100%; height: 100%;"></canvas>
         </div>
-        <div class="prescription"></div>
+        <div class="prescription">
+          doctors prescription here
+        </div>
       </div>
       <div class="report">
         <h2 style="margin-left: 50px; font-weight: bold;">Medical History</h2>

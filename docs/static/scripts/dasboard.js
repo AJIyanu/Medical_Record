@@ -1,7 +1,10 @@
-// const userData = JSON.parse(document.getElementById('all-data').getAttribute('data-user'));
+const userData = document.getElementById('all-data').getAttribute('data-user')
 const cards = document.querySelectorAll(".cards");
+// const title = document.querySelector("title");
 
+userData = JSON.parse(userData);
 
+// title.innerText = `Dashboard - `
 
 
 cards.forEach((card) => {

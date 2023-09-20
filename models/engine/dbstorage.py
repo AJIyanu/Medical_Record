@@ -123,15 +123,17 @@ class DBStorage:
         data = query.first()
         return data
 
-    def search(self, obj=None, kwargs: Dict=None) -> List[Dict]:
+    def search(self, obj=None, **kwargs) -> List[Dict]:
         """search out list of users"""
+        Session = self.__session
+        if isinstance(obj, str):
+            obj = self.classes.get(obj)
         if obj is None or kwargs is None:
             return
-        Session = self.__session
         query = Session.query(obj).filter_by(**kwargs)
         if query.first() is None:
             raise NoResultFound
-        return [data.to_dict() for data in query]
+        return [data for data in query]
 
     # def validate_user(self, obj=None, pwd=None,  **kwargs: Dict) -> bool:
     #     """validate user"""

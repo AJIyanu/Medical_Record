@@ -108,3 +108,8 @@ textarea {
     margin-left: 10px;
     border-radius: 10px;
 }
+
+#nin::placeholder, #email::placeholder {
+    color: red;
+    opacity: 1;
+}
