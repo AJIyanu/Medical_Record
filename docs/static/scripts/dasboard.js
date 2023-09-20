@@ -1,8 +1,9 @@
-const userData = document.getElementById('all-data').getAttribute('data-user')
+let userData = document.getElementById('all-data').getAttribute('data-user')
 const cards = document.querySelectorAll(".cards");
 // const title = document.querySelector("title");
 
 userData = JSON.parse(userData);
+console.log(userData);
 
 // title.innerText = `Dashboard - `
 

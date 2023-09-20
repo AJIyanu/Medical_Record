@@ -65,23 +65,23 @@ def dashboard(personality):
         except NoResultFound:
             vts = []
         try:
-            record = storage.search_by_order("caseFile", patient_id=user_id)[:10]
+            record = storage.search_by_order("Casefile", patient_id=user_id)[:10]
         except NoResultFound:
             record = []
         userdata = {}
         userdata['vitalsign'] = vts
         userdata['record'] = record
-        userdata = json.dumps(user)
+        userdata = json.dumps(userdata)
         return render_template("staff.html", user=userdata,
                                **user.to_dict())
     else:
         try:
-            record = storage.search_by_order("caseFile", staff_id=user_id)[:10]
+            record = storage.search_by_order("Casefile", staff_id=user_id)[:10]
         except NoResultFound:
             record = []
-        user = {}
-        user['record'] = record
-        userdata = json.dumps(user)
+        userdata = {}
+        userdata['record'] = record
+        userdata = json.dumps(userdata)
         return render_template("dashboard.html", user=userdata,
                                **user.to_dict())
 
