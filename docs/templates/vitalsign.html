@@ -6,9 +6,9 @@
         <title>Vital Signs</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue|Shadows+Into+Light">
         <link rel="stylesheet" href="../static/styles/vs.css">
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+        <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <!-- <link rel="stylesheet" href="form.css"> -->
     </head>
@@ -18,15 +18,12 @@
           <div class="info">
             <h3>Vital Signs</h3>
             <h4 id="pat-name">Click here to find patient</h4>
-            <div class="nin-search" id="nin-search" style="display: none;">
-              <input type="search" name="ninsearch" id="ninsearch" placeholder="Enter 11 digits NIN here">
-                <ul>
-                  <li></li>
-                </ul>
+            <div class="nin-search" id="nin-search">
+              <input type="number" name="ninsearch" id="ninsearch" placeholder="Enter 11 digits NIN here" style="display: none; margin-top: 1px;">
             </div>
           </div>
           <div class="form">
-            <form action="">
+            <form action="/vitalsign" method="post">
               <div class="line line-1">
                 <label for="temp" class="form-label">Temperature:</label>
                 <input type="number" name="temp" id="temp">

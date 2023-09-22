@@ -140,7 +140,7 @@ class Person(Base):
             raise ValueError("NIN must be a number") from msg
         if len(nin) != 11:
             raise ValueError("NIN must be 11 digits")
-        user = storage.search(self, {'_Person__nin': nin})
+        user = storage.search(self, **{'_Person__nin': nin})
         return user[0]
 
     @property

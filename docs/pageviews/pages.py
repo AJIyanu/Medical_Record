@@ -6,12 +6,14 @@ from datetime import timedelta
 
 from flask_jwt_extended import (create_access_token, set_access_cookies,
                                 jwt_required, get_jwt_identity, get_jwt)
-from flask import render_template, request, redirect, make_response #, jsonify
+from flask import render_template, request, redirect, make_response, jsonify
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
 
 from models import storage
 from models.patient import Patient
 from models.loginauth import PersonAuth
+from models.vitalsign import VitalSign
 from . import app_view
 
 
@@ -58,28 +60,30 @@ def dashboard(personality):
     try:
         user = storage.search(personality, id=user_id)[0]
     except NoResultFound:
-        return redirect("/signin.html")
+        return redirect("/signin")
     if get_jwt().get("userType") == "staff":
         try:
-            vts = storage.search_by_order("VitalSign", patient_id=user_id)[:5]
-        except NoResultFound:
-            vts = []
-        try:
-            record = storage.search_by_order("Casefile", patient_id=user_id)[:10]
+            record = storage.search_by_order("Casefile", all=True,
+                                             patient_id=user_id)[:10]
         except NoResultFound:
             record = []
         userdata = {}
-        userdata['vitalsign'] = vts
         userdata['record'] = record
         userdata = json.dumps(userdata)
         return render_template("staff.html", user=userdata,
                                **user.to_dict())
     else:
         try:
-            record = storage.search_by_order("Casefile", staff_id=user_id)[:10]
+            record = storage.search_by_order("Casefile", staff_id=user_id)
         except NoResultFound:
-            record = []
+            record = {}
+        try:
+            vts = storage.search_by_order("VitalSign", all=True, patient_id=user_id)[:10]
+            print(vts)
+        except NoResultFound:
+            vts = []
         userdata = {}
+        userdata['vitalsign'] = vts
         userdata['record'] = record
         userdata = json.dumps(userdata)
         return render_template("dashboard.html", user=userdata,
@@ -127,3 +131,27 @@ def logmeout():
     response = make_response(redirect("/"))
     set_access_cookies(response, token)
     return response
+
+@app_view.route("/vitalsign", methods=["POST", "GET"])
+@jwt_required()
+def vitalsign():
+    """return the vitalsign page and register"""
+    if request.method == "GET":
+        return render_template("vitalsign.html")
+    details = request.form
+    if details.get("nin"):
+        try:
+            pat = Patient.user_by_nin(details.get("nin"))
+        except NoResultFound:
+            return jsonify(error="NN does not exist. Check and try again")
+        print(pat.to_dict())
+        name = f"{pat.surname} {pat.firstname} {pat.middlename}"
+        pat_id = pat.id
+        return jsonify(name=name, pat_id=pat_id)
+    new_data = VitalSign(healthcare_id="0cdb0251-c77e-4b7e-a5e1-21ffc3c14b59",
+                         staff_id=get_jwt_identity(), **details)
+    try:
+        new_data.save()
+    except IntegrityError:
+        return jsonify(error="IntegrityError")
+    return jsonify(success="Data has been saved successfully")
