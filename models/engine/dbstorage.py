@@ -181,3 +181,31 @@ class DBStorage:
         if all:
             return query.all() if not diction else [user.to_dict() for user in query.all()]
         return query.first() if not diction else query.first().to_dict()
+        
+    @property
+    def temp_session(self):
+        """temp returns session"""
+        return self.__session
+        
+    def joint_request(self, **rel):
+        """
+        obj_a for first class
+        obj_b for second class
+        rel_a for first relationship
+        rel_b for second relationship
+        
+        returns a joint request tuple
+        """
+        ses = self.__session
+        for check in ["obj_a", "obj_b", "rel_a", "rel_b"]:
+            if check not in rel:
+                return None
+            if isinstance(rel[check], str):
+                rel[check] = self.classes.get(rel[check])
+            if rel[check] is None:
+                return None
+        que = ses.query(rel['obj_a'], rel['obj_b']).join(rel['obj_b'],
+                        rel['rel_b'] == rel['rel_a'])
+        if not que.first():
+            raise NoResultFound
+        return que.all()

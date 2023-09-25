@@ -8,8 +8,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Righteous:wght@300;400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../static/styles/casefile.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script> -->
     </head>
     <body>
 	    <div id="nin-variable" data-nin="{{ nin }}" style="display: none;">{{ nin }}</div>
@@ -69,8 +70,13 @@
                               <input type="text" id="diagnosis" name="diagnosis">
                           </div>
                       <div class="form-group">
-                              <label for="prescription">Your Prescription</label>
-                              <input type="text" id="prescription" name="prescription">
+                              <label for="drug">Your Prescription</label>
+                              <input type="text" id="drug" name="drug">
+                              <label for="dosage">Dosage</label>
+                              <input type="text" id="dosage" name="dosage">
+                              <label for="days">Days</label>
+                              <input type="text" id="days" name="days">
+                              <button id="add-drug">Add Drug</button>
                           </div>
                           <button type="button" class="prev-btn">Previous</button>
                           <button type="submit" class="submit-btn">Submit</button>
@@ -117,7 +123,7 @@
                 </div>
             </div>
             <div class="shape drug-lookup">
-                <p>drug interraction and look up goes here</p>
+                <iframe src="https://www.drugs.com/drug_information.html" width="100%" height="100%" frameborder="0"></iframe>
             </div>
         </section>
         <section class="footer">
@@ -125,9 +131,9 @@
         </section>
     </body>
     <!-- <script type="module" src="../static/scripts/casefile-api-data.js"></script> -->
-    <script src="../static/scripts/casefile-multipage.js"></script>
     <script type="module" src="../static/scripts/casefile-taginput.js"></script>
-    <!-- <script type="module" src="../static/scripts/casefile-register.js"></script> -->
+    <script type="module" src="../static/scripts/casefile-register.js"></script>
+    <script src="../static/scripts/casefile-multipage.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- <script src="../static/scripts/bp-graph.js"></script> -->
 </html>

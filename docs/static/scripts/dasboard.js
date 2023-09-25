@@ -5,59 +5,63 @@ let systolic = []
 let DateTime = []
 
 userData = JSON.parse(userData);
-bpData = userData.vitalsign
-// console.log(userData);
-console.log(bpData);
-bpData.forEach((vts) => {
+console.log(userData.record)
+const bpData = userData.vitalsign
+if (bpData !== undefined) {
+  bpData.forEach((vts) => {
     diastolic.push(vts.diastolic);
     systolic.push(vts.systolic);
     const date = new Date(Date.parse(vts.updated_at));
     const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: 'numeric' };
     DateTime.push(date.toLocaleString('en-US', options))
-})
-console.log(systolic)
-console.log(diastolic)
-console.log(DateTime)
+  })
 
-const xValues = DateTime.reverse()
+  const xValues = DateTime.reverse()
 
-new Chart("myChart", {
-  type: "line",
-  data: {
-    datasets: [{
-      data: diastolic.reverse(),
-      borderColor: "blue",
-      label: "Diastolic",
-      fill: true,
-      backgroundColor: "rgba(255,255,255,1)",
-    },{
-      data: systolic.reverse(),
-      borderColor: "green",
-      fill: true,
-      backgroundColor: "#B8F0F0",
-      label: "Systolic"
-    }],
-    labels: xValues
-  },
-  options: {
-    legend: {display: true},
-    scales: {
-        x: {
+  new Chart("myChart", {
+    type: "line",
+    data: {
+      datasets: [{
+        data: diastolic.reverse(),
+        borderColor: "blue",
+        label: "Diastolic",
+        fill: true,
+        backgroundColor: "rgba(255,255,255,1)",
+      },{
+        data: systolic.reverse(),
+        borderColor: "green",
+        fill: true,
+        backgroundColor: "#B8F0F0",
+        label: "Systolic"
+      }],
+      labels: xValues
+    },
+    options: {
+      // legend: {display: true},
+      scales: {
+          x: {
+              scaleLabel: {
+                display: true,
+                text: 'Date and Time'
+              }
+            },
+          y: {
+            beginAtZero: true,
             scaleLabel: {
               display: true,
-              text: 'Date and Time'
+              text: 'Pressure (mmHg)'
             }
-          },
-        y: {
-          beginAtZero: true,
-          scaleLabel: {
-            display: true,
-            text: 'Pressure (mmHg)'
           }
         }
       }
-    }
-});
+    });
+}
+
+// console.log(bpData);
+// console.log(systolic)
+// console.log(diastolic)
+// console.log(DateTime)
+
 
 
 cards.forEach((card) => {
@@ -127,29 +131,3 @@ const newRow = function (rowData) {
   container.appendChild(row);
    console.log("function called and done");
 }
-
-
-const test_data = [
-    {
-        date: '2-3-2021',
-        doctor: 'Doctor Rihanna Titilayo',
-        diagnosis: 'Malaria',
-        prescription: 'Paracetamol'
-      },
-      {
-        date: '2-3-2021',
-        doctor: 'Doctor Rihanna Titilayo',
-        diagnosis: 'Malaria',
-        prescription: 'Paracetamol'
-      },
-      {
-        date: '2-3-2021',
-        doctor: 'Doctor Rihanna Titilayo',
-        diagnosis: 'Malaria',
-        prescription: 'Paracetamol'
-      }
-]
-
-test_data.forEach((user) => {
-    newRow(user);
-})

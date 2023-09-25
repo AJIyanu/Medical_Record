@@ -404,5 +404,9 @@ h2 {
 /* footer section  */
 
 .footer {
-    height: 100px;
+    height: 60px;
+}
+
+iframe {
+  border-radius: 10px;
 }

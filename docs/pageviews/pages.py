@@ -2,7 +2,7 @@
 """all routes here"""
 
 import json
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from flask_jwt_extended import (create_access_token, set_access_cookies,
                                 jwt_required, get_jwt_identity, get_jwt)
@@ -14,6 +14,7 @@ from models import storage
 from models.patient import Patient
 from models.loginauth import PersonAuth
 from models.vitalsign import VitalSign
+from models.casefile import caseFile
 from . import app_view
 
 
@@ -40,6 +41,10 @@ def authorizelogin():
         print(f"password {request.form.get('pswd')} mismatch")
         return render_template("signin.html",
                                error="incorrect username or password")
+    if request.form.get("user") == "staff":
+        if user.get("personality") == "patient":
+            return render_template("signin.html",
+                               error="Please use the patient log in page")
     identity = user.get("id")
     print(user)
     payload = {
@@ -64,11 +69,22 @@ def dashboard(personality):
     if get_jwt().get("userType") == "staff":
         try:
             record = storage.search_by_order("Casefile", all=True,
-                                             patient_id=user_id)[:10]
+                                             staff_id=user_id)[:10]
+            records = []
+            for rec in record:
+                pat = rec.get("patient_id")
+                pat = Patient.user_by_nin(pat)
+                name = f"{pat.surname} {pat.firstname} {pat.middlename}"
+                date = datetime.strptime(rec.get("updated_at"),
+                                         '%Y-%m-%dT%H:%M:%S')
+                date = date.strftime('%b %d, %Y')
+                records.append({"date": date, "name": name,
+                                "prescription": rec.get("prescription"),
+                                "diagnosis": rec.get("diagnosis")})
         except NoResultFound:
-            record = []
+            records = []
         userdata = {}
-        userdata['record'] = record
+        userdata['record'] = records
         userdata = json.dumps(userdata)
         return render_template("staff.html", user=userdata,
                                **user.to_dict())
@@ -155,3 +171,31 @@ def vitalsign():
     except IntegrityError:
         return jsonify(error="IntegrityError")
     return jsonify(success="Data has been saved successfully")
+
+
+@app_view.route("/casefile", methods=["POST", "GET"])
+@jwt_required()
+def casefile():
+    """returns casefile page and process casfile data"""
+    if request.method == "GET":
+        return render_template("casefile.html")
+    details = request.form
+    if details.get("nin"):
+        try:
+            pat = Patient.user_by_nin(details.get("nin"))
+        except NoResultFound:
+            return jsonify(error="NN does not exist. Check and try again")
+        # print(pat.to_dict())
+        name = f"{pat.surname} {pat.firstname} {pat.middlename}"
+        pat_id = pat.nin
+        vts = storage.search_by_order("VitalSign", all=True, patient_id=pat.id)[:10]
+        return jsonify(name=name, pat_id=pat_id, vitalsign=vts,
+                       patientdata={"sex": pat.sex, "age": pat.dob})
+    new_casefile = caseFile(healthcare_id="0cdb0251-c77e-4b7e-a5e1-21ffc3c14b59",
+                            staff_id=get_jwt_identity(), **details)
+    try:
+        new_casefile.save()
+    except Exception as msg:
+        print(msg)
+        return jsonify(error="not saved. check msg for error")
+    return jsonify(success="saved successfully")

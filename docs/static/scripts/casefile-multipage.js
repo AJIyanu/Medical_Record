@@ -17,27 +17,6 @@ prevBtn.forEach((button) => {
 });
 
 
-form[0].addEventListener('submit', (e) => {
-  e.preventDefault();
-  form[1].querySelectorAll('input').forEach((input) => {
-    const { name, value } = input;
-    formData.append( name, value );
-  });
-  formData.set("symptoms", tags);
-  formData.set("patient_id", patientData.id);
-
-
-  fetch('/doctor/savecasefile', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-  if (response.redirected) {
-    window.location.href = response.url;
-  } else { console.log(response.json())}
-})
-  .catch(error => console.error(error));
-});
 
 function changeStep (btn) {
   let index = 0;

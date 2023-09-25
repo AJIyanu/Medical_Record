@@ -17,9 +17,9 @@ class caseFile(Record, Base):
     """
 
     __tablename__ = "CaseFile"
-    symptoms = Column(String(128), nullable=False)
+    symptoms = Column(String(255), nullable=False)
     diagnosis = Column(String(128), nullable=False)
-    prescription = Column(String(128), nullable=False)
+    prescription = Column(Text)
     staff_id = Column(String(60), ForeignKey("doctor.allperson_id"), nullable=False)
     complaints = Column(Text)
     examination = Column(Text)

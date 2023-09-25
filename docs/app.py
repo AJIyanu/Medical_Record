@@ -123,6 +123,11 @@ def favicon():
     """returns the favicon"""
     return send_file("favicon_light.ico")
 
+@jwt.expired_token_loader
+def get_reauthorization(ejwt_header, ejwt_data):
+    """return to sign in page for signin"""
+    return render_template("signin.html")
+
 
 if __name__ == "__main__":
     with app.test_request_context():
