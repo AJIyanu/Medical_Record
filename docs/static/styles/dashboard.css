@@ -172,6 +172,14 @@ body {
     box-shadow: 2px 2px 4px gray;
     border-radius: 10px;
     height: 100%;
+    padding-top: 50px;
+    /* padding-left: 30px; */
+}
+
+.drugs {
+    margin-top: 1px;
+    margin-left: 40px;
+    font-size: 1.2rem;
 }
 
 .appointment {
@@ -196,7 +204,7 @@ body {
 }
 .row {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     border-left: 2px solid;
     border-right: 2px solid;
     border-bottom: 0.5px solid;
@@ -206,6 +214,8 @@ body {
     font-weight: bold;
     border-bottom: 3px solid;
     border-top: 3px solid;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
 
@@ -214,18 +224,23 @@ body {
     border-left: 1px solid;
     display: flex;
     width: 10%;
+    align-items: center;
 }
 
 .doctor {
     width: 20%;
     border-right: 1px solid;
     border-left: 1px solid;
+    align-items: center;
+    display: flex;
 }
 
 .diagnosis {
-width: 35%;
-border-right: 1px solid;
-border-left: 1px solid;
+    width: 35%;
+    border-right: 1px solid;
+    border-left: 1px solid;
+    display: flex;
+    align-items: center;
 }
 
 .prescribe {

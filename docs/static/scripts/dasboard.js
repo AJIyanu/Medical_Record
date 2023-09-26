@@ -5,7 +5,10 @@ let systolic = []
 let DateTime = []
 
 userData = JSON.parse(userData);
-console.log(userData.record)
+// console.log(userData.record)
+
+
+// BLOOD PRESSURE DATA AND GRAPH
 const bpData = userData.vitalsign
 if (bpData !== undefined) {
   bpData.forEach((vts) => {
@@ -63,7 +66,7 @@ if (bpData !== undefined) {
 // console.log(DateTime)
 
 
-
+// THE DASHBOARD CARD LINKS
 cards.forEach((card) => {
     card.addEventListener("click", () => {
         if (card.id == "bookme") {
@@ -95,7 +98,31 @@ cards.forEach((card) => {
 // console.log(userData);
 
 
-const newRow = function (rowData) {
+// CASEFILE TABLE CONSTRUCT
+
+const casefileData = userData.record;
+
+if (casefileData  !== undefined ) {
+  if (casefileData.length !== 0) {
+    casefileData.forEach((rowData) => {
+      newRow(rowData);
+      createLastPrescription(JSON.parse(casefileData[0].prescription))
+    })
+    let lastRow = document.querySelectorAll(".row")
+    lastRow = lastRow[lastRow.length - 1]
+    lastRow.style.borderBottom = "2px solid";
+    lastRow.style.borderBottomLeftRadius = "7px"
+    lastRow.style.borderBottomRightRadius = "7px"
+  } else {
+    document.querySelector(".title").style.display = 'none';
+    document.querySelector('.no-data').style.display = 'block';
+  }
+} else {
+  document.querySelector(".title").style.display = 'none';
+  document.querySelector('.no-data').style.display = 'block';
+}
+
+function newRow (rowData) {
   const row = document.createElement('div');
   row.className = 'row';
 
@@ -109,7 +136,7 @@ const newRow = function (rowData) {
   const doctorDiv = document.createElement('div');
   doctorDiv.className = 'doctor';
   const doctorP = document.createElement('p');
-  doctorP.textContent = rowData.doctor;
+  doctorP.textContent = rowData.name;
   doctorDiv.appendChild(doctorP);
   row.appendChild(doctorDiv);
 
@@ -122,12 +149,28 @@ const newRow = function (rowData) {
 
   const prescriptionDiv = document.createElement('div');
   prescriptionDiv.className = 'prescribe';
-  var prescriptionP = document.createElement('p');
-  prescriptionP.textContent = rowData.prescription;
-  prescriptionDiv.appendChild(prescriptionP);
+  const prescriptionUL = document.createElement('ul');
+
+  const prescribeME = JSON.parse(rowData.prescription);
+  prescribeME.forEach((prescribe) => {
+    const adj = `<li><b><i>Drug:</i></b> ${prescribe.drug},<br><b><i>Dosage:</i></b> ${prescribe.dosage}<br><b><i>To be used for:</i></b> ${prescribe.days} days`
+    prescriptionUL.insertAdjacentHTML("beforeend", adj)
+  })
+  // prescriptionP.textContent = rowData.prescription;
+  prescriptionDiv.appendChild(prescriptionUL);
   row.appendChild(prescriptionDiv);
 
   const container = document.querySelector('.report');
   container.appendChild(row);
-   console.log("function called and done");
+  //  console.log("function called and done");
+}
+
+function createLastPrescription (presObj) {
+  const prescrip = document.querySelector('.drugs');
+  const dList = document.createElement('ul');
+  presObj.forEach((drug) => {
+    const adj = `<li><b><i>Drug:</i></b> ${drug.drug},<br><b><i>Dosage:</i></b> ${drug.dosage}<br><b><i>To be used for:</i></b> ${drug.days} days`
+    prescrip.insertAdjacentHTML("beforeend", adj)
+  })
+  prescrip.appendChild(dList)
 }

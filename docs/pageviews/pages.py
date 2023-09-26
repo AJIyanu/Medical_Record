@@ -12,6 +12,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from models import storage
 from models.patient import Patient
+from models.doctor import Doctor
 from models.loginauth import PersonAuth
 from models.vitalsign import VitalSign
 from models.casefile import caseFile
@@ -90,17 +91,29 @@ def dashboard(personality):
                                **user.to_dict())
     else:
         try:
-            record = storage.search_by_order("Casefile", staff_id=user_id)
+            nin = Patient.user_by_id(user_id).get("_Person__nin")
+            record = storage.search_by_order("Casefile", all=True,
+                                             patient_id=nin)[:10]
+            records = []
+            for rec in record:
+                doc = Doctor.user_by_id(rec['staff_id'])
+                name = f"{doc['surname']} {doc['firstname']}"
+                date = datetime.strptime(rec.get("updated_at"),
+                                         '%Y-%m-%dT%H:%M:%S')
+                date = date.strftime('%b %d, %Y')
+                records.append({"date": date, "name": name,
+                                "prescription": rec.get("prescription"),
+                                "diagnosis": rec.get("diagnosis")})
         except NoResultFound:
-            record = {}
+            record = []
         try:
             vts = storage.search_by_order("VitalSign", all=True, patient_id=user_id)[:10]
-            print(vts)
+            # print(vts)
         except NoResultFound:
             vts = []
         userdata = {}
         userdata['vitalsign'] = vts
-        userdata['record'] = record
+        userdata['record'] = records
         userdata = json.dumps(userdata)
         return render_template("dashboard.html", user=userdata,
                                **user.to_dict())
