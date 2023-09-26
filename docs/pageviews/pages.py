@@ -46,6 +46,10 @@ def authorizelogin():
         if user.get("personality") == "patient":
             return render_template("signin.html",
                                error="Please use the patient log in page")
+    else:
+        if user.get("personality") == "doctor" or user["personality"] == "nurses":
+            return render_template("signin.html",
+                                   error="Please use the staff log in page")
     identity = user.get("id")
     print(user)
     payload = {
