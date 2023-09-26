@@ -173,6 +173,7 @@ body {
     border-radius: 10px;
     height: 100%;
     padding-top: 50px;
+    overflow: scroll;
     /* padding-left: 30px; */
 }
 

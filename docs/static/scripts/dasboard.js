@@ -106,8 +106,8 @@ if (casefileData  !== undefined ) {
   if (casefileData.length !== 0) {
     casefileData.forEach((rowData) => {
       newRow(rowData);
-      createLastPrescription(JSON.parse(casefileData[0].prescription))
     })
+    createLastPrescription(JSON.parse(casefileData[0].prescription))
     let lastRow = document.querySelectorAll(".row")
     lastRow = lastRow[lastRow.length - 1]
     lastRow.style.borderBottom = "2px solid";
@@ -166,6 +166,7 @@ function newRow (rowData) {
 }
 
 function createLastPrescription (presObj) {
+  // console.log(presObj);
   const prescrip = document.querySelector('.drugs');
   const dList = document.createElement('ul');
   presObj.forEach((drug) => {

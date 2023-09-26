@@ -109,7 +109,7 @@ def dashboard(personality):
                                 "prescription": rec.get("prescription"),
                                 "diagnosis": rec.get("diagnosis")})
         except NoResultFound:
-            record = []
+            records = []
         try:
             vts = storage.search_by_order("VitalSign", all=True, patient_id=user_id)[:10]
             # print(vts)
